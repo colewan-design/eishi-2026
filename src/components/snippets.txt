@@ -1,0 +1,45 @@
+  <!-- Mobile dropdown -->
+        <transition name="slide-down">
+          <v-sheet v-if="menuOpen" class="mobile-menu" tile elevation="2">
+            <v-list>
+              <v-list-item to="/" tag="router-link" @click="menuOpen = false">
+                <v-list-item-title>{{ t.home }}</v-list-item-title>
+              </v-list-item>
+              <v-list-item to="/about" tag="router-link" @click="menuOpen = false">
+                <v-list-item-title>{{ t.about }}</v-list-item-title>
+              </v-list-item>
+              <v-list-item to="/contact" tag="router-link" @click="menuOpen = false">
+                <v-list-item-title>{{ t.contact }}</v-list-item-title>
+              </v-list-item>
+              <v-list-item to="/property" tag="router-link" @click="menuOpen = false">
+                <v-list-item-title>{{ t.ourBusiness }}</v-list-item-title>
+              </v-list-item>
+
+              <v-list-group>
+                <template #activator="{ props }">
+                  <v-list-item v-bind="props" title="Language"></v-list-item>
+                </template>
+                <v-list-item
+                  @click="
+                    () => {
+                      changeLanguage('English')
+                      menuOpen = false
+                    }
+                  "
+                >
+                  <v-list-item-title>English</v-list-item-title>
+                </v-list-item>
+                <v-list-item
+                  @click="
+                    () => {
+                      changeLanguage('Japanese')
+                      menuOpen = false
+                    }
+                  "
+                >
+                  <v-list-item-title>日本語</v-list-item-title>
+                </v-list-item>
+              </v-list-group>
+            </v-list>
+          </v-sheet>
+        </transition>
