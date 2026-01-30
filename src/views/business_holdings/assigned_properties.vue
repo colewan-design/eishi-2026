@@ -179,7 +179,7 @@
                         <v-col class="mx-auto">
                             <div class="video-wrapper">
                                 <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                                    <source src="/eishi/videos/properties.webm" type="video/mp4" />
+                                    <source src="/eishi/videos/properties.mp4" type="video/mp4" />
                                 </video>
                             </div>
                         </v-col>
@@ -340,7 +340,7 @@
         </v-container>
         <div class="video-wrapper">
             <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                <source src="/eishi/videos/properties.webm" type="video/mp4" />
+                <source src="/eishi/videos/properties.mp4" type="video/mp4" />
             </video>
         </div>
         <v-container>

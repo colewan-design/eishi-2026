@@ -117,7 +117,7 @@
       <v-col class="pa-0 ma-0">
         <div class="scroll-scale" ref="videoWrapper">
           <video ref="video" autoplay loop muted playsinline preload="metadata">
-            <source src="/eishi/videos/3d Marketing.webm" type="video/mp4" />
+            <source src="/eishi/videos/3d Marketing.mp4" type="video/mp4" />
           </video>
         </div>
 
@@ -461,7 +461,7 @@
         <v-col class="pa-0 ma-0">
           <div class="video-wrapper">
             <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-              <source src="/eishi/videos/3d Marketing.webm" type="video/mp4" />
+              <source src="/eishi/videos/3d Marketing.mp4" type="video/mp4" />
             </video>
           </div>
         </v-col>
@@ -693,9 +693,6 @@ export default {
         { label: 'Years Combined Experience', value: 50 },
         { label: 'Property Value Transacted', value: 300 },
       ],
-      currentMove: 0,
-      targetMove: 0,
-      animationFrame: null,
       scrollAmount: 320,
       partner_items: [
         {
@@ -784,16 +781,9 @@ export default {
         this.$refs.missionDesc,
         this.$refs.whyUsTitle,
         this.$refs.whyUsDesc,
-        this.$refs.aboutTitleMobile,
-        this.$refs.aboutMetaMobile,
         this.$refs.title1Mobile,
         this.$refs.title2Mobile,
-        this.$refs.desc1Mobile,
-        this.$refs.desc2Mobile,
-        this.$refs.missionTitleMobile,
-        this.$refs.missionDescMobile,
         this.$refs.whyUsTitleMobile,
-        this.$refs.whyUsDescMobile
       ];
 
       sectionsToAnimate.forEach(el => {
@@ -939,21 +929,6 @@ export default {
           gridCount: card.gridCount || 20,
         }))
       }
-    },
-
-    updateTargetMove() {
-      const container = this.$refs.textContainer
-      if (!container) return
-
-      const rect = container.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-
-      // fraction scrolled in container
-      let progress = (windowHeight - rect.top) / (windowHeight + rect.height)
-      progress = Math.min(Math.max(progress, 0), 1)
-
-      const maxMove = container.offsetWidth / 4
-      this.targetMove = progress * maxMove // target horizontal movement
     },
 
     twoDigits(value) {

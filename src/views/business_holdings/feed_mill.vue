@@ -102,7 +102,7 @@
 
         <v-row>
             <v-col cols="9" class="mx-auto">
-                <v-parallax src="/eishi/feed_mill/images/feedmil04.webp" height="calc(100vh - 200px)">
+                <v-parallax src="/eishi/feed_mill/images/feedmil03.webp" height="calc(100vh - 200px)">
                 </v-parallax>
             </v-col>
         </v-row>
@@ -179,7 +179,7 @@
                         <v-col class="mx-auto">
                             <div class="video-wrapper">
                                 <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                                    <source src="/eishi/videos/feed mill.webm" type="video/mp4" />
+                                    <source src="/eishi/videos/feed mill.mp4" type="video/mp4" />
                                 </video>
                             </div>
                         </v-col>
@@ -274,7 +274,7 @@
             </v-row>
 
         </v-container>
-        <v-parallax src="/eishi/feed_mill/images/feedmil04.webp" height="calc(100vh - 200px)">
+        <v-parallax src="/eishi/feed_mill/images/feedmil03.webp" height="calc(100vh - 200px)">
         </v-parallax>
         <v-container>
             <v-row>
@@ -345,7 +345,7 @@
         </v-container>
         <div class="video-wrapper">
             <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                <source src="/eishi/videos/feed mill.webm" type="video/mp4" />
+                <source src="/eishi/videos/feed mill.mp4" type="video/mp4" />
             </video>
         </div>
         <v-container>
@@ -418,69 +418,6 @@ export default {
         return {
             imageCards: [],
             propertyCards: [],
-            properties: [
-                {
-                    title: "Poultry Farm",
-                    details: {
-                        "Location": "Municipality of San Jose, Batangas",
-                        "Sqm.": "3,500",
-                        "Egg trays / day": "630"
-                    },
-                    image: "/eishi/batangas_tokyo_farm/images/1732160556378.webp",
-                    route: "/business_holdings/batangas/poultry_farm"
-                },
-                {
-                    title: "Pangasinan Farm",
-                    details: {
-                        "Location": "Municipality of Balungao",
-                        "Sqm.": "240,500"
-                    },
-                    image: "/eishi/pangasinan_farm/images/dji_fly_20250311_151954_0036_1741678753512_photo.webp",
-                    route: "/business_holdings/pangasinan_farm"
-                },
-                {
-                    title: "Assigned Properties",
-                    details: {
-                        "Location": "San Jose Batangas, Muntinlupa City, Moron, Rizal"
-                    },
-                    image: "/eishi/assigned_properties/images/1732160485860.webp",
-                    route: "/business_holdings/assigned_properties"
-                },
-                {
-                    title: "Residential Lands",
-                    details: {
-                        "Location": "Tabuk City, Kalinga Province",
-                        "Lot": "42"
-                    },
-                    image: "/eishi/kalinga_residential/images/DJI_0591-min.webp",
-                    route: "/business_holdings/kalinga_residential"
-                },
-                {
-                    title: "Cebu Condominiums",
-                    details: {
-                        "Location": "Cebu City, Central Business District and nearby the Metro Cebu Mall, Ayala Center and SM Cebu City",
-                        "Residences": "1016"
-                    },
-                    image: "/eishi/cebu_condo/images/20240626_094216.webp",
-                    route: "/business_holdings/cebu_condominium"
-                },
-                {
-                    title: "Feed Mill",
-                    details: {
-                        "Description": "Operation of the Feed Mill Supporting the Poultry Farming Business. Our blended feed, produced in our own factories, ensures healthy and hygienic chicken growth, contributing to high-quality eggs."
-                    },
-                    image: "/eishi/feed_mill/images/feedmil04.webp",
-                    route: "/business_holdings/feed_mill"
-                },
-                {
-                    title: "Car Rental Business",
-                    details: {
-                        "Description": "Expansion of Car Rental Business in the Philippines. Modern Japanese vehicles, maintained with high standards of cleanliness and comfort, are highly appreciated by locals and visitors from overseas."
-                    },
-                    image: "/eishi/car_rental/images/car01.webp",
-                    route: "/business_holdings/car_rental"
-                }
-            ],
 
             isMobileView: false,
             business_holdings: [
@@ -506,11 +443,22 @@ export default {
                 },
             ],
             images: [
-                '/eishi/feed_mill/images/feedmil04.webp',
-                '/eishi/feed_mill/images/feedmil01.webp',
-                '/eishi/feed_mill/images/feedmil02.webp',
-                '/eishi/feed_mill/images/feedmil03.webp',
-
+                '/eishi/feed_mill/images/f1.webp',
+                '/eishi/feed_mill/images/f2.JPG',
+                '/eishi/feed_mill/images/f3.JPG',
+                '/eishi/feed_mill/images/f4.JPG',
+                '/eishi/feed_mill/images/f5.JPG',
+                '/eishi/feed_mill/images/f6.JPG',
+                '/eishi/feed_mill/images/f7.JPG',
+                '/eishi/feed_mill/images/f8.JPG',
+                '/eishi/feed_mill/images/f9.JPG',
+                '/eishi/feed_mill/images/f10.JPG',
+                '/eishi/feed_mill/images/f11.JPG',
+                '/eishi/feed_mill/images/f12.JPG',
+                '/eishi/feed_mill/images/f13.JPG',
+                '/eishi/feed_mill/images/f14.JPG',
+                '/eishi/feed_mill/images/f15.JPG',
+                '/eishi/feed_mill/images/f16.JPG',
             ],
         };
     },

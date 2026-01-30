@@ -103,7 +103,7 @@ export default {
         commercialLandsLabel: "Commercial Lands",
         commercialLandsValue: "3 lands in Muntinlupa City",
         agriculturalLandsLabel: "Agricultural Lands",
-        agriculturalLandsValue: "2 lands in Moron, Rizal",
+        agriculturalLandsValue: "2 lands in Morong, Rizal",
         vehiclesLabel: "Vehicles",
         vehiclesValue: "26 vehicles for car rentals",
         operationLabel: "Operation",
@@ -150,6 +150,14 @@ export default {
         types: ['Agricultural', 'Residential', 'Commercial'],
         properties: [
             {
+                title: "Feed Mill",
+                details: {
+                    Description: "Operation of the Feed Mill Supporting the Poultry Farming Business. Our blended feed, produced in our own factories, ensures healthy and hygienic chicken growth, contributing to high-quality eggs."
+                },
+                image: "/eishi/feed_mill/images/feedmil03.webp",
+                route: "/business_holdings/feed_mill"
+            },
+            {
                 title: "Poultry Farm",
                 details: {
                     Location: "Municipality of San Jose, Batangas",
@@ -171,7 +179,7 @@ export default {
             {
                 title: "Assigned Properties",
                 details: {
-                    Location: "San Jose Batangas, Muntinlupa City, Moron, Rizal"
+                    Location: "San Jose Batangas, Muntinlupa City, Morong, Rizal"
                 },
                 image: "/eishi/assigned_properties/images/1732160485860.webp",
                 route: "/business_holdings/assigned_properties"
@@ -194,14 +202,7 @@ export default {
                 image: "/eishi/cebu_condo/images/20240626_094216.webp",
                 route: "/business_holdings/cebu_condominium"
             },
-            {
-                title: "Feed Mill",
-                details: {
-                    Description: "Operation of the Feed Mill Supporting the Poultry Farming Business. Our blended feed, produced in our own factories, ensures healthy and hygienic chicken growth, contributing to high-quality eggs."
-                },
-                image: "/eishi/feed_mill/images/feedmil04.webp",
-                route: "/business_holdings/feed_mill"
-            },
+
             {
                 title: "Car Rental Business",
                 details: {
@@ -311,7 +312,7 @@ export default {
         cebuDescription: "Cebu City, Central Business District and nearby the Metro Cebu Mall, Ayala Center and SM Cebu City",
         lot: "Lot",
         tabukKalinganProvince: "Tabuk City, Kalinga Province",
-        sanJoseMuntinlupaMoron: "San Jose Batangas, Muntinlupa City, Moron, Rizal",
+        sanJoseMuntinlupaMorong: "San Jose Batangas, Muntinlupa City, Morong, Rizal",
         balungaoMunicipality: "Municipality of Balungao",
         eggPerDay: "Egg trays / day",
         sqm: "Sqm.",
@@ -377,7 +378,7 @@ export default {
         rangeP1: "Eishi and its partners always envision an environmental friendly and natural farming methods reducing harmful chemicals in order to preserve ecosystems, soil health, biodiversity, promote water conservation, climate change mitigation and especially consumer health ensuring that the food produced is healthier for consumers, free from pesticides or synthetic additives.",
         rangeP2: "The free range farm will be positioned nearby diversion dam of the farm for the easy access of portable water for the cows, chickens, sheep and goat which will be freely roaming inside the farm.",
         assignedProperties: "Assigned Properties",
-        assignedPropertiesP1: "Eishi Company had a great partnership with Epertners Co. LTD (EPARTNERS), a company based in Japan. In November 2023, EPARTNERS assigned its properties; real estate and personal assets to Eishi, particularly 3 poultry farms in San Jose Batangas, 3 commercial lands in Muntilupa City, 2 agricultural lands in Moron, Rizal and 26 vehicles being utilized for Car Rentals.",
+        assignedPropertiesP1: "Eishi Company had a great partnership with Epertners Co. LTD (EPARTNERS), a company based in Japan. In November 2023, EPARTNERS assigned its properties; real estate and personal assets to Eishi, particularly 3 poultry farms in San Jose Batangas, 3 commercial lands in Muntilupa City, 2 agricultural lands in Morong, Rizal and 26 vehicles being utilized for Car Rentals.",
         assignedPropertiesP2: "These properties are now being managed and operated by Eishi Company.",
         cebuCondo: "Cebu Condominiums",
         cebuCondoLocation: "Location: Cebu City, Cebu, Philippines",
@@ -554,6 +555,14 @@ export default {
         types: ['農業用', '住宅用', '商業用'],
         properties: [
             {
+                title: "飼料工場",
+                details: {
+                    説明: "養鶏事業をサポートする飼料工場の運営。自社工場で生産された混合飼料により、健康で衛生的な鶏の成長を確保し、高品質な卵に貢献。"
+                },
+                image: "/eishi/feed_mill/images/feedmil03.webp",
+                route: "/business_holdings/feed_mill"
+            },
+            {
                 title: "養鶏場",
                 details: {
                     所在地: "バタンガス州サンホセ市",
@@ -575,7 +584,7 @@ export default {
             {
                 title: "管理物件",
                 details: {
-                    所在地: "バタンガス州サンホセ、ムンティンルパ市、モロン、リサール州"
+                    所在地: "バタンガス州サンホセ市、ムンティルーパ市、モロン市 リザール州"
                 },
                 image: "/eishi/assigned_properties/images/1732160485860.webp",
                 route: "/business_holdings/assigned_properties"
@@ -598,14 +607,7 @@ export default {
                 image: "/eishi/cebu_condo/images/20240626_094216.webp",
                 route: "/business_holdings/cebu_condominium"
             },
-            {
-                title: "飼料工場",
-                details: {
-                    説明: "養鶏事業をサポートする飼料工場の運営。自社工場で生産された混合飼料により、健康で衛生的な鶏の成長を確保し、高品質な卵に貢献。"
-                },
-                image: "/eishi/feed_mill/images/feedmil04.webp",
-                route: "/business_holdings/feed_mill"
-            },
+
             {
                 title: "レンタカー事業",
                 details: {
@@ -716,7 +718,7 @@ export default {
         cebuDescription: "セブ市、セントラルビジネス地区およびメトロセブモール、アヤラセンター、SMセブ市周辺",
         lot: "区画数",
         tabukKalinganProvince: "カリンガ州タブク市",
-        sanJoseMuntinlupaMoron: "バタンガス州サンホセ市、ムンティンルパ市、モロン、リサール",
+        sanJoseMuntinlupaMorong: "バタンガス州サンホセ市、ムンティンルパ市、モロン、リサール",
         balungaoMunicipality: "バルンガオ自治体",
         eggPerDay: "1日あたりの卵トレイ数",
         sqm: "平方メートル",

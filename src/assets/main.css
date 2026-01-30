@@ -2,20 +2,8 @@
 @import 'animate.css';
 
 @import url('https://rsms.me/inter/inter.css');
-@import url('https://fonts.cdnfonts.com/css/quinsi');
-@import url('https://fonts.cdnfonts.com/css/pp-pangaia');
 @import url('https://fonts.cdnfonts.com/css/bacasime-antique');
 
-@font-face {
-  font-family: 'ModernNegra';
-  src: url('/fonts/Modern Negra Demo.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-#app {
-}
 body {
   scroll-behavior: smooth;
   background-color: #ffffff !important;
@@ -25,21 +13,8 @@ body,
 * {
   font-family: 'Roboto', sans-serif;
 }
-.quinsi {
-  font-family: 'Quinsi', sans-serif;
-}
-.pangaia {
-  font-family: 'pp pangaia', sans-serif;
-}
 .antique {
   font-family: 'bacasime antique', sans-serif;
-}
-
-@media (min-width: 1024px) {
-}
-
-.modern-negra {
-  font-family: 'ModernNegra', serif;
 }
 
 .linear-gradient-text {

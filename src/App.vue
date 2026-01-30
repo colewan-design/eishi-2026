@@ -32,22 +32,6 @@ body,
   /* avoid width + padding issues */
 }
 
-.audio-dialog {
-  border-radius: 16px;
-}
-
-.audio-title {
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.2px;
-}
-
-.audio-sub {
-  margin-top: 6px;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.6);
-}
-
 .v-btn:hover {
   transform: scale(1.05);
   transition: 0.2s;
@@ -262,14 +246,14 @@ body,
       preload="metadata"
       poster="/images/hero-img.jpg"
     >
-      <source src="/eishi/videos/Benguet.webm" type="video/mp4" />
+      <source src="/eishi/videos/Benguet.mp4" type="video/mp4" />
     </video>
     <audio ref="bgm" src="/eishi/Music/sisiwit.mp3" loop preload="auto" muted></audio>
 
     <Navigation v-if="showLayout && !sideNavOpen" :color="color" :flat="flat" />
 
     <!-- Floating Navbar Button -->
-    <div ref="navButton" v-if="showFloatingNav" class="floating-nav">
+    <div ref="navButton" v-if="showFloatingNav && !$vuetify.display.mobile" class="floating-nav">
       <img src="/eishi/eishi_logo-removebg-preview.webp" alt="Logo" class="nav-logo" />
       <v-btn class="menu-btn" icon @click="toggleSideNav">
         <v-icon>mdi-menu</v-icon>
@@ -319,27 +303,22 @@ body,
 import { useLanguageStore } from '@/stores/languageStore'
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
-import { mapState, mapActions } from 'pinia'
-import { RouterView } from 'vue-router'
+import { mapState } from 'pinia'
 import { gsap } from 'gsap'
 export default {
   name: 'App',
   components: {
     Navigation,
     Footer,
-    RouterView,
   },
 
   data: () => ({
     showFloatingNav: false,
     sideNavOpen: false,
     showSplash: true,
-    skipCountdown: 5,
     fab: null,
     color: '',
     flat: null,
-
-    showAudioPrompt: true,
     isMuted: true,
   }),
 
@@ -376,7 +355,6 @@ export default {
 
   mounted() {
     window.addEventListener('scroll', this.onScroll)
-    this.navButton = this.$refs.navButton
     this.sideNav = this.$refs.sideNav
     this.playSplashAnimation()
   },
@@ -407,13 +385,7 @@ export default {
         duration: 0.45,
         ease: 'power2.out',
       })
-
-      // remove main animation, since you don't push content
     },
-    toTop() {
-      this.$vuetify.goTo(0)
-    },
-
     playSplashAnimation() {
       const tl = this.$gsap.timeline({
         onComplete: () => {
@@ -454,31 +426,6 @@ export default {
           delay: 0.3,
         })
     },
-    startCountdown() {
-      const interval = setInterval(() => {
-        if (this.skipCountdown > 0) {
-          this.skipCountdown--
-        } else {
-          clearInterval(interval)
-        }
-      }, 1000)
-    },
-    acceptAudio() {
-      const audio = this.$refs.bgm
-      if (!audio) return
-
-      audio.muted = false
-      audio.volume = 0.15
-      audio.play().catch(() => {})
-
-      this.isMuted = false
-      this.showAudioPrompt = false
-    },
-
-    declineAudio() {
-      this.showAudioPrompt = false
-    },
-
     toggleAudio() {
       const audio = this.$refs.bgm
       if (!audio) return
@@ -489,10 +436,6 @@ export default {
       if (!this.isMuted) {
         audio.play().catch(() => {})
       }
-    },
-
-    toTop() {
-      this.$vuetify.goTo(0)
     },
   },
 }
