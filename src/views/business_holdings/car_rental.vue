@@ -435,7 +435,6 @@ export default {
                     details: {
                         "Location": "Municipality of San Jose, Batangas",
                         "Sqm.": "3,500",
-                        "Egg trays / day": "630"
                     },
                     image: "/eishi/batangas_tokyo_farm/images/1732160556378.webp",
                     route: "/business_holdings/batangas/poultry_farm"

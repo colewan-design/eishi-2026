@@ -87,7 +87,7 @@
             <v-col cols="9" class="mx-auto text-right">
                 <v-row>
                     <v-col cols="2" class="text-left">
-                        <v-btn to="/tour/batangas-poultry-farm" color="black" block> {{ t.startTour }}</v-btn>
+                        <!-- <v-btn to="/tour/batangas-poultry-farm" color="black" block> {{ t.startTour }}</v-btn> -->
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-col>
@@ -104,7 +104,7 @@
 
         <v-row>
             <v-col cols="9" class="mx-auto">
-                <v-parallax src="/eishi/batangas_tokyo_farm/images/1732160560065.webp" height="calc(100vh - 200px)">
+                <v-parallax src="/eishi/batangas_tokyo_farm/images/hero.jpg" height="calc(100vh - 200px)">
                 </v-parallax>
             </v-col>
         </v-row>
@@ -177,30 +177,25 @@
                         </v-col>
 
                     </v-row>
-                    <v-row>
-                        <v-col class="mx-auto">
-                            <div class="video-wrapper">
-                                <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                                    <source src="/eishi/videos/poultry.mp4" type="video/mp4" />
-                                </video>
-                            </div>
-                        </v-col>
-                    </v-row>
-                    <v-row>
+                   
+                     <section
+            v-for="(section, index) in sections"
+            :key="section.key"
+            :ref="section.key"
+            class="mb-10 mt-10"
+          >
+            <!-- Caption -->
+            <h2 class="text-h5 font-weight-bold mb-4">
+              {{ section.caption }}
+            </h2>
 
-                        <v-col v-for="(image, index) in images" :key="index" cols="6" class="d-flex">
-                            <div class="img-hover-wrapper">
-                                <v-img :src="image" height="500" cover :ref="el => imageCards.push(el)">
-                                    <template v-slot:placeholder>
-                                        <v-row align="center" justify="center" class="fill-height ma-0">
-                                            <v-progress-circular color="grey-lighten-5"
-                                                indeterminate></v-progress-circular>
-                                        </v-row>
-                                    </template>
-                                </v-img>
-                            </div>
-                        </v-col>
-                    </v-row>
+            <!-- Images -->
+            <v-row>
+              <v-col v-for="(img, i) in section.images" :key="i" cols="12" sm="6" md="6">
+                <v-img :src="img" aspect-ratio="1" cover/>
+              </v-col>
+            </v-row>
+          </section>
                     <v-row>
                         <v-col class="mx-auto">
                             <div class="map-container">
@@ -275,7 +270,7 @@
             </v-row>
         </v-container>
 
-        <v-parallax src="/eishi/batangas_tokyo_farm/images/1732160560065.webp" height="calc(100vh - 200px)">
+        <v-parallax src="/eishi/batangas_tokyo_farm/images/hero.jpg" height="calc(100vh - 200px)">
         </v-parallax>
 
         <v-container>
@@ -348,20 +343,29 @@
             </v-row>
         </v-container>
 
-        <div class="video-wrapper">
-            <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                <source src="/eishi/videos/poultry.mp4" type="video/mp4" />
-            </video>
-        </div>
+      
 
+     
         <v-container>
-            <v-row no-gutters>
-                <v-col v-for="(image, index) in images" :key="index" cols="12" class="d-flex pa-2">
-                    <v-img :src="image" height="300" cover />
-                </v-col>
+               <section
+            v-for="(section, index) in sections"
+            :key="section.key"
+            :ref="section.key"
+            class="mb-10"
+        >
+            <!-- Caption -->
+            <h2 class="text-h5 font-weight-bold mb-4">
+            {{ section.caption }}
+            </h2>
+
+            <!-- Images -->
+            <v-row>
+            <v-col v-for="(img, i) in section.images" :key="i" cols="12" sm="6" md="3">
+                <v-img :src="img" aspect-ratio="1" cover />
+            </v-col>
             </v-row>
-        </v-container>
-        <v-container>
+        </section>
+        
             <v-row>
                 <v-col class="mx-auto">
                     <div class="map-container">
@@ -431,6 +435,52 @@ export default {
     },
     data() {
         return {
+             sections: [
+        {
+          key: 'machines',
+          caption: 'Egg-laying hens',
+          images: [
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/1.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/2.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/3.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/4.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/5.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/6.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/7.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/8.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/9.jpg',
+            '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/10.jpg'
+          ],
+        },
+        {
+          key: 'production',
+          caption: 'Production',
+          images: [
+            '/eishi/batangas_tokyo_farm/images/Production/1.jpg',
+            '/eishi/batangas_tokyo_farm/images/Production/2.jpg',
+            '/eishi/batangas_tokyo_farm/images/Production/3.jpg',
+            '/eishi/batangas_tokyo_farm/images/Production/4.jpg',
+            '/eishi/batangas_tokyo_farm/images/Production/5.jpg',
+            '/eishi/batangas_tokyo_farm/images/Production/6.jpg'
+          ],
+        },
+        {
+          key: 'deliveries',
+          caption: 'Deliveries',
+          images: [
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/1.jpg',
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/2.jpg',
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/3.jpg',
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/4.jpg',
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/5.jpg',
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/6.jpg',
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/7.jpg',
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/8.jpg',
+            '/eishi/batangas_tokyo_farm/images/Poultry Building/9.jpg',
+          ],
+        },
+      ],
+      pageYOffset: 0,
             imageCards: [],
             propertyCards: [],
             dialog: false,
@@ -458,28 +508,6 @@ export default {
                     title: "cebuCondo",
                     link: "/business_holdings/cebu_condominium",
                 },
-            ],
-            images: [
-                '/eishi/batangas_tokyo_farm/images/1732160556378.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160560065.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160561640.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160563554.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160564300.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160565073.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160569062.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160550169.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160552863.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160557864.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160571487.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160572296.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160574694.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160575487.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160577312.webp',
-                '/eishi/batangas_tokyo_farm/images/1732160578161.webp',
-                '/eishi/batangas_tokyo_farm/images/resized_poultry01.webp',
-                '/eishi/batangas_tokyo_farm/images/66eef9be9036e731ae73337bde23afa1.webp',
-                '/eishi/batangas_tokyo_farm/images/poultry04.webp',
-                '/eishi/batangas_tokyo_farm/images/resized_poultry03.webp',
             ],
         };
     },

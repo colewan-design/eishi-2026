@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>We’ll Be Back Soon</title>
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --primary: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: radial-gradient(circle at top, #1e293b, var(--bg));
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #111827, #020617);
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      margin: 0;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #1f2933, transparent);
+      margin: 32px 0;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      animation: pulse 1.5s infinite;
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.3;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="icon">🚧</div>
+
+    <h1>We’re Under Maintenance</h1>
+
+    <p>
+      We’re currently making some improvements to bring you a better
+      experience. The site will be back online shortly.
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="status">
+      <span class="dot"></span>
+      System upgrade in progress
+    </div>
+
+    <footer>
+      © 2026 Your Company Name
+    </footer>
+  </div>
+</body>
+</html>
+
+ <v-container>
+      <v-row>
+        <v-col cols="9" class="mx-auto">
+          <v-container>
+            <v-row>
+              <v-col
+                v-for="(item, index) in translatedStats"
+                :key="index"
+                :class="{ 'last-card': index === stats.length - 1 }"
+              >
+                <v-card
+                  ref="clientCards"
+                  height="100vh"
+                  class="d-flex flex-column justify-start align-center"
+                  style="position: relative; background-color: transparent"
+                  variant="flat"
+                >
+                  <!-- grey static left border -->
+                  <div
+                    style="position: absolute; left: 0; top: 0; width: 2px; height: 100%"
+                    class="bg-grey"
+                  ></div>
+
+                  <!-- animated black left border -->
+                  <div
+                    ref="borderGrows"
+                    style="
+                      position: absolute;
+                      left: 0;
+                      top: 0;
+                      width: 2px;
+                      height: 0;
+                      background-color: black;
+                    "
+                  ></div>
+
+                  <!-- grey static right border for last card -->
+                  <div
+                    v-if="index === stats.length - 1"
+                    style="
+                      position: absolute;
+                      right: 0;
+                      top: 0;
+                      width: 2px;
+                      height: 100%;
+                      background-color: grey;
+                    "
+                  ></div>
+
+                  <!-- card content -->
+                  <div :style="{ marginTop: `${index * 100}px`, textAlign: 'center' }">
+                    <span style="font-size: 16px" class="text-grey-darken-2">
+                      {{ item.label }}
+                    </span>
+                    <br />
+                    <span style="font-size: 48px"> {{ animatedValues[index] }}+ </span>
+                  </div>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
+
+
+
+    <!-- Image 1 – Left -->
+              <div style="margin-top: 300px; float: right">
+                <v-img
+                  src="/eishi/stock_images/12.webp"
+                  height="120"
+                  width="180"
+                  style="margin-left: 0; margin-right: auto"
+                  loading="lazy"
+                >
+                  <template #placeholder>
+                    <v-skeleton-loader type="image" />
+                  </template>
+                </v-img>
+              </div>
+
+              <!-- Image 2 – Right -->
+              <div style="margin-top: 300px; float: left">
+                <v-img
+                  src="/eishi/stock_images/13.webp"
+                  height="240"
+                  width="240"
+                  style="margin-left: auto; margin-right: 0"
+                  loading="lazy"
+                >
+                  <template #placeholder> <v-skeleton-loader type="image" /> </template
+                ></v-img>
+              </div>
+
+              <!-- Image 3 – Left -->
+              <div style="margin-top: 300px; float: right">
+                <v-img
+                  src="/eishi/stock_images/14.webp"
+                  height="180"
+                  width="220"
+                  style="margin-left: 0; margin-right: auto"
+                  loading="lazy"
+                >
+                  <template #placeholder>
+                    <v-skeleton-loader type="image" />
+                  </template>
+                </v-img>
+              </div>
+
+              <!-- Image 4 – Right -->
+              <div style="margin-top: 300px; float: left">
+                <v-img
+                  src="/eishi/stock_images/15.webp"
+                  height="300"
+                  width="240"
+                  style="margin-left: auto; margin-right: 0"
+                  loading="lazy"
+                >
+                  <template #placeholder>
+                    <v-skeleton-loader type="image" />
+                  </template>
+                </v-img>
+              </div>
+
+
+                <div style="padding-top: 5rem; padding-bottom: 5rem" class="bg-black" v-if="!isMobileView">
+    <v-container>
+      <v-row>
+        <v-col cols="9" class="mx-auto">
+          <v-container
+            style="height: 400vh; position: relative"
+            class="text-center"
+            ref="excitedSection"
+          >
+            <div
+              ref="textContainer"
+              style="position: sticky; top: 300px; width: 100%; color: white"
+            >
+              <div ref="excitedWorksTitle1" style="font-size: 64px; display: inline-block">
+                {{ t.excitedWorksTitle }}
+              </div>
+
+              <br />
+
+              <div
+                ref="excitedWorksTitle2"
+                style="font-size: 16px; margin-top: 200px; display: inline-block"
+              >
+                {{ t.excitedWorksDescription }}
+              </div>
+            </div>
+            <!-- Left-aligned image -->
+            <div style="width: 100%; top: 500px">
+              <v-img src="/eishi/stock_images/12.webp" height="300" width="400" loading="lazy">
+                <template #placeholder>
+                  <v-skeleton-loader type="image" />
+                </template>
+              </v-img>
+            </div>
+
+            <!-- Right-aligned image -->
+            <div style="margin-top: 50px; margin-left: 600px">
+              <v-img src="/eishi/stock_images/13.webp" height="600" width="600" loading="lazy">
+                <template #placeholder>
+                  <v-skeleton-loader type="image" />
+                </template>
+              </v-img>
+            </div>
+            <!-- Left-aligned image -->
+            <div style="width: 100%; margin-top: 50px">
+              <v-img src="/eishi/stock_images/14.webp" height="300" width="400" loading="lazy">
+                <template #placeholder>
+                  <v-skeleton-loader type="image" />
+                </template>
+              </v-img>
+            </div>
+
+            <!-- Right-aligned image -->
+            <div style="margin-top: 50px; margin-left: 600px">
+              <v-img src="/eishi/stock_images/15.webp" height="800" width="600" loading="lazy">
+                <template #placeholder>
+                  <v-skeleton-loader type="image" />
+                </template>
+              </v-img>
+            </div>
+          </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>

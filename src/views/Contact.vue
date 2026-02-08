@@ -93,62 +93,6 @@
 <template>
     <v-col cols="9" class="mx-auto" v-if="!isMobileView">
         <v-container style="margin-top: 5rem;">
-            <v-row no-gutters>
-
-
-                <!-- Overlay form -->
-                <v-col cols="6">
-                    <span style="font-size: 64px;font-weight: bold;">{{ t.getInTouch }}</span>
-                    <v-sheet height="80vh">
-                        <v-form>
-                            <v-row>
-                                <v-col>
-                                    <span class="text-uppercase" style="font-size: 12px;">{{
-                                        t.contactForm.firstNameLabel
-                                    }}</span>
-                                    <v-text-field density="comfortable" :label="t.contactForm.firstNameLabel"
-                                        variant="outlined" class="bg-color-grey" style="width: 300px;"></v-text-field>
-                                </v-col>
-                                <v-col>
-                                    <span class="text-uppercase" style="font-size: 12px;">{{ t.contactForm.lastNameLabel
-                                    }}</span>
-                                    <v-text-field density="comfortable" :label="t.contactForm.lastNameLabel"
-                                        variant="outlined" class="bg-color-grey"></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col>
-                                    <span class="text-uppercase" style="font-size: 12px;">{{ t.contactForm.emailLabel
-                                    }}</span>
-                                    <v-text-field density="comfortable" :label="t.contactForm.emailLabel"
-                                        variant="outlined" class="bg-color-grey"></v-text-field>
-                                </v-col>
-                                <v-col>
-                                    <span class="text-uppercase" style="font-size: 12px;">{{ t.contactForm.phoneLabel
-                                    }}</span>
-                                    <v-text-field density="comfortable" :label="t.contactForm.phoneLabel"
-                                        variant="outlined" class="bg-color-grey"></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <span>{{ t.contactForm.messageLabel }}</span>
-                            <v-textarea :label="t.contactForm.messageLabel" variant="outlined" rows="4"
-                                class="bg-color-grey"></v-textarea>
-                            <v-btn color="black" size="65" block class="mt-4 text-carousel " rounded>
-                                <span class="text-front">{{ t.contactForm.submitButton }}</span>
-                                <span class="text-back">{{ t.contactForm.submitButton }}</span>
-                            </v-btn>
-                        </v-form>
-                    </v-sheet>
-                </v-col>
-                <v-col cols="6" class="text-right">
-                    <span style="display: inline-block; font-size: 14px;" class="text-grey-darken-2">
-                        {{ t.contactForm.helpText }}
-                    </span>
-
-                    <v-img src="/eishi/pexels-neil-clark-ongchangco-2154700388-33407957.webp" cover height="500"
-                        width="500" class="ml-auto mt-10"></v-img>
-                </v-col>
-            </v-row>
             <v-row style="margin-top: 5rem;" class="contact-grid" dense>
                 <v-col cols="12" md="4">
                     <v-parallax class="contact-item" src="/eishi/stock_images/1.avif"></v-parallax>
@@ -233,48 +177,6 @@
     </v-col>
     <!-- mobile view -->
     <div v-if="isMobileView" style="padding-top: 5rem;">
-        <v-container>
-            <v-row no-gutters>
-                <span style="font-size: 48px;">{{ t.getInTouch }}</span>
-                <span style="display: inline-block; font-size: 16px;" class="mt-5 mb-5 text-grey-darken-2">
-                    {{ t.contactForm.helpText }}
-                </span>
-                <v-form class="w-100">
-                    <span class="text-uppercase" style="font-size: 12px;">{{ t.contactForm.firstNameLabel
-                        }}</span>
-                    <v-text-field density="comfortable" :label="t.contactForm.firstNameLabel" variant="outlined"
-                        class="bg-color-grey"></v-text-field>
-
-                    <span class="text-uppercase" style="font-size: 12px;">{{ t.contactForm.lastNameLabel
-                        }}</span>
-
-                    <v-text-field density="comfortable" :label="t.contactForm.lastNameLabel" variant="outlined"
-                        class="bg-color-grey"></v-text-field>
-
-                    <span class="text-uppercase" style="font-size: 12px;">{{ t.contactForm.emailLabel
-                        }}</span>
-
-
-                    <v-text-field density="comfortable" :label="t.contactForm.emailLabel" variant="outlined"
-                        class="bg-color-grey"></v-text-field>
-
-
-                    <span class="text-uppercase" style="font-size: 12px;">{{ t.contactForm.phoneLabel
-                        }}</span>
-                    <v-text-field density="comfortable" :label="t.contactForm.phoneLabel" variant="outlined"
-                        class="bg-color-grey"></v-text-field>
-
-                    <span>{{ t.contactForm.messageLabel }}</span>
-                    <v-textarea :label="t.contactForm.messageLabel" variant="outlined" rows="4"
-                        class="bg-color-grey"></v-textarea>
-                    <v-btn color="black" size="65" block class="mt-4 text-carousel " rounded>
-                        <span class="text-front">{{ t.contactForm.submitButton }}</span>
-                        <span class="text-back">{{ t.contactForm.submitButton }}</span>
-                    </v-btn>
-                </v-form>
-            </v-row>
-        </v-container>
-
         <v-parallax style="margin-top: 5rem; height: 20rem;" width="100%" src="/eishi/stock_images/1.avif"></v-parallax>
 
         <v-card variant="text"

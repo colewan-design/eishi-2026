@@ -154,7 +154,7 @@ export default {
                 details: {
                     Description: "Operation of the Feed Mill Supporting the Poultry Farming Business. Our blended feed, produced in our own factories, ensures healthy and hygienic chicken growth, contributing to high-quality eggs."
                 },
-                image: "/eishi/feed_mill/images/feedmil03.webp",
+                image: "/eishi/feed_mill/images/hero.JPG",
                 route: "/business_holdings/feed_mill"
             },
             {
@@ -162,9 +162,9 @@ export default {
                 details: {
                     Location: "Municipality of San Jose, Batangas",
                     Sqm: "3,500",
-                    "Egg trays / day": "630"
+               
                 },
-                image: "/eishi/batangas_tokyo_farm/images/1732160556378.webp",
+                image: "/eishi/batangas_tokyo_farm/images/hero.jpg",
                 route: "/business_holdings/batangas/poultry_farm"
             },
             {
@@ -559,7 +559,7 @@ export default {
                 details: {
                     説明: "養鶏事業をサポートする飼料工場の運営。自社工場で生産された混合飼料により、健康で衛生的な鶏の成長を確保し、高品質な卵に貢献。"
                 },
-                image: "/eishi/feed_mill/images/feedmil03.webp",
+                image: "/eishi/feed_mill/images/hero.JPG",
                 route: "/business_holdings/feed_mill"
             },
             {
@@ -567,9 +567,9 @@ export default {
                 details: {
                     所在地: "バタンガス州サンホセ市",
                     面積: "3,500",
-                    "1日あたり卵トレイ数": "630"
+                 
                 },
-                image: "/eishi/batangas_tokyo_farm/images/1732160556378.webp",
+                image: "/eishi/batangas_tokyo_farm/images/hero.jpg",
                 route: "/business_holdings/batangas/poultry_farm"
             },
             {

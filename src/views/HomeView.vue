@@ -1,4 +1,8 @@
 <style>
+.typewriter {
+  white-space: pre-wrap;
+}
+
 .cinematic-card {
   border-radius: 0;
 }
@@ -6,13 +10,11 @@
 .image-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom,
-      rgba(0, 0, 0, .15),
-      rgba(0, 0, 0, .9));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.9));
 }
 
 .cinematic-card-body {
-  background: rgba(0, 0, 0, .85);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(10px);
   margin-top: -60px;
   padding-top: 2rem;
@@ -28,9 +30,7 @@
   margin-top: -64px;
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom,
-      rgba(0, 0, 0, .25),
-      rgba(0, 0, 0, .85));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.85));
 }
 
 .cinematic-title {
@@ -44,7 +44,6 @@
   max-width: 90%;
 }
 
-
 .scroll-text {
   color: #111;
   text-transform: uppercase;
@@ -53,7 +52,6 @@
 .scroll-text .letter {
   opacity: 0.85;
 }
-
 
 .v-card {
   border-radius: 0 !important;
@@ -315,7 +313,7 @@
           </v-col>
 
           <v-col class="pa-0 ma-0">
-            <v-img src="/eishi/feed_mill/images/feedmil03.webp" height="100vh" cover loading="lazy">
+            <v-img src="/eishi/feed_mill/images/hero.JPG" height="100vh" cover loading="lazy">
               <div class="image-scrim"></div>
               <template #placeholder>
                 <v-skeleton-loader type="image" />
@@ -358,8 +356,6 @@
       </v-card>
     </div>
 
-
-
     <!-- Poultry Farm -->
     <div class="sticky-card" style="z-index: 1; height: 100vh" ref="poultryCard">
       <v-card class="bg-black" @click="$router.push('/business_holdings/batangas/poultry_farm')">
@@ -378,10 +374,6 @@
                   <tr>
                     <td>{{ t.sqm }}</td>
                     <td>3,500</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.eggPerDay }}</td>
-                    <td>630</td>
                   </tr>
                 </tbody>
               </table>
@@ -574,13 +566,16 @@
                 <v-container>
                   <v-row>
                     <v-col v-for="(item, index) in cards" :key="index" cols="12" class="d-flex justify-end">
-                      <div ref="cardRefs" class="d-flex flex-column text-left pa-4" style="height: 250px; width: 500px">
-                        <span style="font-size: 2rem; font-weight: bold">
+                      <div ref="cardRefs" class="d-flex flex-column text-left pa-4 cinematic-card"
+                        style="height: 250px; width: 500px">
+                        <span class="card-title">
                           {{ twoDigits(index + 1) }} | {{ item.title }}
                         </span>
-                        <span class="mt-auto text-blue-grey-darken-2">
+
+                        <!-- description -->
+                        <div class="mt-auto text-blue-grey-darken-2 card-desc">
                           {{ item.description }}
-                        </span>
+                        </div>
                       </div>
                     </v-col>
                   </v-row>
@@ -629,7 +624,7 @@
 
     <v-card class="bg-black cinematic-card">
       <v-row>
-        <v-img src="/eishi/feed_mill/images/feedmil03.webp" height="300" cover loading="lazy">
+        <v-img src="/eishi/feed_mill/images/hero.JPG" height="300" cover loading="lazy">
           <div class="image-scrim"></div>
           <template #placeholder>
             <v-skeleton-loader type="image" />
@@ -726,13 +721,6 @@
                   <td colspan="2">
                     <div class="mobile-label">{{ t.sqm }}</div>
                     <div class="mobile-value">3,500</div>
-                  </td>
-                </tr>
-
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.eggPerDay }}</div>
-                    <div class="mobile-value">630</div>
                   </td>
                 </tr>
               </tbody>
@@ -1001,12 +989,14 @@ import { useLanguageStore } from '@/stores/languageStore'
 import { gsap } from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
-gsap.registerPlugin(ScrollTrigger, SplitText)
 
+import TextPlugin from 'gsap/TextPlugin'
+gsap.registerPlugin(ScrollTrigger, SplitText, TextPlugin)
 export default {
   name: 'HomeView',
   data() {
     return {
+      cardRefs: [],
       imageSlideIndex: 0,
       textSlideIndex: 0,
       imageAutoTimer: null,
@@ -1068,6 +1058,8 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
+
+      this.animateCards()
       // Poultry Farm subtle movement
       gsap.to(this.$refs.poultryCard, {
         y: 50, // move down 50px as you scroll
@@ -1293,6 +1285,31 @@ export default {
   },
 
   methods: {
+    animateCards() {
+      this.cardRefs.forEach((card, index) => {
+        const finalText = desc.innerText
+
+        // reset description text for typing
+        desc.innerText = ''
+
+        // card entrance
+        gsap.from(card, {
+          opacity: 0,
+          y: 60,
+          duration: 1.1,
+          ease: 'power3.out',
+          delay: index * 0.2,
+        })
+
+        // typing effect
+        gsap.to(desc, {
+          text: finalText,
+          duration: Math.min(finalText.length * 0.04, 2.5),
+          ease: 'none',
+          delay: index * 0.2 + 0.6,
+        })
+      })
+    },
     updateTranslations() {
       // Cards are set by the watch on t; this is for any additional translation updates
     },
