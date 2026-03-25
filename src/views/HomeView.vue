@@ -1,1381 +1,602 @@
 <style>
-.typewriter {
-  white-space: pre-wrap;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --ivory:    #f8f5f0;
+  --cream:    #f0ebe2;
+  --linen:    #e4ddd3;
+  --bronze:   #a07840;
+  --bronze-l: #c9a96e;
+  --bronze-xl:#ecdfc8;
+  --charcoal: #1c1a17;
+  --ink:      #2e2b26;
+  --mid:      #7a7368;
+  --pale:     #b0a898;
+  --fd: 'Playfair Display', Georgia, serif;
+  --dm: 'DM Sans', sans-serif;
 }
 
-.cinematic-card {
-  border-radius: 0;
-}
+.home-wrap { font-family: var(--dm); background: var(--ivory); color: var(--ink); }
+* { box-sizing: border-box; }
 
-.image-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.9));
+.hero {
+  position: relative; height: 100vh;
+  overflow: hidden; background: var(--charcoal);
 }
-
-.cinematic-card-body {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
-  margin-top: -60px;
-  padding-top: 2rem;
+.hero video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; z-index: 0; opacity: 0.55;
 }
-
-.cinematic-hero {
-  position: relative;
-  min-height: 100vh;
-  background: url('/eishi/hero-mobile.webp') center / cover no-repeat;
+.hero-veil {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, transparent 40%, rgba(248,245,240,0.94) 100%);
 }
-
-.hero-overlay {
-  margin-top: -64px;
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.85));
-}
-
-.cinematic-title {
-  font-size: 2.6rem;
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.cinematic-subtext {
-  color: #b5b5b5;
-  max-width: 90%;
-}
-
-.scroll-text {
-  color: #111;
-  text-transform: uppercase;
-}
-
-.scroll-text .letter {
-  opacity: 0.85;
-}
-
-.v-card {
-  border-radius: 0 !important;
-}
-
-.hero-container {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+.hero-content {
+  position: relative; z-index: 2;
   height: 100%;
-  color: white;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  /* stack content vertically */
-  justify-content: center;
-  /* vertical centering */
-  align-items: flex-start;
-  /* align content to the left */
-  padding-left: 5%;
-  /* optional spacing from left edge */
-  text-align: left;
-  /* align text inside elements to left */
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 8vw 7vh;
+  max-width: 1400px; margin: 0 auto;
+}
+.hero-eyebrow {
+  font-family: var(--dm); font-size: 0.68rem;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--bronze-l); margin-bottom: 1.4rem;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.9s 0.2s ease, transform 0.9s 0.2s ease;
+}
+.hero-eyebrow.in { opacity: 1; transform: none; }
+.hero-title {
+  font-family: var(--fd);
+  font-size: clamp(3.8rem, 9.5vw, 9rem);
+  font-weight: 300; color: #fff;
+  line-height: 0.93; margin: 0 0 2rem;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 1.1s 0.45s ease, transform 1.1s 0.45s ease;
+}
+.hero-title em { font-style: italic; color: var(--bronze-l); }
+.hero-title.in { opacity: 1; transform: none; }
+.hero-bottom {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.9s 0.85s ease, transform 0.9s 0.85s ease;
+}
+.hero-bottom.in { opacity: 1; transform: none; }
+.hero-sub {
+  font-size: 1rem; font-weight: 300;
+  color: rgba(30,28,23,0.7);
+  line-height: 1.8; max-width: 380px;
+}
+.hero-scroll {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 8px;
+  font-size: 0.62rem; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--mid);
+}
+.scroll-bar {
+  width: 1px; height: 55px; background: var(--linen);
+  animation: breathe 2.2s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { opacity: 0.4; transform: scaleY(1); }
+  50%      { opacity: 1;   transform: scaleY(1.12); }
 }
 
-.v-application .v-app-bar {
-  position: relative;
-  /* ensure it stays above video */
-  z-index: 10;
+.ticker {
+  background: var(--charcoal);
+  overflow: hidden; padding: 13px 0; display: flex;
+}
+.ticker-track {
+  display: flex; white-space: nowrap;
+  animation: tick 30s linear infinite;
+}
+.ticker-track span {
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  padding: 0 2.2rem;
+}
+.ticker-accent { color: var(--bronze) !important; }
+@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.intro { background: var(--ivory); padding: 9vw 8vw; }
+.intro-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 0.85fr 1fr;
+  gap: 8vw; align-items: center;
+}
+.intro-img-wrap { position: relative; }
+.intro-img-wrap img {
+  width: 100%; aspect-ratio: 3/4;
+  object-fit: cover; display: block;
+}
+.intro-caption {
+  background: var(--charcoal);
+  padding: 1.1rem 1.4rem;
+}
+.intro-caption p {
+  font-size: 0.63rem; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--bronze-l); margin: 0;
+}
+.intro-text { display: flex; flex-direction: column; gap: 2rem; }
+
+.label-tag {
+  font-size: 0.67rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--bronze);
+  display: flex; align-items: center; gap: 12px;
+}
+.label-tag::before {
+  content: ''; display: block;
+  width: 26px; height: 1px; background: var(--bronze);
+}
+.headline {
+  font-family: var(--fd);
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
+  font-weight: 300; line-height: 1.2; color: var(--charcoal);
+}
+.headline em { font-style: italic; color: var(--mid); }
+.body-text {
+  font-size: 0.96rem; font-weight: 300;
+  line-height: 1.9; color: var(--mid); max-width: 460px;
+}
+.btn-line {
+  display: inline-flex; align-items: center; gap: 14px;
+  border: 1px solid var(--charcoal);
+  color: var(--charcoal); background: transparent;
+  font-family: var(--dm); font-size: 0.7rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  text-decoration: none; padding: 15px 30px; cursor: pointer;
+  transition: background 0.35s, color 0.35s; align-self: flex-start;
+}
+.btn-line:hover { background: var(--charcoal); color: var(--ivory); }
+.btn-line-light {
+  display: inline-flex; align-items: center; gap: 14px;
+  border: 1px solid rgba(248,245,240,0.3);
+  color: var(--ivory); background: transparent;
+  font-family: var(--dm); font-size: 0.7rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  text-decoration: none; padding: 15px 30px; cursor: pointer;
+  transition: background 0.35s, border-color 0.35s; align-self: flex-start;
+}
+.btn-line-light:hover {
+  background: rgba(248,245,240,0.08);
+  border-color: rgba(248,245,240,0.65);
+}
+.btn-arr {
+  width: 20px; height: 1px; background: currentColor;
+  position: relative; flex-shrink: 0; transition: width 0.3s;
+}
+.btn-line:hover .btn-arr,
+.btn-line-light:hover .btn-arr { width: 30px; }
+.btn-arr::after {
+  content: ''; position: absolute; right: 0; top: -3.5px;
+  width: 7px; height: 7px;
+  border-right: 1px solid currentColor;
+  border-top: 1px solid currentColor;
+  transform: rotate(45deg);
 }
 
-.hero-container h1 {
-  font-size: 5rem;
-  /* base size */
+.props-section { background: var(--cream); }
+.props-head {
+  max-width: 1200px; margin: 0 auto;
+  padding: 7vw 8vw 3.5rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-bottom: 1px solid var(--linen);
+}
+.props-count {
+  font-family: var(--fd);
+  font-size: 6rem; font-weight: 300; color: var(--linen); line-height: 1;
+}
+.prop-item {
+  max-width: 1200px; margin: 0 auto; padding: 0 8vw;
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--linen);
+  cursor: pointer; overflow: hidden; transition: background 0.3s;
+}
+.prop-item:hover { background: var(--linen); }
+.prop-item:hover .pi-img img { transform: scale(1.06); }
+.prop-item--r .prop-text { order: 2; }
+.prop-item--r .pi-img  { order: 1; }
+.prop-text {
+  padding: 5vw 4vw 5vw 0;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.prop-item--r .prop-text { padding: 5vw 0 5vw 4vw; }
+.prop-num {
+  font-family: var(--fd); font-size: 4rem;
+  font-weight: 300; color: var(--linen); line-height: 1; margin-bottom: 1rem;
+}
+.prop-cat {
+  font-size: 0.64rem; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--bronze); margin-bottom: 0.75rem;
+}
+.prop-name {
+  font-family: var(--fd); font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+  font-weight: 300; color: var(--charcoal);
+  line-height: 1.15; margin-bottom: 2rem;
+}
+.prop-metas { display: flex; flex-direction: column; gap: 0.7rem; }
+.prop-meta-row { display: flex; gap: 1.5rem; align-items: baseline; }
+.mk { font-size: 0.64rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--pale); min-width: 68px; }
+.mv { font-size: 0.88rem; color: var(--mid); font-weight: 300; }
+.prop-cta {
+  margin-top: 2.5rem; display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.67rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--bronze);
+  border-bottom: 1px solid var(--bronze-xl); padding-bottom: 3px;
+  align-self: flex-start; transition: gap 0.3s, border-color 0.3s;
+}
+.prop-item:hover .prop-cta { gap: 18px; border-color: var(--bronze); }
+.pi-img { overflow: hidden; }
+.pi-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; min-height: 420px;
+  transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 
-@media (min-width: 768px) {
-  .hero-container h1 {
-    font-size: 7rem;
-    /* medium screens */
-  }
+.mission { background: var(--charcoal); padding: 10vw 8vw; }
+.mission-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8vw; align-items: start;
+}
+.mission-left { position: sticky; top: 100px; }
+.m-eyebrow {
+  font-size: 0.67rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--bronze-l);
+  display: flex; align-items: center; gap: 12px; margin-bottom: 2.5rem;
+}
+.m-eyebrow::before {
+  content: ''; display: block;
+  width: 26px; height: 1px; background: var(--bronze-l);
+}
+.m-headline {
+  font-family: var(--fd);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 300; color: var(--ivory);
+  line-height: 1.05; margin-bottom: 2.5rem;
+}
+.m-headline em { font-style: italic; color: var(--bronze-l); }
+.m-body {
+  font-size: 0.96rem; font-weight: 300;
+  line-height: 1.9; color: rgba(248,245,240,0.5);
+  max-width: 420px; margin-bottom: 3rem;
+}
+.m-img {
+  width: 100%; aspect-ratio: 4/5;
+  object-fit: cover; display: block;
+  margin-top: 3.5rem; filter: brightness(0.72);
+}
+.pillars { display: flex; flex-direction: column; }
+.pillar {
+  border-top: 1px solid rgba(248,245,240,0.1);
+  padding: 2rem 0;
+  display: grid; grid-template-columns: 52px 1fr;
+  gap: 1.5rem; align-items: start;
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.pillar.in { opacity: 1; transform: none; }
+.pillar:last-child { border-bottom: 1px solid rgba(248,245,240,0.1); }
+.p-num {
+  font-family: var(--fd); font-size: 1.8rem; font-weight: 300;
+  color: rgba(248,245,240,0.12); line-height: 1; padding-top: 2px;
+}
+.p-title {
+  font-size: 0.71rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ivory); margin-bottom: 0.55rem;
+}
+.p-desc {
+  font-size: 0.87rem; font-weight: 300;
+  line-height: 1.75; color: rgba(248,245,240,0.42);
 }
 
-@media (min-width: 1200px) {
-  .hero-container h1 {
-    font-size: 6rem;
-    /* large screens */
-  }
+.how { background: var(--ivory); padding: 10vw 8vw; }
+.how-inner { max-width: 1200px; margin: 0 auto; }
+.how-head { margin-bottom: 5rem; }
+.how-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--linen); border: 1px solid var(--linen);
+}
+.how-step {
+  background: var(--ivory); padding: 2.5rem 2rem;
+  display: flex; flex-direction: column; transition: background 0.3s;
+}
+.how-step:hover { background: var(--cream); }
+.hs-num {
+  font-family: var(--fd); font-size: 3.5rem;
+  font-weight: 300; color: var(--linen); line-height: 1; margin-bottom: 2rem;
+}
+.hs-img { width: 100%; aspect-ratio: 4/3; overflow: hidden; margin-bottom: 1.5rem; }
+.hs-img img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: brightness(0.88); transition: transform 0.7s ease, filter 0.4s;
+}
+.how-step:hover .hs-img img { transform: scale(1.05); filter: brightness(1); }
+.hs-bar { width: 28px; height: 1px; background: var(--bronze); margin-bottom: 1.1rem; }
+.hs-title {
+  font-family: var(--fd); font-size: 1.22rem;
+  font-weight: 300; color: var(--charcoal); margin-bottom: 0.7rem;
+}
+.hs-desc {
+  font-size: 0.83rem; font-weight: 300;
+  line-height: 1.7; color: var(--mid); margin-top: auto;
 }
 
-.property-table {
-  width: 80%;
-  border-collapse: collapse;
-  color: white;
+@media (max-width: 900px) {
+  .intro-inner { grid-template-columns: 1fr; }
+  .intro-aside { display: none; }
+  .prop-item { grid-template-columns: 1fr; }
+  .prop-item--r .prop-text { order: 1; padding: 5vw 0; }
+  .prop-item--r .pi-img { order: 2; }
+  .pi-img img { min-height: 260px; }
+  .prop-text { padding: 5vw 0 3vw; }
+  .mission-inner { grid-template-columns: 1fr; }
+  .mission-left { position: static; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .props-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2rem; }
 }
-
-.property-table td {
-  padding: 30px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  /* thinner horizontal line */
-}
-
-.title-row {
-  font-weight: bold;
-  text-align: center;
-  font-size: 1.5rem;
-  padding-bottom: 25px;
-}
-
-.sticky-card {
-  position: sticky;
-  top: 0;
-}
-
-.intro-section {
-  margin-top: 30vh;
-  /* push below full-screen video */
-  position: relative;
-  z-index: 2;
-}
-
-.hero-container-mobile {
-  position: relative;
-  height: 60vh;
-  /* full viewport height */
-  width: 100%;
-  z-index: 1;
-}
-
-/* mobile table */
-.mobile-property-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.mobile-property-table td {
-  padding: 16px 0;
-}
-
-.mobile-property-table tr {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Remove bottom border for title row */
-.mobile-property-table .mobile-title-row {
-  border-bottom: none;
-}
-
-.mobile-title-row td {
-  font-size: 2rem;
-  font-weight: 600;
-  padding-bottom: 20px;
-}
-
-.stacked-row .mobile-label {
-  font-size: 0.75rem;
-  opacity: 0.7;
-  margin-bottom: 4px;
-}
-
-.stacked-row .mobile-value {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.button-line-group .line {
-  width: 10px;
-  /* fixed line width */
-  height: 2px;
-  /* thickness */
-  background-color: black;
-  margin: 0;
-  /* connected to buttons */
-}
-
-/* carouse */
-.carousel-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  padding: 16px 0;
-}
-
-.carousel-wrapper {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  /* snap per slide */
-  scrollbar-width: none;
-  /* Firefox */
-}
-
-.carousel-wrapper::-webkit-scrollbar {
-  display: none;
-  /* Chrome/Safari */
-}
-
-.step-description {
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-  text-align: center;
-  position: relative;
-}
-
-.text-carousel {
-  position: relative;
-  overflow: hidden;
-  height: 60px;
-  /* enough for title+desc */
-}
-
-.text-carousel .title,
-.text-carousel .desc {
-  position: absolute;
-  width: 100%;
-  line-height: 2rem;
-}
-
-.text-carousel-wrapper {
-  position: relative;
-  height: 50px;
-  /* adjust to fit your text */
-  overflow: hidden;
-}
-
-.text-carousel-item {
-  position: absolute;
-  width: 100%;
-  text-align: center;
+@media (max-width: 520px) {
+  .how-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 3.2rem; }
 }
 </style>
+
 <template>
-  <div v-if="!isMobileView">
-    <div class="hero-container position-relative">
-      <!-- Overlay Text -->
-      <div class="overlay d-flex flex-column justify-center align-start text-left">
-        <h1 ref="title" style="font-weight: 300">
-          {{ t.welcome }}
+  <div class="home-wrap">
+
+    <!-- HERO -->
+    <section class="hero">
+      <video v-if="$route.name === 'home'" autoplay loop muted playsinline preload="metadata">
+        <source src="/eishi/videos/Benguet.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-veil" />
+      <div class="hero-content">
+        <p class="hero-eyebrow" :class="{ in: ready }">
+          {{ t.webTagline || 'Philippine Holdings &amp; Investments' }}
+        </p>
+        <h1 class="hero-title" :class="{ in: ready }">
+          {{ t.welcome || 'Eishi' }}<br /><em></em>
         </h1>
-        <h3 ref="tagline" class="text-grey font-weight-bold">
-          {{ t.webTagline }}
-        </h3>
+        <div class="hero-bottom" :class="{ in: ready }">
+          <p class="hero-sub">
+            {{ t.missionDescription || 'A diversified holding company rooted in agriculture, real estate, and community development across the Philippine archipelago.' }}
+          </p>
+          <div class="hero-scroll">
+            <div class="scroll-bar" />
+            <span>Scroll</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span v-for="item in tickerFull" :key="item.k">
+          <span :class="{ 'ticker-accent': item.accent }">{{ item.text }}</span>
+        </span>
       </div>
     </div>
-    <!-- desktop -->
-    <div class="bg-grey-lighten-4">
-      <v-container fluid style="padding-top: 10rem; padding-bottom: 10rem">
-        <v-row>
-          <v-col class="mx-auto d-flex flex-column align-start" cols="9">
-            <v-card class="mx-auto ma-4" variant="text">
-              <p class="mb-5 scroll-text" ref="scrollText" style="line-height: 1; font-size: 4rem">
-                <span v-for="(letter, index) in letters" :key="index" class="antique letter"
-                  style="letter-spacing: 1px">
-                  {{ letter.char }}
-                </span>
-              </p>
-            </v-card>
 
-            <v-btn to="/about" rounded size="x-large" class="text-capitalize mt-12 text-carousel btn-fixed-width"
-              height="80" width="400" color="black">
-              <span class="text-front"> {{ t.moreAboutEishi }}</span>
-              <span class="text-back"> {{ t.moreAboutEishi }}</span>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
-
-    <!-- Feed Mill -->
-    <div class="sticky-card" style="z-index: 1; height: 100vh" ref="feedMillCard">
-      <v-card class="bg-black" @click="$router.push('/business_holdings/feed_mill')">
-        <v-row align="center">
-          <v-col cols="7" class="d-flex justify-center align-center">
-            <v-container class="ma-10">
-              <table class="property-table">
-                <tbody>
-                  <tr>
-                    <td colspan="2" class="title-row">
-                      {{ t.feedMillDetails.businessNameValue }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.location }}</td>
-                    <td>{{ t.sanJoseMunicipality }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </v-container>
-          </v-col>
-
-          <v-col class="pa-0 ma-0">
-            <v-img src="/eishi/feed_mill/images/hero.JPG" height="100vh" cover loading="lazy">
-              <div class="image-scrim"></div>
-              <template #placeholder>
-                <v-skeleton-loader type="image" />
-              </template>
-            </v-img>
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
-
-    <!-- Car Rental -->
-    <div class="sticky-card" style="z-index: 1; height: 100vh" ref="carRentalCard">
-      <v-card class="bg-black" @click="$router.push('/business_holdings/car_rental')">
-        <v-row align="center">
-          <v-col cols="7" class="d-flex justify-center align-center">
-            <v-container class="ma-10">
-              <table class="property-table">
-                <tbody>
-                  <tr>
-                    <td colspan="2" class="title-row">{{ t.carRental }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.location }}</td>
-                    <td>{{ t.carRentalLocation }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </v-container>
-          </v-col>
-
-          <v-col class="pa-0 ma-0">
-            <v-img src="/eishi/car_rental/images/car01.webp" height="100vh" cover loading="lazy">
-              <div class="image-scrim"></div>
-              <template #placeholder>
-                <v-skeleton-loader type="image" />
-              </template>
-            </v-img>
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
-
-    <!-- Poultry Farm -->
-    <div class="sticky-card" style="z-index: 1; height: 100vh" ref="poultryCard">
-      <v-card class="bg-black" @click="$router.push('/business_holdings/batangas/poultry_farm')">
-        <v-row align="center">
-          <v-col cols="7" class="d-flex justify-center align-center">
-            <v-container class="ma-10">
-              <table class="property-table">
-                <tbody>
-                  <tr>
-                    <td colspan="2" class="title-row">{{ t.poultryFarm }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.location }}</td>
-                    <td>{{ t.sanJoseMunicipality }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.sqm }}</td>
-                    <td>3,500</td>
-                  </tr>
-                </tbody>
-              </table>
-            </v-container>
-          </v-col>
-          <v-col class="pa-0 ma-0">
-            <v-img src="/eishi/batangas_tokyo_farm/images/1732160556378.webp" height="100vh" cover loading="lazy">
-              <div class="image-scrim"></div>
-              <template #placeholder>
-                <v-skeleton-loader type="image" />
-              </template>
-            </v-img>
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
-
-    <div class="sticky-card" style="z-index: 2; height: 100vh" ref="pangasinanCard">
-      <!-- Pangasinan Farm -->
-      <v-card class="bg-black" @click="$router.push('/business_holdings/pangasinan_farm')">
-        <v-row align="center">
-          <v-col cols="7" class="d-flex justify-center align-center">
-            <v-container class="ma-10">
-              <table class="property-table">
-                <tbody>
-                  <tr>
-                    <td colspan="2" class="title-row">{{ t.pangasinanFarm }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.location }}</td>
-                    <td>{{ t.balungaoMunicipality }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.sqm }}</td>
-                    <td>240,500</td>
-                  </tr>
-                </tbody>
-              </table>
-            </v-container>
-          </v-col>
-          <v-col class="pa-0 ma-0">
-            <v-img src="/eishi/pangasinan_farm/images/dji_fly_20250311_151954_0036_1741678753512_photo.webp"
-              height="100vh" cover loading="lazy">
-              <div class="image-scrim"></div>
-              <template #placeholder>
-                <v-skeleton-loader type="image" />
-              </template>
-            </v-img>
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
-
-    <div class="sticky-card" style="z-index: 3; height: 100vh" ref="assignedPropertiesCard">
-      <!-- Assigned Properties -->
-      <v-card class="bg-black" @click="$router.push('/business_holdings/assigned_properties')">
-        <v-row align="center">
-          <v-col cols="7" class="d-flex justify-center align-center">
-            <v-container class="ma-10">
-              <table class="property-table">
-                <tbody>
-                  <tr>
-                    <td colspan="2" class="title-row">{{ t.assignedProperties }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.location }}</td>
-                    <td>{{ t.sanJoseMuntinlupaMoron }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </v-container>
-          </v-col>
-          <v-col class="pa-0 ma-0">
-            <v-img src="/eishi/assigned_properties/images/1732160485860.webp" height="100vh" cover loading="lazy">
-              <div class="image-scrim"></div>
-              <template #placeholder>
-                <v-skeleton-loader type="image" />
-              </template>
-            </v-img>
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
-
-    <div class="sticky-card" style="z-index: 4; height: 100vh" ref="kalingaCard">
-      <!-- Residential Lands -->
-      <v-card class="bg-black" @click="$router.push('/business_holdings/kalinga_residential')">
-        <v-row align="center">
-          <v-col cols="7" class="d-flex justify-center align-center">
-            <v-container class="ma-10">
-              <table class="property-table">
-                <tbody>
-                  <tr>
-                    <td colspan="2" class="title-row">{{ t.residentialLands }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.location }}</td>
-                    <td>{{ t.tabukKalinganProvince }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.lot }}</td>
-                    <td>42</td>
-                  </tr>
-                </tbody>
-              </table>
-            </v-container>
-          </v-col>
-          <v-col class="pa-0 ma-0">
-            <v-img src="/eishi/kalinga_residential/images/DJI_0591-min.webp" height="100vh" cover loading="lazy">
-              <div class="image-scrim"></div>
-              <template #placeholder>
-                <v-skeleton-loader type="image" />
-              </template>
-            </v-img>
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
-
-    <div class="sticky-card" style="z-index: 5; height: 100vh" ref="cebuCard">
-      <!-- Cebu Condominiums -->
-      <v-card class="bg-black" @click="$router.push('/business_holdings/cebu_condominium')">
-        <v-row align="center">
-          <v-col cols="7" class="d-flex justify-center align-center">
-            <v-container class="ma-10">
-              <table class="property-table">
-                <tbody>
-                  <tr>
-                    <td colspan="2" class="title-row">{{ t.cebuCondo }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.location }}</td>
-                    <td>{{ t.cebuDescription }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ t.residences }}</td>
-                    <td>1016</td>
-                  </tr>
-                </tbody>
-              </table>
-            </v-container>
-          </v-col>
-          <v-col class="pa-0 ma-0">
-            <v-img src="/eishi/cebu_condo/images/20240626_094216.webp" height="100vh" cover loading="lazy">
-              <div class="image-scrim"></div>
-              <template #placeholder>
-                <v-skeleton-loader type="image" />
-              </template>
-            </v-img>
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
-
-    <v-container>
-      <v-row>
-        <v-col cols="9" class="mx-auto">
-          <v-container>
-            <v-row>
-              <v-col cols="6" class="d-flex flex-column align-start pa-0">
-                <v-container>
-                  <v-row>
-                    <div ref="vissionTitle" style="font-size: 2rem">
-                      <h1 style="font-weight: 300">{{ t.yourVission }}</h1>
-                      <h1 style="font-weight: 300">{{ t.ourMission }}</h1>
-                    </div>
-                  </v-row>
-
-                  <v-row>
-                    <v-col class="text-left ma-0 pa-0">
-                      <v-parallax width="400px" src="/eishi/pexels-rickyrecap-1662159.webp">
-                      </v-parallax>
-                    </v-col>
-                  </v-row>
-                  <v-row style="padding-top: 2rem; font-size: 1rem">
-                    <v-col class="text-left ma-0 pa-0" cols="9">
-                      <div class="" ref="missionDesc">{{ t.missionDescription }}</div>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-btn to="/about" rounded size="x-large"
-                      class="text-capitalize mt-12 text-carousel btn-fixed-width" height="80" width="400" color="black">
-                      <span class="text-front">{{ t.moreAboutEishi }}</span>
-                      <span class="text-back"> {{ t.moreAboutEishi }}</span>
-                    </v-btn>
-                  </v-row>
-                </v-container>
-              </v-col>
-              <v-col cols="6">
-                <v-container>
-                  <v-row>
-                    <v-col v-for="(item, index) in cards" :key="index" cols="12" class="d-flex justify-end">
-                      <div ref="cardRefs" class="d-flex flex-column text-left pa-4 cinematic-card"
-                        style="height: 250px; width: 500px">
-                        <span class="card-title">
-                          {{ twoDigits(index + 1) }} | {{ item.title }}
-                        </span>
-
-                        <!-- description -->
-                        <div class="mt-auto text-blue-grey-darken-2 card-desc">
-                          {{ item.description }}
-                        </div>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
-
-  <!-- Mobile view cards -->
-
-  <div v-if="isMobileView" class="mobile-wrapper">
-    <!-- Hero -->
-    <div class="hero-container-mobile cinematic-hero">
-      <div class="hero-overlay"></div>
-      <v-container class="fill-height d-flex flex-column text-white mt-10 text-left">
-        <h1 class="hero-text cinematic-title linear-gradient-text mb-2" style="font-size: 2.5rem">
-          {{ t.welcome }}
-        </h1>
-        <p class="hero-subtext cinematic-subtext mt-2 text-grey" style="text-align: left; align-self: flex-start">
-          {{ t.webTagline }}
-        </p>
-      </v-container>
-    </div>
-
-    <!-- Intro Text -->
-    <v-container class="intro-section py-8">
-      <v-card class="mx-auto ma-4" variant="text">
-        <p class="mb-5 scroll-text font-weight-bold" ref="scrollText" style="line-height: 1; font-size: 2rem">
-          <span v-for="(letter, index) in letters" :key="index" class="antique letter" style="letter-spacing: 1px">
-            {{ letter.char }}
-          </span>
-        </p>
-      </v-card>
-
-      <v-btn to="/about" block color="black" size="large" rounded
-        style="padding: 2rem; margin-top: 3rem; margin-bottom: 3rem">
-        {{ t.moreAboutEishi }}
-      </v-btn>
-    </v-container>
-
-    <!-- Properties (Stacked Cards) -->
-
-    <v-card class="bg-black cinematic-card">
-      <v-row>
-        <v-img src="/eishi/feed_mill/images/hero.JPG" height="300" cover loading="lazy">
-          <div class="image-scrim"></div>
-          <template #placeholder>
-            <v-skeleton-loader type="image" />
-          </template>
-        </v-img>
-      </v-row>
-      <v-row align="center">
-        <v-col class="d-flex justify-center align-center">
-          <v-container class="cinematic-card-body">
-            <table class="mobile-property-table">
-              <tbody>
-                <tr class="mobile-title-row">
-                  <td colspan="2">{{ t.feedMillDetails.businessNameValue }}</td>
-                </tr>
-
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.location }}</div>
-                    <div class="mobile-value">{{ t.sanJoseMunicipality }}</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <v-btn block class="text-black mt-10 mb-10 text-capitalize" size="x-large" height="60"
-              @click="$router.push('/business_holdings/feed_mill')">
-              View Property
-            </v-btn>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
-    <v-card class="bg-black cinematic-card">
-      <v-row>
-        <v-img src="/eishi/car_rental/images/car01.webp" height="300" cover loading="lazy">
-          <div class="image-scrim"></div>
-          <template #placeholder>
-            <v-skeleton-loader type="image" />
-          </template>
-        </v-img>
-      </v-row>
-      <v-row align="center">
-        <v-col class="d-flex justify-center align-center">
-          <v-container class="cinematic-card-body">
-            <table class="mobile-property-table">
-              <tbody>
-                <tr class="mobile-title-row">
-                  <td colspan="2">{{ t.carRental }}</td>
-                </tr>
-
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.location }}</div>
-                    <div class="mobile-value">{{ t.carRentalLocation }}</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <v-btn block class="text-black mt-10 mb-10 text-capitalize" size="x-large" height="60"
-              @click="$router.push('/business_holdings/car_rental')">
-              View Property
-            </v-btn>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <!-- Poultry Farm -->
-    <v-card class="bg-black cinematic-card">
-      <v-row>
-        <v-img src="/eishi/batangas_tokyo_farm/images/1732160556378.webp" height="300" cover loading="lazy">
-          <div class="image-scrim"></div>
-          <template #placeholder>
-            <v-skeleton-loader type="image" />
-          </template>
-        </v-img>
-      </v-row>
-      <v-row align="center">
-        <v-col class="d-flex justify-center align-center">
-          <v-container class="cinematic-card-body">
-            <table class="mobile-property-table">
-              <tbody>
-                <tr class="mobile-title-row">
-                  <td colspan="2">{{ t.poultryFarm }}</td>
-                </tr>
-
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.location }}</div>
-                    <div class="mobile-value">{{ t.sanJoseMunicipality }}</div>
-                  </td>
-                </tr>
-
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.sqm }}</div>
-                    <div class="mobile-value">3,500</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <v-btn block class="text-black mt-10 mb-10 text-capitalize" size="x-large" height="60"
-              @click="$router.push('/business_holdings/batangas/poultry_farm')">
-              View Property
-            </v-btn>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
-    <!-- Pangasinan Farm -->
-    <v-card class="bg-black cinematic-card">
-      <v-row>
-        <v-img src="/eishi/pangasinan_farm/images/dji_fly_20250311_151954_0036_1741678753512_photo.webp" height="300"
-          cover loading="lazy">
-          <div class="image-scrim"></div>
-          <template #placeholder>
-            <v-skeleton-loader type="image" />
-          </template>
-        </v-img>
-      </v-row>
-      <v-row align="center">
-        <v-col class="d-flex justify-center align-center">
-          <v-container class="cinematic-card-body">
-            <table class="mobile-property-table">
-              <tbody>
-                <tr class="mobile-title-row">
-                  <td colspan="2">{{ t.pangasinanFarm }}</td>
-                </tr>
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.location }}</div>
-                    <div class="mobile-value">{{ t.balungaoMunicipality }}</div>
-                  </td>
-                </tr>
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.sqm }}</div>
-                    <div class="mobile-value">240,500</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <v-btn block class="text-black mt-10 text-capitalize" size="x-large" height="60"
-              @click="$router.push('/business_holdings/pangasinan_farm')">
-              View Property
-            </v-btn>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <!-- Assigned Properties -->
-    <v-card class="bg-black cinematic-card">
-      <v-row>
-        <v-img src="/eishi/assigned_properties/images/1732160485860.webp" height="300" cover loading="lazy">
-          <div class="image-scrim"></div>
-          <template #placeholder>
-            <v-skeleton-loader type="image" />
-          </template>
-        </v-img>
-      </v-row>
-      <v-row align="center">
-        <v-col class="d-flex justify-center align-center">
-          <v-container class="cinematic-card-body">
-            <table class="mobile-property-table">
-              <tbody>
-                <tr class="mobile-title-row">
-                  <td colspan="2">{{ t.assignedProperties }}</td>
-                </tr>
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.location }}</div>
-                    <div class="mobile-value">{{ t.sanJoseMuntinlupaMoron }}</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <v-btn block class="text-black mt-10 text-capitalize" size="x-large" height="60"
-              @click="$router.push('/business_holdings/assigned_properties')">
-              View Property
-            </v-btn>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <!-- Residential Lands -->
-    <v-card class="bg-black cinematic-card">
-      <v-row>
-        <v-img src="/eishi/kalinga_residential/images/DJI_0591-min.webp" height="300" cover loading="lazy">
-          <div class="image-scrim"></div>
-          <template #placeholder>
-            <v-skeleton-loader type="image" />
-          </template>
-        </v-img>
-      </v-row>
-      <v-row align="center">
-        <v-col class="d-flex justify-center align-center">
-          <v-container class="cinematic-card-body">
-            <table class="mobile-property-table">
-              <tbody>
-                <tr class="mobile-title-row">
-                  <td colspan="2">{{ t.residentialLands }}</td>
-                </tr>
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.location }}</div>
-                    <div class="mobile-value">{{ t.tabukKalinganProvince }}</div>
-                  </td>
-                </tr>
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.lot }}</div>
-                    <div class="mobile-value">42</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <v-btn block class="text-black mt-10 text-capitalize" size="x-large" height="60"
-              @click="$router.push('/business_holdings/kalinga_residential')">
-              View Property
-            </v-btn>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <!-- Cebu Condominiums -->
-    <v-card class="bg-black cinematic-card">
-      <v-row>
-        <v-img src="/eishi/cebu_condo/images/20240626_094216.webp" height="300" cover loading="lazy">
-          <div class="image-scrim"></div>
-          <template #placeholder>
-            <v-skeleton-loader type="image" />
-          </template>
-        </v-img>
-      </v-row>
-      <v-row align="center">
-        <v-col class="d-flex justify-center align-center">
-          <v-container class="cinematic-card-body">
-            <table class="mobile-property-table">
-              <tbody>
-                <tr class="mobile-title-row">
-                  <td colspan="2">{{ t.cebuCondo }}</td>
-                </tr>
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.location }}</div>
-                    <div class="mobile-value">{{ t.cebuDescription }}</div>
-                  </td>
-                </tr>
-                <tr class="stacked-row">
-                  <td colspan="2">
-                    <div class="mobile-label">{{ t.residences }}</div>
-                    <div class="mobile-value">1016</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <v-btn block class="text-black mt-10 text-capitalize" height="60" size="x-large"
-              @click="$router.push('/business_holdings/cebu_condominium')">
-              View Property
-            </v-btn>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <!-- Mission -->
-    <div class="bg-grey-lighten-4">
-      <v-container class="py-10 d-flex flex-column justify-center" height="400">
-        <h1 class="mb-4" style="">{{ t.yourVission }}<br />{{ t.ourMission }}</h1>
-
-        <p class="text-body-1">
-          {{ t.missionDescription }}
-        </p>
-      </v-container>
-
-      <v-card v-for="(item, index) in cards" :key="index" cols="12" class="ma-4" flat>
-        <v-container>
-          <v-row>
-            <v-col class="d-flex justify-end text-black bg-white">
-              <div style="
-                  height: 300px;
-                  display: flex;
-                  flex-direction: column;
-                  justify-content: space-between;
-                  padding: 16px;
-                ">
-                <!-- Title at top -->
-                <span style="font-size: 2rem; font-weight: bold">
-                  {{ twoDigits(index + 1) }} | {{ item.title }}
-                </span>
-
-                <!-- Description at bottom -->
-                <span>
-                  {{ item.description }}
-                </span>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
-
-      <v-container height="300" class="d-flex align-center justify-center" style="margin-top: 10rem">
-        <div>
-          <span style="font-size: 3rem; font-weight: bold">How Eishi</span>
-          <br />
-          <span style="font-size: 3rem; font-weight: bold">Works</span>
-
-          <v-row class="mt-10" justify="center">
-            <v-col class="d-flex align-center justify-center" cols="10">
-              <div class="button-line-group d-flex align-center">
-                <v-btn size="large" height="60" color="black" @click="goToImageSlide(0)">1</v-btn>
-                <div class="line"></div>
-                <v-btn size="large" color="black" height="60" @click="goToImageSlide(1)">2</v-btn>
-                <div class="line"></div>
-                <v-btn size="large" color="black" height="60" @click="goToImageSlide(2)">3</v-btn>
-                <div class="line"></div>
-                <v-btn size="large" color="black" height="60" @click="goToImageSlide(3)">4</v-btn>
-              </div>
-            </v-col>
-          </v-row>
+    <!-- INTRO -->
+    <section class="intro">
+      <div class="intro-inner">
+        <div class="intro-aside">
+          <div class="intro-img-wrap">
+            <img src="/eishi/pexels-rickyrecap-1662159.webp" alt="Eishi Group" loading="lazy" />
+          </div>
+          <div class="intro-caption">
+            <p>Est. Philippines</p>
+          </div>
         </div>
-      </v-container>
-      <v-container class="pb-10">
-        <!-- Image carousel -->
-        <div class="carousel-container">
-          <div class="carousel-wrapper" ref="imageCarousel">
-            <div class="step-description" v-for="(step, index) in eishi_steps" :key="index">
-              <v-img :src="step.img" cover height="300" loading="lazy">
-                <template #placeholder>
-                  <v-skeleton-loader type="image" />
-                </template>
-              </v-img>
+        <div class="intro-text">
+          <span class="label-tag">About Eishi</span>
+          <h2 class="headline">
+            {{ t.homeParagraph1 || 'Building legacies across the Philippine archipelago.' }}
+          </h2>
+          <p class="body-text">
+            Eishi Group is a diversified holding company committed to sustainable agriculture,
+            responsible real estate, and meaningful partnerships that uplift communities.
+          </p>
+          <router-link to="/about" class="btn-line">
+            {{ t.moreAboutEishi || 'Discover our story' }}
+            <span class="btn-arr" />
+          </router-link>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROPERTIES -->
+    <section class="props-section">
+      <div class="props-head">
+        <div>
+          <p class="label-tag" style="margin-bottom:1rem">Our Business Holdings</p>
+          <h2 class="headline" style="margin:0">{{ t.ourBusiness || 'Portfolio' }}</h2>
+        </div>
+        <div class="props-count">06</div>
+      </div>
+
+      <div
+        v-for="(p, i) in properties"
+        :key="p.route"
+        class="prop-item"
+        :class="{ 'prop-item--r': i % 2 !== 0 }"
+        @click="$router.push(p.route)"
+      >
+        <div class="prop-text">
+          <div class="prop-num">{{ twoDigits(i + 1) }}</div>
+          <p class="prop-cat">{{ p.tag }}</p>
+          <h3 class="prop-name">{{ p.name }}</h3>
+          <div class="prop-metas">
+            <div class="prop-meta-row">
+              <span class="mk">{{ t.location || 'Location' }}</span>
+              <span class="mv">{{ p.location }}</span>
+            </div>
+            <div v-if="p.detail" class="prop-meta-row">
+              <span class="mk">{{ p.detailLabel }}</span>
+              <span class="mv">{{ p.detail }}</span>
+            </div>
+          </div>
+          <span class="prop-cta">{{ t.viewProperty || 'View Details' }} →</span>
+        </div>
+        <div class="pi-img">
+          <img :src="p.img" :alt="p.name" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSION / VISION -->
+    <section class="mission">
+      <div class="mission-inner">
+        <div class="mission-left">
+          <p class="m-eyebrow">Mission &amp; Vision</p>
+          <h2 class="m-headline">
+            {{ t.yourVission || 'Your Vision,' }}<br />
+            <em>{{ t.ourMission || 'Our Mission' }}</em>
+          </h2>
+          <p class="m-body">{{ t.missionDescription }}</p>
+          <router-link to="/about" class="btn-line-light">
+            {{ t.moreAboutEishi || 'Our story' }}
+            <span class="btn-arr" />
+          </router-link>
+          <img
+            src="/eishi/pexels-rickyrecap-1662159.webp"
+            alt="Mission" class="m-img" loading="lazy"
+          />
+        </div>
+
+        <div class="pillars" ref="pillarsRef">
+          <div
+            v-for="(card, i) in cards" :key="i"
+            class="pillar" :class="{ in: pillarsIn }"
+            :style="{ transitionDelay: (i * 0.1) + 's' }"
+          >
+            <div class="p-num">{{ twoDigits(i + 1) }}</div>
+            <div>
+              <p class="p-title">{{ card.title }}</p>
+              <p class="p-desc">{{ card.description }}</p>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Text carousel -->
-        <!-- Text carousel -->
-        <div class="text-carousel-wrapper">
-          <div v-for="(step, index) in eishi_steps" :key="index" class="text-carousel-item">
-            <span class="title" :style="getTextTransformStyle(index, 'title')">{{
-              step.title
-              }}</span><br />
+    <!-- HOW IT WORKS -->
+    <section class="how">
+      <div class="how-inner">
+        <div class="how-head">
+          <span class="label-tag" style="margin-bottom:1rem">Process</span>
+          <h2 class="headline" style="margin:0">How Eishi<br />Works</h2>
+        </div>
+        <div class="how-grid">
+          <div v-for="(step, i) in eishi_steps" :key="i" class="how-step">
+            <div class="hs-num">{{ twoDigits(i + 1) }}</div>
+            <div class="hs-img">
+              <img :src="step.img" :alt="step.title" loading="lazy" />
+            </div>
+            <div class="hs-bar" />
+            <h3 class="hs-title">{{ step.title }}</h3>
+            <p class="hs-desc">{{ step.description }}</p>
           </div>
         </div>
-        <div class="text-carousel-wrapper">
-          <div v-for="(step, index) in eishi_steps" :key="index" class="text-carousel-item">
-            <span class="desc" :style="getTextTransformStyle(index, 'desc')">{{
-              step.description
-              }}</span>
-          </div>
-        </div>
-      </v-container>
-    </div>
+      </div>
+    </section>
+
   </div>
 </template>
+
 <script>
 import { mapState } from 'pinia'
 import { useLanguageStore } from '@/stores/languageStore'
-import { gsap } from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
-import { SplitText } from 'gsap/SplitText'
 
-import TextPlugin from 'gsap/TextPlugin'
-gsap.registerPlugin(ScrollTrigger, SplitText, TextPlugin)
 export default {
   name: 'HomeView',
+
   data() {
     return {
-      cardRefs: [],
-      imageSlideIndex: 0,
-      textSlideIndex: 0,
-      imageAutoTimer: null,
-      textAutoTimer: null,
+      ready: false,
+      pillarsIn: false,
+      pillarsObserver: null,
+
+      tickerItems: [
+        'Feed Mill', 'Car Rental', 'Poultry Farm',
+        'Pangasinan Farm', 'Residential Lands', 'Cebu Condominium',
+      ],
+
       eishi_steps: [
-        {
-          img: '/images/browse.webp',
-          title: 'Browse Listings',
-          description: 'Explore all available properties and find the perfect fit for you.',
-        },
-        {
-          img: '/images/connect.webp',
-          title: 'Connect with us',
-          description: 'Reach out to our team to get more details and schedule a consultation.',
-        },
-        {
-          img: '/images/visit.webp',
-          title: 'Visit & Verify',
-          description: 'Visit the property in person and verify all details firsthand.',
-        },
-        {
-          img: '/images/partner.webp',
-          title: 'Become a Partner',
-          description: 'Join our network and enjoy benefits as a trusted partner.',
-        },
+        { img: '/images/browse.webp',  title: 'Browse Listings',  description: 'Explore all available properties and find the perfect fit for you.' },
+        { img: '/images/connect.webp', title: 'Connect with Us',  description: 'Reach out to our team for details and a free consultation.' },
+        { img: '/images/visit.webp',   title: 'Visit & Verify',   description: 'See the property in person and verify all details firsthand.' },
+        { img: '/images/partner.webp', title: 'Become a Partner', description: 'Join our network and enjoy benefits as a trusted partner.' },
       ],
 
       cards: [],
-      letters: [],
-      isMobileView: false,
     }
   },
-  watch: {
-    't.homeParagraph1': {
-      handler() {
-        this.updateLetters()
-      },
-      immediate: true,
+
+  computed: {
+    ...mapState(useLanguageStore, ['t']),
+
+    tickerFull() {
+      const base = this.tickerItems.flatMap((text, i) => [
+        { k: 'a' + i, text, accent: false },
+        { k: 'd' + i, text: '◆', accent: true },
+      ])
+      return [...base, ...base.map(x => ({ ...x, k: 'dup' + x.k }))]
     },
+
+    properties() {
+      return [
+        { route: '/business_holdings/feed_mill',                    tag: 'Agriculture', name: this.t.feedMillDetails?.businessNameValue || 'Feed Mill',         location: this.t.sanJoseMunicipality || 'San Jose, Batangas',     img: '/eishi/feed_mill/images/new-hero.jpg' },
+        { route: '/business_holdings/car_rental',                   tag: 'Transport',   name: this.t.carRental || 'Car Rental',                                 location: this.t.carRentalLocation || 'Philippines',             img: '/eishi/car_rental/images/car01.webp' },
+        { route: '/business_holdings/batangas/poultry_farm',        tag: 'Agriculture', name: this.t.poultryFarm || 'Poultry Farm',                             location: this.t.sanJoseMunicipality || 'San Jose, Batangas',     img: '/eishi/batangas_tokyo_farm/images/hero.jpg' },
+        { route: '/business_holdings/pangasinan_farm',              tag: 'Real Estate', name: this.t.pangasinanFarm || 'Pangasinan Farm',                       location: this.t.balungaoMunicipality || 'Balungao, Pangasinan', detailLabel: this.t.sqm || 'SQM',       detail: '240,500', img: '/eishi/pangasinan_farm/images/dji_fly_20250311_151954_0036_1741678753512_photo.webp' },
+        { route: '/business_holdings/kalinga_residential',          tag: 'Real Estate', name: this.t.residentialLands || 'Residential Lands',                  location: this.t.tabukKalinganProvince || 'Tabuk, Kalinga',      detailLabel: this.t.lot || 'Lots',      detail: '42',      img: '/eishi/kalinga_residential/images/DJI_0591-min.webp' },
+        { route: '/business_holdings/cebu_condominium',             tag: 'Real Estate', name: this.t.cebuCondo || 'Cebu Condominium',                           location: this.t.cebuDescription || 'Cebu City',                 detailLabel: this.t.residences || 'Units', detail: '1,016', img: '/eishi/cebu_condo/images/20240626_094216.webp' },
+      ]
+    },
+  },
+
+  watch: {
     t: {
       handler(newT) {
         this.cards = [
-          { title: newT.builtOnTrustTitle, description: newT.builtOnTrustDescription },
-          { title: newT.foodSecurityTitle, description: newT.foodSecurityDescription },
-          { title: newT.foreignInvestmentsTitle, description: newT.foreignInvestmentsDescription },
-          { title: newT.impactfulProjectsTitle, description: newT.impactfulProjectsDescription },
-          { title: newT.expandingFarmsTitle, description: newT.expandingFarmsDescription },
-          { title: newT.growthInnovationTitle, description: newT.growthInnovationDescription },
+          { title: newT.builtOnTrustTitle,       description: newT.builtOnTrustDescription },
+          { title: newT.foodSecurityTitle,        description: newT.foodSecurityDescription },
+          { title: newT.foreignInvestmentsTitle,  description: newT.foreignInvestmentsDescription },
+          { title: newT.impactfulProjectsTitle,   description: newT.impactfulProjectsDescription },
+          { title: newT.expandingFarmsTitle,      description: newT.expandingFarmsDescription },
+          { title: newT.growthInnovationTitle,    description: newT.growthInnovationDescription },
         ]
-        this.updateTranslations()
       },
-      immediate: true, // also run once on mount
-      deep: true,
+      immediate: true, deep: true,
     },
-  },
-  computed: {
-    ...mapState(useLanguageStore, ['t']),
   },
 
   mounted() {
     this.$nextTick(() => {
-
-      this.animateCards()
-      // Poultry Farm subtle movement
-      gsap.to(this.$refs.poultryCard, {
-        y: 50, // move down 50px as you scroll
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: this.$refs.poultryCard,
-          start: 'top bottom', // when the top of card hits bottom of viewport
-          end: 'center center', // until the card is centered
-          scrub: 3,
-        },
-      })
-
-      // Pangasinan subtle movement
-      gsap.to(this.$refs.pangasinanCard, {
-        y: -50, // move up 50px as you scroll
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: this.$refs.pangasinanCard,
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 3,
-        },
-      })
-      // Pangasinan subtle movement
-      gsap.to(this.$refs.carRentalCard, {
-        y: -50, // move up 50px as you scroll
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: this.$refs.carRentalCard,
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 3,
-        },
-      })
-      // Pangasinan subtle movement
-      gsap.to(this.$refs.feedMillCard, {
-        y: -50, // move up 50px as you scroll
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: this.$refs.feedMillCard,
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 3,
-        },
-      })
-      // Pangasinan subtle movement
-      gsap.to(this.$refs.kalingaCard, {
-        y: -50, // move up 50px as you scroll
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: this.$refs.kalingaCard,
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 3,
-        },
-      })
-      // Pangasinan subtle movement
-      gsap.to(this.$refs.cebuCard, {
-        y: -50, // move up 50px as you scroll
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: this.$refs.cebuCard,
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 3,
-        },
-      })
-      // Pangasinan subtle movement
-      gsap.to(this.$refs.assignedPropertiesCard, {
-        y: -50, // move up 50px as you scroll
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: this.$refs.assignedPropertiesCard,
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 3,
-        },
-      })
-
-      const cards = this.$refs.cardRefs
-      cards.forEach((card) => {
-        gsap.from(card, {
-          y: 20,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 80%',
-            once: true,
-          },
-        })
-      })
-
-      // ------------------------------
-      // TITLES & DESCRIPTIONS ANIMATION
-      // ------------------------------
-      const sectionsToAnimate = [this.$refs.vissionTitle, this.$refs.missionDesc]
-
-      sectionsToAnimate.forEach((el) => {
-        if (!el) return
-        gsap.from(el, {
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 80%',
-            once: true,
-          },
-          y: 20,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-        })
-      })
-    })
-
-    this.$nextTick(() => {
-      // 1️⃣ Split FIRST
-      const titleSplit = new SplitText(this.$refs.title, {
-        type: 'chars,words',
-      })
-
-      titleSplit.chars.forEach((char) => {
-        char.classList.add('linear-gradient-text')
-      })
-
-      const taglineSplit = new SplitText(this.$refs.tagline, {
-        type: 'lines',
-        linesClass: 'line',
-      })
-
-      // 2️⃣ THEN query letters
-      const letters = this.$refs.scrollText.querySelectorAll('.letter')
-
-      // 3️⃣ Set initial color
-      gsap.set(letters, { color: '#7A7A7A' })
-
-      // 4️⃣ Scroll-based color animation
-      gsap.to(letters, {
-        color: '#1A1A1A',
-        stagger: 0.05,
-        ease: 'power1.out',
-        scrollTrigger: {
-          trigger: this.$refs.scrollText,
-          start: 'top 80%',
-          end: 'top 50%',
-          scrub: 3,
-        },
-      })
-
-      // 5️⃣ Other animations
-      gsap.from(titleSplit.chars, {
-        yPercent: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.02,
-        ease: 'expo.out',
-      })
-
-      gsap.from(taglineSplit.lines, {
-        yPercent: 20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        delay: 1,
-        ease: 'expo.out',
-      })
-
-      // 6️⃣ Refresh ScrollTrigger AFTER all DOM changes
-      ScrollTrigger.refresh()
-    })
-
-    this.updateTranslations()
-    this.startImageAutoSlide()
-    this.startTextAutoSlide()
-
-    this.updateLetters()
-    const languageStore = useLanguageStore()
-
-    // Get the text from the store
-    const text = languageStore.t.homeParagraph1
-
-    // Split text into letters for animation
-    this.letters = text.split('').map((char) => ({ char, color: '#ccc' }))
-
-    // Sticky card logic
-    const cards = document.querySelectorAll('.sticky-card')
-    const lastCard = cards[cards.length - 1]
-
-    window.addEventListener('scroll', () => {
-      cards.forEach((card, index) => {
-        const nextCard = cards[index + 1]
-        if (!nextCard) return
-
-        const cardRect = card.getBoundingClientRect()
-        const nextRect = nextCard.getBoundingClientRect()
-
-        if (nextRect.top <= 0) {
-          card.style.position = 'relative'
-        } else {
-          card.style.position = 'sticky'
-          card.style.top = '0'
-        }
-      })
-
-      const lastRect = lastCard.getBoundingClientRect()
-      if (lastRect.top <= 0) {
-        lastCard.style.position = 'relative'
-      } else {
-        lastCard.style.position = 'sticky'
-        lastCard.style.top = '0'
+      setTimeout(() => { this.ready = true }, 180)
+      if (this.$refs.pillarsRef) {
+        this.pillarsObserver = new IntersectionObserver(
+          ([entry]) => { if (entry.isIntersecting) { this.pillarsIn = true; this.pillarsObserver.disconnect() } },
+          { threshold: 0.12 }
+        )
+        this.pillarsObserver.observe(this.$refs.pillarsRef)
       }
     })
-
-    // Mobile view check
-    this.checkMobileView()
-    window.addEventListener('resize', this.checkMobileView)
   },
 
   beforeUnmount() {
-    this.stopImageAutoSlide()
-    this.stopTextAutoSlide()
-    window.removeEventListener('resize', this.checkMobileView)
+    if (this.pillarsObserver) this.pillarsObserver.disconnect()
   },
 
   methods: {
-    animateCards() {
-      this.cardRefs.forEach((card, index) => {
-        const finalText = desc.innerText
-
-        // reset description text for typing
-        desc.innerText = ''
-
-        // card entrance
-        gsap.from(card, {
-          opacity: 0,
-          y: 60,
-          duration: 1.1,
-          ease: 'power3.out',
-          delay: index * 0.2,
-        })
-
-        // typing effect
-        gsap.to(desc, {
-          text: finalText,
-          duration: Math.min(finalText.length * 0.04, 2.5),
-          ease: 'none',
-          delay: index * 0.2 + 0.6,
-        })
-      })
-    },
-    updateTranslations() {
-      // Cards are set by the watch on t; this is for any additional translation updates
-    },
-
-    // Images
-    goToImageSlide(index) {
-      const carousel = this.$refs.imageCarousel
-      if (!carousel) return
-      const slideWidth = carousel.children[0].offsetWidth
-      carousel.scrollTo({ left: slideWidth * index, behavior: 'smooth' })
-      this.imageSlideIndex = index
-    },
-    startImageAutoSlide() {
-      this.stopImageAutoSlide()
-      this.imageAutoTimer = setInterval(() => {
-        this.imageSlideIndex = (this.imageSlideIndex + 1) % this.eishi_steps.length
-        this.goToImageSlide(this.imageSlideIndex)
-      }, 3000)
-    },
-    stopImageAutoSlide() {
-      if (this.imageAutoTimer) clearInterval(this.imageAutoTimer)
-      this.imageAutoTimer = null
-    },
-
-    // Text
-    startTextAutoSlide() {
-      this.stopTextAutoSlide()
-      this.textAutoTimer = setInterval(() => {
-        this.textSlideIndex = (this.textSlideIndex + 1) % this.eishi_steps.length
-      }, 3000)
-    },
-    stopTextAutoSlide() {
-      if (this.textAutoTimer) clearInterval(this.textAutoTimer)
-      this.textAutoTimer = null
-    },
-
-    // Text animation
-    getTextTransformStyle(index, type) {
-      if (this.textSlideIndex === index) {
-        return {
-          transform: 'translateY(0)',
-          opacity: 1,
-          transition: 'all 0.6s ease',
-          display: 'block',
-        }
-      } else {
-        return {
-          transform: type === 'title' ? 'translateY(100%)' : 'translateY(-100%)',
-          opacity: 0,
-          transition: 'all 0.6s ease',
-          display: 'block',
-        }
-      }
-    },
-
-    updateLetters() {
-      const languageStore = useLanguageStore()
-      const text = languageStore.t.homeParagraph1
-      this.letters = text.split('').map((char) => ({ char, color: '#ccc' }))
-    },
-    twoDigits(value) {
-      return value < 10 ? '0' + value : value
-    },
-    checkMobileView() {
-      this.isMobileView = this.$vuetify.display.mobile
-    },
+    twoDigits(n) { return n < 10 ? '0' + n : String(n) },
   },
 }
 </script>

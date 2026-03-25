@@ -1,5 +1,111 @@
 export default {
     English: {
+        viewProperty: 'View Property',
+        poultry_sections: [
+            {
+                key: 'machines',
+                caption: 'Egg-laying hens',
+                images: [
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/1.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/2.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/3.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/4.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/5.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/6.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/7.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/8.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/9.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/10.jpg'
+                ],
+            },
+            {
+                key: 'production',
+                caption: 'Production',
+                images: [
+                    '/eishi/batangas_tokyo_farm/images/Production/1.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/2.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/3.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/4.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/5.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/6.jpg'
+                ],
+            },
+            {
+                key: 'poultry building',
+                caption: 'Poultry Building',
+                images: [
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/1.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/2.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/3.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/4.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/5.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/6.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/7.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/8.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/9.jpg',
+                ],
+            },
+        ],
+        feedmill_sections: [
+            {
+                key: 'machines',
+                caption: 'Feedmill Machines',
+                images: [
+                    '/eishi/feed_mill/images/Feedmill Machines/1.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/2.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/3.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/4.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/5.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/6.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/7.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/8.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/9.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/10.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/11.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/12.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/13.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/14.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/15.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/16.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/17.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/18.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/19.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/20.JPG',
+                ],
+            },
+            {
+                key: 'production',
+                caption: 'Production',
+                images: [
+                    '/eishi/feed_mill/images/Production/1.JPG',
+                    '/eishi/feed_mill/images/Production/2.JPG',
+                    '/eishi/feed_mill/images/Production/3.JPG',
+                    '/eishi/feed_mill/images/Production/4.JPG',
+                    '/eishi/feed_mill/images/Production/5.JPG',
+                    '/eishi/feed_mill/images/Production/6.JPG',
+                    '/eishi/feed_mill/images/Production/7.JPG',
+                    '/eishi/feed_mill/images/Production/8.JPG',
+                    '/eishi/feed_mill/images/Production/9.JPG',
+                    '/eishi/feed_mill/images/Production/10.JPG',
+                ],
+            },
+            {
+                key: 'deliveries',
+                caption: 'Deliveries',
+                images: [
+                    '/eishi/feed_mill/images/Deliveries/1.JPG',
+                    '/eishi/feed_mill/images/Deliveries/2.JPG',
+                    '/eishi/feed_mill/images/Deliveries/3.JPG',
+                    '/eishi/feed_mill/images/Deliveries/4.JPG',
+                    '/eishi/feed_mill/images/Deliveries/5.JPG',
+                    '/eishi/feed_mill/images/Deliveries/6.webp',
+                    '/eishi/feed_mill/images/Deliveries/7.JPG',
+                    '/eishi/feed_mill/images/Deliveries/8.JPG',
+                    '/eishi/feed_mill/images/Deliveries/9.JPG',
+                    '/eishi/feed_mill/images/Deliveries/10.JPG',
+                ],
+            },
+        ],
         startTour: "Start Tour",
         webTagline: "Where Properties Meet Possibilities.",
         ourBusiness: "Our Business",
@@ -148,21 +254,21 @@ export default {
         locations: ['Batangas', 'Pangasinan', 'Cebu', 'Kalinga'],
         propertyTypes: ['Poultry Farm', 'Residential Land', 'Condominium', 'Assigned Property'],
         types: ['Agricultural', 'Residential', 'Commercial'],
+
         properties: [
             {
                 title: "Feed Mill",
                 details: {
-                    Description: "Operation of the Feed Mill Supporting the Poultry Farming Business. Our blended feed, produced in our own factories, ensures healthy and hygienic chicken growth, contributing to high-quality eggs."
+                    description: "Operation of the Feed Mill Supporting the Poultry Farming Business. Our blended feed, produced in our own factories, ensures healthy and hygienic chicken growth, contributing to high-quality eggs."
                 },
-                image: "/eishi/feed_mill/images/hero.JPG",
+                image: "/eishi/feed_mill/images/new-hero.jpg",
                 route: "/business_holdings/feed_mill"
             },
             {
                 title: "Poultry Farm",
                 details: {
                     Location: "Municipality of San Jose, Batangas",
-                    Sqm: "3,500",
-               
+
                 },
                 image: "/eishi/batangas_tokyo_farm/images/hero.jpg",
                 route: "/business_holdings/batangas/poultry_farm"
@@ -176,14 +282,7 @@ export default {
                 image: "/eishi/pangasinan_farm/images/dji_fly_20250311_151954_0036_1741678753512_photo.webp",
                 route: "/business_holdings/pangasinan_farm"
             },
-            {
-                title: "Assigned Properties",
-                details: {
-                    Location: "San Jose Batangas, Muntinlupa City, Morong, Rizal"
-                },
-                image: "/eishi/assigned_properties/images/1732160485860.webp",
-                route: "/business_holdings/assigned_properties"
-            },
+           
             {
                 title: "Residential Lands",
                 details: {
@@ -206,7 +305,7 @@ export default {
             {
                 title: "Car Rental Business",
                 details: {
-                    Description: "Expansion of Car Rental Business in the Philippines. Modern Japanese vehicles, maintained with high standards of cleanliness and comfort, are highly appreciated by locals and visitors from overseas."
+                    description: "Expansion of Car Rental Business in the Philippines. Modern Japanese vehicles, maintained with high standards of cleanliness and comfort, are highly appreciated by locals and visitors from overseas."
                 },
                 image: "/eishi/car_rental/images/car01.webp",
                 route: "/business_holdings/car_rental"
@@ -404,6 +503,113 @@ export default {
         partnerBenefitSummary: "If you are interested in exploring partnership opportunities with Eishi Property Holdings, please reach out to us at eishiproperties@gmail.com. Together, we can turn visionary concepts into reality, driving progress and prosperity in the Philippine real estate landscape.",
     },
     Japanese: {
+        viewProperty: '詳しく見る',
+        poultry_sections: [
+            {
+                key: 'machines',
+                caption: '採卵鶏',
+                images: [
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/1.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/2.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/3.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/4.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/5.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/6.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/7.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/8.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/9.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Egg Laying Hens/10.jpg'
+                ],
+            },
+            {
+                key: 'production',
+                caption: '生産工程',
+                images: [
+                    '/eishi/batangas_tokyo_farm/images/Production/1.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/2.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/3.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/4.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/5.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Production/6.jpg'
+                ],
+            },
+            {
+                key: 'poultry building',
+                caption: '養鶏場内',
+                images: [
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/1.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/2.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/3.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/4.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/5.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/6.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/7.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/8.jpg',
+                    '/eishi/batangas_tokyo_farm/images/Poultry Building/9.jpg',
+
+                ],
+            },
+        ],
+        feedmill_sections: [
+            {
+                key: 'machines',
+                caption: '飼料工場設備',
+                images: [
+                    '/eishi/feed_mill/images/Feedmill Machines/1.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/2.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/3.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/4.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/5.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/6.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/7.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/8.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/9.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/10.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/11.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/12.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/13.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/14.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/15.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/16.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/17.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/18.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/19.JPG',
+                    '/eishi/feed_mill/images/Feedmill Machines/20.JPG',
+                ],
+            },
+            {
+                key: 'production',
+                caption: '生産工程',
+                images: [
+                    '/eishi/feed_mill/images/Production/1.JPG',
+                    '/eishi/feed_mill/images/Production/2.JPG',
+                    '/eishi/feed_mill/images/Production/3.JPG',
+                    '/eishi/feed_mill/images/Production/4.JPG',
+                    '/eishi/feed_mill/images/Production/5.JPG',
+                    '/eishi/feed_mill/images/Production/6.JPG',
+                    '/eishi/feed_mill/images/Production/7.JPG',
+                    '/eishi/feed_mill/images/Production/8.JPG',
+                    '/eishi/feed_mill/images/Production/9.JPG',
+                    '/eishi/feed_mill/images/Production/10.JPG',
+                ],
+            },
+            {
+                key: 'deliveries',
+                caption: '配送業務',
+                images: [
+                    '/eishi/feed_mill/images/Deliveries/1.JPG',
+                    '/eishi/feed_mill/images/Deliveries/2.JPG',
+                    '/eishi/feed_mill/images/Deliveries/3.JPG',
+                    '/eishi/feed_mill/images/Deliveries/4.JPG',
+                    '/eishi/feed_mill/images/Deliveries/5.JPG',
+                    '/eishi/feed_mill/images/Deliveries/6.webp',
+                    '/eishi/feed_mill/images/Deliveries/7.JPG',
+                    '/eishi/feed_mill/images/Deliveries/8.JPG',
+                    '/eishi/feed_mill/images/Deliveries/9.JPG',
+                    '/eishi/feed_mill/images/Deliveries/10.JPG',
+                ],
+            },
+        ],
         startTour: "ツアーを開始",
         webTagline: "可能性と出会う場所。",
         ourBusiness: "事業内容",
@@ -435,7 +641,7 @@ export default {
             valuePropositionValue: "高品質車両と信頼のあるサービス"
         },
         feedMillDescription: "鶏卵生産事業を支える飼料工場の運営",
-        feedMillLocation: "自社飼料工場設備で、鶏舎をサポート",
+        feedMillLocation: "自社飼料工場設備で、養鶏場内をサポート",
         feedMillDetails: {
             businessNameLabel: "事業名",
             businessNameValue: "飼料工場",
@@ -472,7 +678,7 @@ export default {
         solineaNumberOfCondosValue: "3ユニット",
         solineaTowerLabel: "タワー",
         solineaTowerValue: "タワー3、ラピス、ソリネアコンドミニアム（2ユニット）",
-        solineaResidencesLabel: "住居数",
+        solineaResidencesLabel: "Residences",
         solineaResidencesValue: "1016レジデンス（1ユニット）",
         solineaTourismAccessLabel: "観光アクセス",
         solineaTourismAccessValue: "島、ビーチ、ホテル、ダイビングスポット、文化遺産近く",
@@ -557,17 +763,16 @@ export default {
             {
                 title: "飼料工場",
                 details: {
-                    説明: "養鶏事業をサポートする飼料工場の運営。自社工場で生産された混合飼料により、健康で衛生的な鶏の成長を確保し、高品質な卵に貢献。"
+                    description: "養鶏事業をサポートする飼料工場の運営。自社工場で生産された混合飼料により、健康で衛生的な鶏の成長を確保し、高品質な卵に貢献。"
                 },
-                image: "/eishi/feed_mill/images/hero.JPG",
+                image: "/eishi/feed_mill/images/new-hero.jpg",
                 route: "/business_holdings/feed_mill"
             },
             {
                 title: "養鶏場",
                 details: {
                     所在地: "バタンガス州サンホセ市",
-                    面積: "3,500",
-                 
+
                 },
                 image: "/eishi/batangas_tokyo_farm/images/hero.jpg",
                 route: "/business_holdings/batangas/poultry_farm"
@@ -581,14 +786,7 @@ export default {
                 image: "/eishi/pangasinan_farm/images/dji_fly_20250311_151954_0036_1741678753512_photo.webp",
                 route: "/business_holdings/pangasinan_farm"
             },
-            {
-                title: "管理物件",
-                details: {
-                    所在地: "バタンガス州サンホセ市、ムンティルーパ市、モロン市 リザール州"
-                },
-                image: "/eishi/assigned_properties/images/1732160485860.webp",
-                route: "/business_holdings/assigned_properties"
-            },
+          
             {
                 title: "住宅用地",
                 details: {
@@ -602,7 +800,7 @@ export default {
                 title: "セブ コンドミニアム",
                 details: {
                     所在地: "セブ市、セントラルビジネス地区、メトロセブモール、アヤラセンター、SMセブ市周辺",
-                    住居数: "1016"
+                    Residence: "1016"
                 },
                 image: "/eishi/cebu_condo/images/20240626_094216.webp",
                 route: "/business_holdings/cebu_condominium"
@@ -611,7 +809,7 @@ export default {
             {
                 title: "レンタカー事業",
                 details: {
-                    説明: "フィリピンでのレンタカー事業の拡大。最新の日本車を高い清潔基準と快適性で管理し、地元住民や海外からの訪問者に高く評価されています。"
+                    description: "フィリピンでのレンタカー事業の拡大。最新の日本車を高い清潔基準と快適性で管理し、地元住民や海外からの訪問者に高く評価されています。"
                 },
                 image: "/eishi/car_rental/images/car01.webp",
                 route: "/business_holdings/car_rental"
@@ -709,8 +907,8 @@ export default {
         missionDescription: "私たちの使命は、お客様に新たな価値を提供し、社会に貢献することです。",
         yourVission: "あなたのビジョン",
         ourMission: "私たちの使命",
-        mainOfficeAddress2: "バギオ市ロウアー・マグサイサイ、リュライトビル 365-B（支店）",
-        mainOfficeAddress: "ブンゲット州ラ・トリニダッド、ピコ地区 JC 81 KM5（本社）",
+          mainOfficeAddress2: "365-B, Rev. Rulite Bldg., Lower Magsaysay, Baguio (extension office)",
+        mainOfficeAddress: "JC 81 KM5, Pico, La Trinidad, Benguet (main office)",
         ourPartner: "パートナー企業",
         send: "送信",
         getInTouch: "お問い合わせ",
@@ -739,7 +937,7 @@ export default {
         welcome: "ようこそ。",
         aboutUs: "会社概要",
         browseBusiness: "当社の事業/ホールディングスをご覧ください。",
-        partners: "パートナー",
+        partners: "イーパートナーズ",
         becomePartner: "パートナーになる",
         batangasPoultry: "バタンガス養鶏場",
         pangasinanFarm: "パンガシナン農場",
@@ -806,14 +1004,14 @@ export default {
         方メートル）の農地を取得しました。この土地には、バルンガオ山から年間を通して水
         を引き込む分水ダムが設置されています。戦略的には、SM カルメンから 9 キロメート
         ル、TPLEX ロサレス出口から 6 キロメートルの距離にあります。`,
-        pangasinanP5: `Eishi は、パートナーと密接に連携し、この土地を乳製品の生産を目的とした 乳製品
+        pangasinanP5: `Eishi は、イーパートナーズと密接に連携し、この土地を乳製品の生産を目的とした 乳製品
         農場、卵生産のための 養鶏場、鶏の飼料製造のための 飼料工場、そして 放牧型
         農業 に開発する計画です。これにより、北ルソン地方の農業産業が不足している地
         域にサービスを提供することを目指しています。`,
         whyDairy: `なぜ乳製品農場なのか？`,
         dairyP1: `フィリピンでは、総乳製品消費量のわずか 1％、約 19,000 メトリックトンしか国内で生
         産されておらず、残りの 99％、約 1,920,000 メトリックトンは輸入に依存しています。`,
-        dairyP2: `Eishi とそのパートナーは、国内での新鮮な牛乳の生産を増加させ、フィリピンの乳製
+        dairyP2: `Eishiとイーパートナーズは、国内での新鮮な牛乳の生産を増加させ、フィリピンの乳製
         品輸入依存を減らすことを目指しています。
         最寄りの乳製品農場はラオク乳業農場で、距離はわずか 38 キロメートルです。この
         農場では、地元の水牛 カラバオ を使用しており、1 日あたり 7.5 リットルしか乳を生
@@ -837,13 +1035,13 @@ export default {
         料の供給状況や市場の動向により価格が変動します。Eishi は、鶏の飼料が養鶏業
         において不可欠な材料であり、農場の純利益に大きな影響を与えることを認識してい
         ます。`,
-        feedP2: `Eishi は、パートナーと共に、養鶏業を自給自足型にするために鶏の飼料を自社の飼
+        feedP2: `Eishi は、イーパートナーズ共に、養鶏業を自給自足型にするために鶏の飼料を自社の飼
         料工場で製造する計画を立てています。これにより、飼料コストは全体の経費の 40
         〜30％に削減されます。また、鶏の飼料に使用する原材料は、バタンガスの飼料工
         場と同じく、近隣の北ルソンの省から調達するため、コストをさらに抑えることができま
         す。`,
         whyRange: `なぜフリーレンジ農場なのか？`,
-        rangeP1: `Eishi とそのパートナーは、環境に優しい自然な農業方法を常に目指しています。これ
+        rangeP1: `Eishiとイーパートナーズは、環境に優しい自然な農業方法を常に目指しています。これ
         により、有害な化学物質の使用を減らし、エコシステムや土壌の健康、生物多様性を
         保護し、水資源の節約、気候変動の緩和、そして特に消費者の健康を促進すること
         ができます。生産される食物が農薬や合成添加物から解放され、消費者にとって健
@@ -863,7 +1061,7 @@ export default {
         ピンの中央に位置し、空路、陸路、海路でのアクセスが良好なセブは、中央および南
         フィリピンへの観光ゲートウェイとなっています。セブ港は、フィリピンで 2 番目に大き
         な港です。`,
-        cebuP2: `Eishi とそのパートナーは、セブ市の中央ビジネス地区に位置し、メトロセブモール、ア
+        cebuP2: `Eishiとイーパートナーズは、セブ市の中央ビジネス地区に位置し、メトロセブモール、ア
         ヤラセンター、SM セブシティの近くにある 3 つのコンドミニアムを所有しています。2
         つのコンドミニアムは、タワー・ラピス・ソリネア・コンドミニアムにあり、3 つ目のコンドミ
         ニアムは 1016 レジデンスにあります`,

@@ -38,7 +38,7 @@
 
 .video-wrapper video {
     width: 100%;
-    height: auto;
+    height: 50%;
     display: block;
     object-fit: cover;
     /* keep it clean */
@@ -75,6 +75,47 @@
 
 .scroll-zoom.zoomed {
     transform: scale(1.1);
+}
+
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 */
+    overflow: hidden;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.map-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.related-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    position: relative;
+}
+
+.related-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: #1976d2;
+    margin: 16px auto 0;
+    border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+    .video-wrapper video {
+        height: 400px;
+        /* smaller height for mobile */
+    }
 }
 </style>
 <template>
@@ -182,14 +223,13 @@
                         <v-col class="mx-auto">
                             <div class="video-wrapper">
                                 <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                                    <source src="/eishi/videos/condo.mp4" type="video/mp4" />
+                                    <source src="/eishi/cebu_condo/videos/second.mp4" type="video/mp4" />
                                 </video>
                             </div>
                         </v-col>
                     </v-row>
+
                     <v-row>
-
-
                         <v-col v-for="(image, index) in images" :key="index" cols="6" class="d-flex">
                             <div class="img-hover-wrapper">
                                 <v-img :src="image" height="500" cover :ref="el => imageCards.push(el)">
@@ -203,51 +243,103 @@
                             </div>
                         </v-col>
                     </v-row>
-                    <v-row>
-                        <v-col class="mx-auto">
-                            <div class="map-container">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.049609986706!2d121.0482168!3d13.8800814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd124260384d8b%3A0x8a158f5013602c26!2sSan%20Jose%2C%20Batangas!5e0!3m2!1sen!2sph!4v1701060000000!5m2!1sen!2sph&maptype=satellite"
-                                    width="100%" height="800" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
+                    <v-row class="my-10" justify="center">
+                        <v-col cols="12">
+                            <v-card elevation="6" rounded="lg">
+                                <v-card-title class="d-flex align-center">
+                                    <v-icon class="me-2" color="primary">mdi-map-marker</v-icon>
+                                    <span class="text-h6 font-weight-medium">
+                                        Solinea Tower 2 (Turquoise)
+                                    </span>
+                                </v-card-title>
+
+                                <v-divider />
+
+                                <v-card-text class="pa-0">
+                                    <div class="map-wrapper">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.323107217678!2d123.90524699999999!3d10.316005900000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9996f0a76a68f%3A0xe00f6ab71e76e84e!2sSolinea%20Tower%202%20(Turquoise)!5e0!3m2!1sen!2sph!4v1770645058541!5m2!1sen!2sph"
+                                            allowfullscreen loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade" />
+                                    </div>
+                                </v-card-text>
+
+                                <v-card-actions class="px-4 pb-4">
+                                    <v-icon size="18" class="me-1" color="grey-darken-1">
+                                        mdi-map
+                                    </v-icon>
+                                    <span class="text-body-2 text-grey-darken-1">
+                                        Solinea Tower 2 (Turquoise), Cebu City
+                                    </span>
+                                </v-card-actions>
+                            </v-card>
                         </v-col>
                     </v-row>
-                    <v-row class="mt-10 mb-10">
-                        <v-col class="mx-auto">
-                            <p style="font-size: 3rem; font-weight: bold;">{{ t.relatedProperties }}</p>
+                    <v-row class="my-10" justify="center">
+                        <v-col cols="12">
+                            <v-card elevation="6" rounded="lg">
+                                <v-card-title class="d-flex align-center">
+                                    <v-icon class="me-2" color="primary">mdi-map-marker</v-icon>
+                                    <span class="text-h6 font-weight-medium">
+                                        1016 Residences
+                                    </span>
+                                </v-card-title>
+
+                                <v-divider />
+
+                                <v-card-text class="pa-0">
+                                    <div class="map-wrapper">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.321452422929!2d123.90733340000001!3d10.3161386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999a7ed6dd929%3A0x7aac01daa5b61a26!2s1016%20residences!5e0!3m2!1sen!2sph!4v1770646059309!5m2!1sen!2sph"
+                                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </v-card-text>
+
+                                <v-card-actions class="px-4 pb-4">
+                                    <v-icon size="18" class="me-1" color="grey-darken-1">
+                                        mdi-map
+                                    </v-icon>
+                                    <span class="text-body-2 text-grey-darken-1">
+                                        1016 Masbate Rd, Cebu City, 6000 Cebu
+                                    </span>
+                                </v-card-actions>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                    <v-row class="my-16">
+                        <v-col class="text-center">
+                            <h2 class="related-title">
+                                {{ t.relatedProperties }}
+                            </h2>
                         </v-col>
                     </v-row>
 
                     <v-row dense>
                         <v-col v-for="(property, index) in translatedProperties" :key="index" cols="6">
-                            <v-card class="overflow-hidden cursor-pointer" variant="text"
+                            <!-- Card with image only -->
+                            <v-card class="overflow-hidden cursor-pointer" variant="text" rounded="lg"
                                 @click="$router.push(property.route)">
+                                <div>
+                                    <v-img :ref="el => propertyCards.push(el)" :src="property.image" height="400"
+                                        cover></v-img>
+                                </div>
+                            </v-card>
 
-                                <!-- Image container -->
-                                <div class="img-hover-wrapper">
-                                    <v-img :src="property.image" height="400" cover
-                                        :ref="el => propertyCards.push(el)"></v-img>
+                            <!-- Property Table outside the card -->
+                            <div class="farm-table mt-2">
+                                <div class="row-item">
+                                    <div class="label">{{ t.propertyNameLabel }}</div>
+                                    <div class="value">{{ property.title }}</div>
                                 </div>
 
-                                <!-- Property Table -->
-                                <v-card-text>
-                                    <div class="farm-table">
-                                        <div class="row-item">
-                                            <div class="label">{{ t.propertyNameLabel }}</div>
-                                            <div class="value">{{ property.title }}</div>
-                                        </div>
-
-                                        <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                                            <div class="label">{{ key }}</div>
-                                            <div class="value">{{ value }}</div>
-                                        </div>
-                                    </div>
-                                </v-card-text>
-                            </v-card>
+                                <div v-for="(value, key) in property.details" :key="key" class="row-item">
+                                    <div class="label">{{ key }}</div>
+                                    <div class="value">{{ value }}</div>
+                                </div>
+                            </div>
                         </v-col>
                     </v-row>
-
                 </v-container>
             </v-col>
         </v-row>
@@ -339,27 +431,85 @@
                 </div>
             </v-col>
         </v-container>
-        <div class="video-wrapper">
-            <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                <source src="/eishi/videos/condo.mp4" type="video/mp4" />
-            </video>
-        </div>
+        <v-row>
+            <v-col class="mx-auto">
+                <div class="video-wrapper">
+                    <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
+                        <source src="/eishi/cebu_condo/videos/second.mp4" type="video/mp4" />
+                    </video>
+                </div>
+            </v-col>
+        </v-row>
         <v-container>
             <v-row no-gutters>
                 <v-col v-for="(image, index) in images" :key="index" cols="12" class="d-flex pa-2">
                     <v-img :src="image" height="300" cover class="scroll-zoom zoom-img" ref="scrollImages" />
                 </v-col>
             </v-row>
-            <v-row>
-                <v-col class="mx-auto">
-                    <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.049609986706!2d121.0482168!3d13.8800814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd124260384d8b%3A0x8a158f5013602c26!2sSan%20Jose%2C%20Batangas!5e0!3m2!1sen!2sph!4v1701060000000!5m2!1sen!2sph&maptype=satellite"
-                            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
+            <v-row class="my-10" justify="center">
+                <v-col cols="12">
+                    <v-card elevation="6" rounded="lg">
+                        <v-card-title class="d-flex align-center">
+                            <v-icon class="me-2" color="primary">mdi-map-marker</v-icon>
+                            <span class="text-h6 font-weight-medium">
+                                Solinea Tower 2 (Turquoise)
+                            </span>
+                        </v-card-title>
+
+                        <v-divider />
+
+                        <v-card-text class="pa-0">
+                            <div class="map-wrapper">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.323107217678!2d123.90524699999999!3d10.316005900000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9996f0a76a68f%3A0xe00f6ab71e76e84e!2sSolinea%20Tower%202%20(Turquoise)!5e0!3m2!1sen!2sph!4v1770645058541!5m2!1sen!2sph"
+                                    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" />
+                            </div>
+                        </v-card-text>
+
+                        <v-card-actions class="px-4 pb-4">
+                            <v-icon size="18" class="me-1" color="grey-darken-1">
+                                mdi-map
+                            </v-icon>
+                            <span class="text-body-2 text-grey-darken-1">
+                                Solinea Tower 2 (Turquoise), Cebu City
+                            </span>
+                        </v-card-actions>
+                    </v-card>
                 </v-col>
             </v-row>
+            <v-row class="my-10" justify="center">
+                <v-col cols="12">
+                    <v-card elevation="6" rounded="lg">
+                        <v-card-title class="d-flex align-center">
+                            <v-icon class="me-2" color="primary">mdi-map-marker</v-icon>
+                            <span class="text-h6 font-weight-medium">
+                                1016 Residences
+                            </span>
+                        </v-card-title>
+
+                        <v-divider />
+
+                        <v-card-text class="pa-0">
+                            <div class="map-wrapper">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.321452422929!2d123.90733340000001!3d10.3161386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999a7ed6dd929%3A0x7aac01daa5b61a26!2s1016%20residences!5e0!3m2!1sen!2sph!4v1770646059309!5m2!1sen!2sph"
+                                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </v-card-text>
+
+                        <v-card-actions class="px-4 pb-4">
+                            <v-icon size="18" class="me-1" color="grey-darken-1">
+                                mdi-map
+                            </v-icon>
+                            <span class="text-body-2 text-grey-darken-1">
+                                1016 Masbate Rd, Cebu City, 6000 Cebu
+                            </span>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+
             <v-row class="mt-10 mb-10">
                 <v-col class="mx-auto">
                     <p style="font-size: 2rem;">{{ t.relatedProperties }}</p>
@@ -419,7 +569,7 @@ export default {
                     title: "Poultry Farm",
                     details: {
                         "Location": "Municipality of San Jose, Batangas",
-                        "Sqm.": "3,500",
+
                     },
                     image: "/eishi/batangas_tokyo_farm/images/1732160556378.webp",
                     route: "/business_holdings/batangas/poultry_farm"

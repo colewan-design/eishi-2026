@@ -76,8 +76,103 @@
 .scroll-zoom.zoomed {
   transform: scale(1.1);
 }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  position: relative;
+}
+
+.section-index {
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.08);
+  line-height: 1;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #1976d2;
+  /* Vuetify primary */
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+/* Image cards */
+.image-card {
+  overflow: hidden;
+  border-radius: 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.image-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+
+.related-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  position: relative;
+}
+
+.related-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 5px;
+  background: #1976d2;
+  margin: 16px auto 0;
+  border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+  .video-wrapper video {
+    height: 400px;
+    /* smaller height for mobile */
+  }
+}
 </style>
 <template>
+  <v-dialog v-model="galleryOpen" fullscreen hide-overlay persistent>
+    <div class="gallery-wrapper"
+      style="position: relative; width: 100%; height: 100vh; background: black; display: flex; align-items: center; justify-content: center;">
+
+      <!-- Image -->
+      <v-img v-if="galleryImages.length" :src="encodeURI(galleryImages[currentImage])" max-width="90vw"
+        max-height="90vh" contain />
+
+      <!-- Close -->
+      <v-btn variant="text" color="white" icon style="position:absolute; top:20px; right:20px; z-index:10"
+        @click="galleryOpen = false">
+        <v-icon size="30">mdi-close</v-icon>
+      </v-btn>
+
+      <!-- Left -->
+      <v-btn flat rounded="circle" color="white" icon style="position:absolute; left:20px; z-index:10"
+        @click="prevImage">
+        <v-icon size="40">mdi-chevron-left</v-icon>
+      </v-btn>
+
+      <!-- Right -->
+      <v-btn flat rounded="circle" color="white" icon style="position:absolute; right:20px; z-index:10"
+        @click="nextImage">
+        <v-icon size="40">mdi-chevron-right</v-icon>
+      </v-btn>
+
+    </div>
+  </v-dialog>
   <!-- desktop view -->
   <v-container v-if="!isMobileView" style="padding-top: 10rem">
     <v-row>
@@ -102,7 +197,7 @@
 
     <v-row>
       <v-col cols="9" class="mx-auto">
-        <v-parallax src="/eishi/feed_mill/images/hero.JPG" height="calc(100vh - 200px)">
+        <v-parallax src="/eishi/feed_mill/images/new-hero.jpg" height="calc(100vh - 200px)">
         </v-parallax>
       </v-col>
     </v-row>
@@ -174,78 +269,61 @@
             </v-col>
           </v-row>
 
-          <section
-            v-for="(section, index) in sections"
-            :key="section.key"
-            :ref="section.key"
-            class="mb-10"
-          >
-            <!-- Caption -->
-            <h2 class="text-h5 font-weight-bold mb-4">
-              {{ section.caption }}
-            </h2>
+          <section v-for="(section, index) in translatedSections" :key="section.key" :ref="section.key" class="mb-16">
+            <!-- Caption block -->
+            <div class="section-header mb-6">
+              <span class="section-index">
+                {{ String(index + 1).padStart(2, '0') }}
+              </span>
+
+              <h2 class="section-title">
+                {{ section.caption }}
+              </h2>
+            </div>
 
             <!-- Images -->
             <v-row>
-              <v-col v-for="(img, i) in section.images" :key="i" cols="12" sm="6" md="6">
-                <v-img :src="img" aspect-ratio="1" cover />
+              <v-col v-for="(img, i) in section.images" :key="i" cols="6">
+                <v-card class="image-card" elevation="3" @click="openGallery(section.images, i)">
+                  <v-img :src="img" aspect-ratio="1" cover />
+                </v-card>
               </v-col>
             </v-row>
           </section>
 
-          <v-row>
-            <v-col class="mx-auto">
-              <div class="map-container">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.049609986706!2d121.0482168!3d13.8800814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd124260384d8b%3A0x8a158f5013602c26!2sSan%20Jose%2C%20Batangas!5e0!3m2!1sen!2sph!4v1701060000000!5m2!1sen!2sph&maptype=satellite"
-                  width="100%"
-                  height="800"
-                  style="border: 0"
-                  allowfullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-            </v-col>
-          </v-row>
-          <v-row class="mt-10 mb-10">
-            <v-col class="mx-auto">
-              <p style="font-size: 3rem; font-weight: bold">{{ t.relatedProperties }}</p>
+
+
+
+          <v-row class="my-16">
+            <v-col class="text-center">
+              <h2 class="related-title">
+                {{ t.relatedProperties }}
+              </h2>
             </v-col>
           </v-row>
 
           <v-row dense>
             <v-col v-for="(property, index) in translatedProperties" :key="index" cols="6">
-              <v-card
-                class="overflow-hidden cursor-pointer"
-                variant="text"
-                @click="$router.push(property.route)"
-              >
-                <!-- Image container -->
-                <div class="img-hover-wrapper">
-                  <v-img
-                    :src="property.image"
-                    height="400"
-                    cover
-                    :ref="(el) => propertyCards.push(el)"
-                  ></v-img>
+              <!-- Card with image only -->
+              <v-card class="overflow-hidden cursor-pointer" variant="text" rounded="lg"
+                @click="$router.push(property.route)">
+                <div>
+                  <v-img :ref="el => propertyCards.push(el)" :src="property.image" height="400" cover></v-img>
+                </div>
+              </v-card>
+
+              <!-- Property Table outside the card -->
+              <div class="farm-table mt-2">
+                <div class="row-item">
+                  <div class="label">{{ t.propertyNameLabel }}</div>
+                  <div class="value">{{ property.title }}</div>
                 </div>
 
-                <!-- Property Table -->
-                <v-card-text>
-                  <div class="farm-table">
-                    <div class="row-item">
-                      <div class="label">{{ t.propertyNameLabel }}</div>
-                      <div class="value">{{ property.title }}</div>
-                    </div>
-
-                    <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                      <div class="label">{{ key }}</div>
-                      <div class="value">{{ value }}</div>
-                    </div>
-                  </div>
-                </v-card-text>
-              </v-card>
+                <div v-for="(value, key) in property.details" :key="key" class="row-item">
+                  <div class="label">{{ key }}</div>
+                  <div class="value">{{ value }}</div>
+                </div>
+              </div>
             </v-col>
           </v-row>
         </v-container>
@@ -276,7 +354,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-parallax src="/eishi/feed_mill/images/hero.JPG" height="calc(100vh - 200px)"> </v-parallax>
+    <v-parallax src="/eishi/feed_mill/images/new-hero.jpg" height="calc(100vh - 200px)"> </v-parallax>
     <v-container>
       <v-row>
         <v-col>
@@ -346,12 +424,7 @@
     </v-container>
 
     <v-container>
-      <section
-        v-for="(section, index) in sections"
-        :key="section.key"
-        :ref="section.key"
-        class="mb-10"
-      >
+      <section v-for="(section, index) in translatedSections" :key="section.key" :ref="section.key" class="mb-10">
         <!-- Caption -->
         <h2 class="text-h5 font-weight-bold mb-4">
           {{ section.caption }}
@@ -364,21 +437,7 @@
           </v-col>
         </v-row>
       </section>
-      <v-row>
-        <v-col class="mx-auto">
-          <div class="map-container">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.049609986706!2d121.0482168!3d13.8800814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd124260384d8b%3A0x8a158f5013602c26!2sSan%20Jose%2C%20Batangas!5e0!3m2!1sen!2sph!4v1701060000000!5m2!1sen!2sph&maptype=satellite"
-              width="100%"
-              height="300"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-        </v-col>
-      </v-row>
+
       <v-row class="mt-10 mb-10">
         <v-col class="mx-auto">
           <p style="font-size: 2rem">{{ t.relatedProperties }}</p>
@@ -386,20 +445,10 @@
       </v-row>
       <v-row dense>
         <v-col v-for="(property, index) in translatedProperties" :key="index" cols="12">
-          <v-card
-            class="overflow-hidden cursor-pointer"
-            variant="text"
-            @click="$router.push(property.route)"
-          >
+          <v-card class="overflow-hidden cursor-pointer" variant="text" @click="$router.push(property.route)">
             <!-- Image container -->
             <div>
-              <v-img
-                :src="property.image"
-                height="300"
-                cover
-                class="scroll-zoom zoom-img"
-                ref="scrollImages"
-              ></v-img>
+              <v-img :src="property.image" height="300" cover class="scroll-zoom zoom-img" ref="scrollImages"></v-img>
             </div>
 
             <div class="farm-table pt-5">
@@ -433,70 +482,19 @@ export default {
     translatedProperties() {
       return this.t.properties
     },
+
+    translatedSections() {
+      return this.t.feedmill_sections
+    },
+
     ...mapState(useLanguageStore, ['t']),
   },
   data() {
     return {
-      sections: [
-        {
-          key: 'machines',
-          caption: 'Feedmill Machines',
-          images: [
-            '/eishi/feed_mill/images/Feedmill Machines/1.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/2.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/3.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/4.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/5.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/6.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/7.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/8.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/9.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/10.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/11.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/12.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/13.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/14.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/15.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/16.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/17.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/18.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/19.JPG',
-            '/eishi/feed_mill/images/Feedmill Machines/20.JPG',
-          ],
-        },
-        {
-          key: 'production',
-          caption: 'Production',
-          images: [
-            '/eishi/feed_mill/images/Production/1.JPG',
-            '/eishi/feed_mill/images/Production/2.JPG',
-            '/eishi/feed_mill/images/Production/3.JPG',
-            '/eishi/feed_mill/images/Production/4.JPG',
-            '/eishi/feed_mill/images/Production/5.JPG',
-            '/eishi/feed_mill/images/Production/6.JPG',
-            '/eishi/feed_mill/images/Production/7.JPG',
-            '/eishi/feed_mill/images/Production/8.JPG',
-            '/eishi/feed_mill/images/Production/9.JPG',
-            '/eishi/feed_mill/images/Production/10.JPG',
-          ],
-        },
-        {
-          key: 'deliveries',
-          caption: 'Deliveries',
-          images: [
-            '/eishi/feed_mill/images/Deliveries/1.JPG',
-            '/eishi/feed_mill/images/Deliveries/2.JPG',
-            '/eishi/feed_mill/images/Deliveries/3.JPG',
-            '/eishi/feed_mill/images/Deliveries/4.JPG',
-            '/eishi/feed_mill/images/Deliveries/5.JPG',
-            '/eishi/feed_mill/images/Deliveries/6.webp',
-            '/eishi/feed_mill/images/Deliveries/7.JPG',
-            '/eishi/feed_mill/images/Deliveries/8.JPG',
-            '/eishi/feed_mill/images/Deliveries/9.JPG',
-            '/eishi/feed_mill/images/Deliveries/10.JPG',
-          ],
-        },
-      ],
+      galleryOpen: false,
+      galleryImages: [],
+      currentImage: 0,
+
       pageYOffset: 0,
 
       imageCards: [],
@@ -578,6 +576,28 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    openGallery(images, index) {
+      console.log(images, index);
+      this.galleryImages = images
+      this.currentImage = index
+      this.galleryOpen = true
+    },
+
+    nextImage() {
+      if (this.currentImage < this.galleryImages.length - 1) {
+        this.currentImage++
+      } else {
+        this.currentImage = 0
+      }
+    },
+
+    prevImage() {
+      if (this.currentImage > 0) {
+        this.currentImage--
+      } else {
+        this.currentImage = this.galleryImages.length - 1
+      }
+    },
     handleScroll() {
       this.pageYOffset = window.pageYOffset
     },

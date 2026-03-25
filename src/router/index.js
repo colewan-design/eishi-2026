@@ -62,11 +62,11 @@ const router = createRouter({
       name: 'car_rental',
       component: () => import('../views/business_holdings/car_rental.vue'),
     },
-    {
-      path: '/business_holdings/assigned_properties',
-      name: 'assigned_properties',
-      component: () => import('../views/business_holdings/assigned_properties.vue'),
-    },
+    // {
+    //   path: '/business_holdings/assigned_properties',
+    //   name: 'assigned_properties',
+    //   component: () => import('../views/business_holdings/assigned_properties.vue'),
+    // },
     {
       path: '/business_holdings/cebu_condominium',
       name: 'cebu_condominium',

@@ -76,6 +76,22 @@
 .scroll-zoom.zoomed {
     transform: scale(1.1);
 }
+
+.related-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    position: relative;
+}
+
+.related-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: #1976d2;
+    margin: 16px auto 0;
+    border-radius: 3px;
+}
 </style>
 <template>
 
@@ -199,21 +215,12 @@
                         </v-col>
                     </v-row>
 
-                    <v-row>
-                        <v-col class="mx-auto">
-                            <div class="map-container">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.157365477072!2d121.05535931536655!3d14.53063169023956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cf4a54fe3001%3A0x2fae7af0a998d2ad!2sTaguig%2C%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1701060000000!5m2!1sen!2sph&maptype=satellite"
-                                    width="100%" height="800" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade">
-                                </iframe>
 
-                            </div>
-                        </v-col>
-                    </v-row>
-                    <v-row class="mt-10 mb-10">
-                        <v-col class="mx-auto">
-                            <p style="font-size: 3rem; font-weight: bold;">{{ t.relatedProperties }}</p>
+                    <v-row class="my-16">
+                        <v-col class="text-center">
+                            <h2 class="related-title">
+                                {{ t.relatedProperties }}
+                            </h2>
                         </v-col>
                     </v-row>
                     <v-row dense>
@@ -222,9 +229,9 @@
                                 @click="$router.push(property.route)">
 
                                 <!-- Image container -->
-                                <div class="img-hover-wrapper">
-                                    <v-img :src="property.image" height="300" cover
-                                        :ref="el => propertyCards.push(el)"></v-img>
+                                <div>
+                                    <v-img :ref="el => propertyCards.push(el)" :src="property.image" height="400"
+                                        cover></v-img>
                                 </div>
 
                                 <!-- Property Table -->
@@ -350,21 +357,12 @@
                 </v-col>
             </v-row>
 
-            <v-row>
-                <v-col class="mx-auto">
-                    <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.157365477072!2d121.05535931536655!3d14.53063169023956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cf4a54fe3001%3A0x2fae7af0a998d2ad!2sTaguig%2C%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1701060000000!5m2!1sen!2sph&maptype=satellite"
-                            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
 
-                    </div>
-                </v-col>
-            </v-row>
-            <v-row class="mt-10 mb-10">
-                <v-col class="mx-auto">
-                    <p style="font-size: 2rem;">{{ t.relatedProperties }}</p>
+            <v-row class="my-16">
+                <v-col class="text-center">
+                    <h2 class="related-title">
+                        {{ t.relatedProperties }}
+                    </h2>
                 </v-col>
             </v-row>
             <v-row dense>
@@ -421,7 +419,7 @@ export default {
                     title: "Poultry Farm",
                     details: {
                         "Location": "Municipality of San Jose, Batangas",
-                        "Sqm.": "3,500",
+                   
                     },
                     image: "/eishi/batangas_tokyo_farm/images/1732160556378.webp",
                     route: "/business_holdings/batangas/poultry_farm"

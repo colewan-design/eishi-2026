@@ -1,9 +1,43 @@
 <style>
-.property-table .row-item {
-    padding: 12px 0;
-    border-bottom: 1px solid #e0e0e0;
+.modern-table {
+    padding: 28px;
+}
+
+.modern-row {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 0;
+}
+
+.modern-row:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.modern-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 500;
+    color: #9e9e9e;
+    flex-basis: 40%;
+    /* takes 40% of the row width */
+    max-width: 40%;
+    margin-right: 16px;
+    /* extra spacing before the value */
+}
+
+.modern-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #212121;
+    text-align: right;
+    flex: 1;
+    /* fills remaining space */
+}
+
+.property-card .v-card__overlay {
+    opacity: 0 !important;
 }
 
 .property-table .label {
@@ -12,12 +46,58 @@
     color: #455a64;
     text-transform: uppercase;
     /* blue-grey-darken-2 tone */
-    margin-bottom: 4px;
 }
 
 .property-table .value {
     font-size: 1rem;
     color: #263238;
+}
+
+.property-table .row-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* ensure image is the bottom layer */
+.property-image {
+    z-index: 1;
+}
+
+/* dark gradient for contrast */
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.65),
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0));
+    pointer-events: none;
+}
+
+/* title must be ABOVE everything */
+.image-title {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 16px 20px;
+
+    z-index: 3;
+
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+
+    letter-spacing: 0.5px;
 }
 
 /* 3-column group */
@@ -119,14 +199,7 @@
                     <span style="font-size: 48px; font-weight: bold;"> {{ t.diversePropertyHoldings }}</span>
                 </v-col>
             </v-row>
-            <v-row>
-                <v-col class="d-flex justify-center align-center">
-                    <video autoplay loop muted playsinline style="width: 100%;" preload="metadata"
-                        poster="/images/hero-img.jpg">
-                        <source src="/eishi/videos/Eishi Sample Video.mp4" type="video/mp4" />
-                    </video>
-                </v-col>
-            </v-row>
+
             <v-row>
                 <v-col>
                     <span class="text-uppercase" style="font-size: 12px;">{{ t.location }}</span>
@@ -171,19 +244,36 @@
 
             <v-row dense>
                 <v-col v-for="(property, index) in filteredProperties" :key="index" cols="6">
-                    <v-card class="overflow-hidden cursor-pointer" variant="text" @click="$router.push(property.route)">
-                        <v-img :src="property.image" height="400" cover :ref="el => imageCards.push(el)" />
-                        <v-card-text>
-                            <div class="property-table">
-                                <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                                    <div class="label">{{ translatedProperties[key] || key }}</div>
-                                    <div class="value">{{ value }}</div>
+                    <v-card class="property-card cursor-pointer" variant="text" @click="$router.push(property.route)">
+                        <div class="image-wrapper">
+                            <v-img :src="property.image" height="400" cover class="property-image" />
+
+                            <!-- Gradient overlay -->
+                            <div class="image-overlay"></div>
+
+                            <!-- TITLE -->
+                            <div class="image-title">
+                                {{ property.title }}
+                            </div>
+                        </div>
+
+                        <v-card-text class="modern-table">
+                            <div v-for="(value, key) in property.details" :key="key" class="modern-row">
+                                <div v-if="key !== 'description'" class="modern-label mr-">
+                                    {{ translatedProperties[key] || key }}
+                                </div>
+
+                                <div class="modern-value">
+                                    {{ value }}
                                 </div>
                             </div>
                         </v-card-text>
+
                     </v-card>
+
                 </v-col>
             </v-row>
+
 
 
         </v-container>
@@ -197,9 +287,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <video autoplay loop muted playsinline style="width: 100%;" preload="metadata" poster="/images/hero-img.jpg">
-            <source src="/eishi/videos/Eishi Sample Video.mp4" type="video/mp4" />
-        </video>
+
         <v-container>
             <span class="text-uppercase" style="font-size: 12px;">{{ t.location }}</span>
             <v-select v-model="filters.location" :items="translatedLocations" :label="t.location" variant="outlined"
@@ -235,30 +323,41 @@
             </v-btn>
 
 
-            <v-row dense style="padding-top: 5rem;">
+            <v-row dense class="pt-12">
                 <v-col v-for="(property, index) in filteredProperties" :key="index" cols="12">
-                    <v-card class="overflow-hidden cursor-pointer" variant="text" @click="$router.push(property.route)">
-                        <!-- Image container -->
-                        <div class="img-hover-wrapper">
-                            <v-img :src="property.image" height="400" cover class="scroll-zoom zoom-img"
-                                ref="scrollImages"></v-img>
-                        </div>
+                    <v-card class="cursor-pointer rounded-lg elevation-3" @click="$router.push(property.route)"
+                        outlined>
+                        <!-- Image section -->
+                        <v-img :src="property.image" height="250" cover class="rounded-t-lg">
+                            <template #placeholder>
+                                <v-skeleton-loader type="image" />
+                            </template>
+                        </v-img>
 
-                        <div class="property-table">
-                            <div class="row-item">
-                                <div class="label">{{ t.propertyNameLabel }}</div>
-                                <div class="value">{{ property.title }}</div>
+                        <!-- Property info -->
+                        <v-card-text class="pt-3">
+                            <!-- Title -->
+                            <div class="text-h6 font-medium mb-2">
+                                {{ property.title }}
                             </div>
 
-                            <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                                <div class="label">{{ key }}</div>
-                                <div class="value">{{ value }}</div>
-                            </div>
-                        </div>
+                            <!-- Details -->
+                            <v-list dense class="pa-0">
+                                <v-list-item v-for="(value, key) in property.details" :key="key" class="px-0 py-1">
+                                    <v-list-item-content class="d-flex justify-space-between">
+                                        <span v-if="key !== 'description'" class="text-subtitle-2 font-medium mr-2">
+                                            {{ key }}
+                                        </span>
 
+                                        <span class="text-body-2">{{ value }}</span>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list>
+                        </v-card-text>
                     </v-card>
                 </v-col>
             </v-row>
+
         </v-container>
     </div>
 </template>

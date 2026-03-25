@@ -1,4 +1,11 @@
 <style>
+.full-width-map {
+    display: block;
+    margin: 0 auto;
+    width: 90vw;
+    display: block;
+}
+
 .farm-table .row-item {
     padding: 12px 0;
     border-bottom: 1px solid #e0e0e0;
@@ -47,6 +54,40 @@
 
 .zoom-img {
     transition: transform 3s ease;
+}
+
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 */
+    overflow: hidden;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.map-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.related-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    position: relative;
+}
+
+.related-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: #1976d2;
+    margin: 16px auto 0;
+    border-radius: 3px;
 }
 </style>
 <template>
@@ -173,49 +214,69 @@
 
                         </v-col>
                     </v-row>
-                    <v-row>
-                        <v-col class="mx-auto">
-                            <div class="map-container">
+                    <v-row class="my-10" justify="center">
+                        <v-col cols="12">
+                            <v-card rounded="lg">
+                                <v-card-title class="d-flex align-center">
+                                    <v-icon class="me-2" color="primary">mdi-map-marker</v-icon>
+                                    <span class="text-h6 font-weight-medium">
+                                        Eishi Organic Farm
+                                    </span>
+                                </v-card-title>
 
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d586063.7455595126!2d120.00547478501534!3d16.031247512102407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3391609ecf540463%3A0x44bc9c18460340e3!2sPangasinan!5e1!3m2!1sen!2sph!4v1764209764109!5m2!1sen!2sph"
-                                    width="100%" height="800" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
+                                <v-divider />
+
+                                <v-card-text class="pa-0">
+                                    <div class="map-wrapper">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3837.770920102277!2d120.6713427!3d15.8686329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33913b0000eba1e7%3A0x48da2e00658e70e2!2sEishi%20Organic%20Farm!5e0!3m2!1sen!2sph!4v1771421406076!5m2!1sen!2sph"
+                                            width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </v-card-text>
+
+                                <v-card-actions class="px-4 pb-4">
+                                    <v-icon size="18" class="me-1" color="grey-darken-1">
+                                        mdi-map
+                                    </v-icon>
+                                    <span class="text-body-2 text-grey-darken-1">
+                                        Eishi Organic Farm
+                                    </span>
+                                </v-card-actions>
+                            </v-card>
                         </v-col>
                     </v-row>
-                    <v-row class="mt-10 mb-10">
-                        <v-col class="mx-auto">
-                            <p style="font-size: 3rem; font-weight: bold;">{{ t.relatedProperties }}</p>
+                    <v-row class="my-16">
+                        <v-col class="text-center">
+                            <h2 class="related-title">
+                                {{ t.relatedProperties }}
+                            </h2>
                         </v-col>
                     </v-row>
 
                     <v-row dense>
                         <v-col v-for="(property, index) in translatedProperties" :key="index" cols="6">
-                            <v-card class="overflow-hidden cursor-pointer" variant="text"
+                            <!-- Card with image only -->
+                            <v-card class="overflow-hidden cursor-pointer" variant="text" rounded="lg"
                                 @click="$router.push(property.route)">
-
-                                <!-- Image container -->
                                 <div>
                                     <v-img :ref="el => propertyCards.push(el)" :src="property.image" height="400"
                                         cover></v-img>
                                 </div>
-
-                                <!-- Property Table -->
-                                <v-card-text>
-                                    <div class="farm-table">
-                                        <div class="row-item">
-                                            <div class="label">{{ t.propertyNameLabel }}</div>
-                                            <div class="value">{{ property.title }}</div>
-                                        </div>
-
-                                        <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                                            <div class="label">{{ key }}</div>
-                                            <div class="value">{{ value }}</div>
-                                        </div>
-                                    </div>
-                                </v-card-text>
                             </v-card>
+
+                            <!-- Property Table outside the card -->
+                            <div class="farm-table mt-2">
+                                <div class="row-item">
+                                    <div class="label">{{ t.propertyNameLabel }}</div>
+                                    <div class="value">{{ property.title }}</div>
+                                </div>
+
+                                <div v-for="(value, key) in property.details" :key="key" class="row-item">
+                                    <div class="label">{{ key }}</div>
+                                    <div class="value">{{ value }}</div>
+                                </div>
+                            </div>
                         </v-col>
                     </v-row>
 
@@ -332,8 +393,8 @@
                     <div class="map-container">
 
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d586063.7455595126!2d120.00547478501534!3d16.031247512102407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3391609ecf540463%3A0x44bc9c18460340e3!2sPangasinan!5e1!3m2!1sen!2sph!4v1764209764109!5m2!1sen!2sph"
-                            width="100%" height="800" style="border:0;" allowfullscreen="" loading="lazy"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3837.770920102277!2d120.6713427!3d15.8686329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33913b0000eba1e7%3A0x48da2e00658e70e2!2sEishi%20Organic%20Farm!5e0!3m2!1sen!2sph!4v1771421406076!5m2!1sen!2sph"
+                            class="full-width-map" height="300" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </v-col>

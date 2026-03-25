@@ -76,6 +76,28 @@
 .scroll-zoom.zoomed {
     transform: scale(1.1);
 }
+
+.related-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    position: relative;
+}
+
+.related-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: #1976d2;
+    margin: 16px auto 0;
+    border-radius: 3px;
+}
+
+@media (max-width: 600px) {
+  .video-wrapper video{
+    height: 400px;       /* smaller height for mobile */
+  }
+}
 </style>
 <template>
     <!-- desktop view -->
@@ -175,20 +197,8 @@
                                 </div>
                             </div>
                         </v-col>
-
-
-
-
                     </v-row>
-                    <v-row>
-                        <v-col class="mx-auto">
-                            <div class="video-wrapper">
-                                <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                                    <source src="/eishi/videos/car rental.mp4" type="video/mp4" />
-                                </video>
-                            </div>
-                        </v-col>
-                    </v-row>
+                  
                     <v-row>
 
 
@@ -205,48 +215,38 @@
                             </div>
                         </v-col>
                     </v-row>
-                    <v-row>
-                        <v-col class="mx-auto">
-                            <div class="map-container">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.049609986706!2d121.0482168!3d13.8800814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd124260384d8b%3A0x8a158f5013602c26!2sSan%20Jose%2C%20Batangas!5e0!3m2!1sen!2sph!4v1701060000000!5m2!1sen!2sph&maptype=satellite"
-                                    width="100%" height="800" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
-                        </v-col>
-                    </v-row>
-                    <v-row class="mt-10 mb-10">
-                        <v-col class="mx-auto">
-                            <p style="font-size: 3rem; font-weight: bold;">{{ t.relatedProperties }}</p>
+
+                    <v-row class="my-16">
+                        <v-col class="text-center">
+                            <h2 class="related-title">
+                                {{ t.relatedProperties }}
+                            </h2>
                         </v-col>
                     </v-row>
 
                     <v-row dense>
                         <v-col v-for="(property, index) in translatedProperties" :key="index" cols="6">
-                            <v-card class="overflow-hidden cursor-pointer" variant="text"
+                            <!-- Card with image only -->
+                            <v-card class="overflow-hidden cursor-pointer" variant="text" rounded="lg"
                                 @click="$router.push(property.route)">
+                                <div>
+                                    <v-img :ref="el => propertyCards.push(el)" :src="property.image" height="400"
+                                        cover></v-img>
+                                </div>
+                            </v-card>
 
-                                <!-- Image container -->
-                                <div class="img-hover-wrapper">
-                                    <v-img :src="property.image" height="400" cover
-                                        :ref="el => propertyCards.push(el)"></v-img>
+                            <!-- Property Table outside the card -->
+                            <div class="farm-table mt-2">
+                                <div class="row-item">
+                                    <div class="label">{{ t.propertyNameLabel }}</div>
+                                    <div class="value">{{ property.title }}</div>
                                 </div>
 
-                                <!-- Property Table -->
-                                <v-card-text>
-                                    <div class="farm-table">
-                                        <div class="row-item">
-                                            <div class="label">{{ t.propertyNameLabel }}</div>
-                                            <div class="value">{{ property.title }}</div>
-                                        </div>
-
-                                        <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                                            <div class="label">{{ key }}</div>
-                                            <div class="value">{{ value }}</div>
-                                        </div>
-                                    </div>
-                                </v-card-text>
-                            </v-card>
+                                <div v-for="(value, key) in property.details" :key="key" class="row-item">
+                                    <div class="label">{{ key }}</div>
+                                    <div class="value">{{ value }}</div>
+                                </div>
+                            </div>
                         </v-col>
                     </v-row>
 
@@ -353,11 +353,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <div class="video-wrapper">
-            <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                <source src="/eishi/videos/car rental.mp4" type="video/mp4" />
-            </video>
-        </div>
+     
         <v-container>
             <v-row no-gutters>
                 <v-col v-for="(image, index) in images" :key="index" cols="12" class="d-flex pa-2">
@@ -366,16 +362,7 @@
             </v-row>
         </v-container>
         <v-container>
-            <v-row>
-                <v-col class="mx-auto">
-                    <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.049609986706!2d121.0482168!3d13.8800814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd124260384d8b%3A0x8a158f5013602c26!2sSan%20Jose%2C%20Batangas!5e0!3m2!1sen!2sph!4v1701060000000!5m2!1sen!2sph&maptype=satellite"
-                            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </v-col>
-            </v-row>
+
             <v-row class="mt-10 mb-10">
                 <v-col class="mx-auto">
                     <p style="font-size: 2rem;">{{ t.relatedProperties }}</p>
@@ -434,7 +421,7 @@ export default {
                     title: "Poultry Farm",
                     details: {
                         "Location": "Municipality of San Jose, Batangas",
-                        "Sqm.": "3,500",
+                    
                     },
                     image: "/eishi/batangas_tokyo_farm/images/1732160556378.webp",
                     route: "/business_holdings/batangas/poultry_farm"

@@ -1,947 +1,532 @@
 <style>
-.typewriter {
-  white-space: pre-wrap;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --ivory:    #f8f5f0;
+  --cream:    #f0ebe2;
+  --linen:    #e4ddd3;
+  --bronze:   #a07840;
+  --bronze-l: #c9a96e;
+  --bronze-xl:#ecdfc8;
+  --charcoal: #1c1a17;
+  --ink:      #2e2b26;
+  --mid:      #7a7368;
+  --pale:     #b0a898;
+  --fd: 'Playfair Display', Georgia, serif;
+  --dm: 'DM Sans', sans-serif;
 }
 
-.scroll-scale {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+.about-wrap { font-family: var(--dm); background: var(--ivory); color: var(--ink); }
+* { box-sizing: border-box; }
+
+/* ── shared utilities ────────────────────────────────── */
+.label-tag {
+  font-size: 0.68rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--bronze);
+  display: flex; align-items: center; gap: 12px;
+}
+.label-tag::before {
+  content: ''; display: block;
+  width: 26px; height: 1px; background: var(--bronze);
+}
+.section-headline {
+  font-family: var(--fd);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 300; line-height: 1.1; color: var(--charcoal);
+}
+.section-headline em { font-style: italic; color: var(--mid); }
+.body-copy {
+  font-size: 0.97rem; font-weight: 300;
+  line-height: 1.9; color: var(--mid);
+}
+.btn-line {
+  display: inline-flex; align-items: center; gap: 14px;
+  border: 1px solid var(--charcoal); color: var(--charcoal);
+  background: transparent; font-family: var(--dm);
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+  text-decoration: none; padding: 15px 30px; cursor: pointer;
+  transition: background 0.35s, color 0.35s; align-self: flex-start;
+}
+.btn-line:hover { background: var(--charcoal); color: var(--ivory); }
+.btn-arr {
+  width: 20px; height: 1px; background: currentColor;
+  position: relative; flex-shrink: 0; transition: width 0.3s;
+}
+.btn-line:hover .btn-arr { width: 30px; }
+.btn-arr::after {
+  content: ''; position: absolute; right: 0; top: -3.5px;
+  width: 7px; height: 7px;
+  border-right: 1px solid currentColor; border-top: 1px solid currentColor;
+  transform: rotate(45deg);
 }
 
-.scroll-scale video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform-origin: center center;
+/* ── HERO / HEADER ───────────────────────────────────── */
+.about-hero {
+  background: var(--ivory);
+  padding: 14rem 8vw 8vw;
+  max-width: 1400px; margin: 0 auto;
+}
+.about-hero-inner {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-bottom: 1px solid var(--linen); padding-bottom: 5vw;
+}
+.about-hero-left {}
+.about-hero-title {
+  font-family: var(--fd);
+  font-size: clamp(4rem, 11vw, 10rem);
+  font-weight: 300; line-height: 0.93; color: var(--charcoal);
+  margin: 0 0 2rem;
+}
+.about-hero-title em { font-style: italic; color: var(--mid); }
+.about-hero-right {
+  text-align: right; flex-shrink: 0; padding-left: 4vw;
+}
+.about-hero-since {
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--bronze); margin-bottom: 0.6rem;
+}
+.about-hero-desc {
+  font-size: 0.85rem; font-weight: 300;
+  color: var(--mid); line-height: 1.7; max-width: 240px; margin-left: auto;
 }
 
-.card-grid {
-  border-left: 1px solid #cfd8dc;
-  /* left border */
-  border-right: 1px solid #cfd8dc;
-  /* right border */
+/* ── VIDEO ───────────────────────────────────────────── */
+.about-video-section {
+  width: 100%; overflow: hidden;
+}
+.about-video-section video {
+  width: 100%; height: 70vh;
+  object-fit: cover; display: block;
 }
 
-.card-grid > .v-container {
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  /* 12 columns */
-  height: 20px;
-  /* adjust card height */
+/* ── BRIDGING / TEXT SPLIT ───────────────────────────── */
+.split-section {
+  background: var(--ivory); padding: 10vw 8vw;
+}
+.split-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: start;
+}
+.split-title-col {}
+.split-text-col { display: flex; flex-direction: column; gap: 2rem; padding-top: 0.5rem; }
+
+/* ── DARK BAND ───────────────────────────────────────── */
+.dark-band {
+  background: var(--charcoal); padding: 10vw 8vw;
+}
+.dark-band-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: start;
+}
+.dark-label {
+  font-size: 0.68rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--bronze-l);
+  display: flex; align-items: center; gap: 12px; margin-bottom: 2rem;
+}
+.dark-label::before {
+  content: ''; display: block; width: 26px; height: 1px; background: var(--bronze-l);
+}
+.dark-headline {
+  font-family: var(--fd);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 300; line-height: 1.1; color: var(--ivory);
+}
+.dark-headline em { font-style: italic; color: var(--bronze-l); }
+.dark-body {
+  font-size: 0.97rem; font-weight: 300;
+  line-height: 1.9; color: rgba(248,245,240,0.5);
 }
 
-.grid-section {
-  border-left: 1px solid #cfd8dc;
-  /* vertical line */
-  height: 100%;
+/* ── PARTNERS ────────────────────────────────────────── */
+.partners-about {
+  background: var(--cream); padding: 10vw 8vw;
+  border-top: 1px solid var(--linen);
+}
+.partners-about-inner { max-width: 1200px; margin: 0 auto; }
+.partners-about-head { margin-bottom: 5rem; }
+.partner-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--linen); border: 1px solid var(--linen);
+}
+.partner-card {
+  background: var(--cream); padding: 3rem 2.5rem;
+  display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+  cursor: pointer; transition: background 0.3s;
+  text-decoration: none;
+}
+.partner-card:hover { background: var(--ivory); }
+.partner-card:hover .partner-logo-img { opacity: 1; transform: scale(1.04); }
+.partner-logo-img {
+  height: 52px; width: auto; object-fit: contain;
+  opacity: 0.65; transition: opacity 0.3s, transform 0.35s;
+}
+.partner-name-text {
+  font-size: 0.7rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--mid); text-align: center; line-height: 1.5;
 }
 
-/* Optional: hide scrollbar */
-.v-row.overflow-auto::-webkit-scrollbar {
-  display: none;
+/* ── TIMELINE ────────────────────────────────────────── */
+.timeline-section {
+  background: var(--ivory); padding: 10vw 8vw;
 }
+.timeline-inner { max-width: 1200px; margin: 0 auto; }
+.timeline-head {
+  display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem;
+}
+.timeline-controls { display: flex; gap: 8px; }
+.t-ctrl-btn {
+  width: 44px; height: 44px; border: 1px solid var(--linen);
+  background: transparent; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  transition: background 0.3s, border-color 0.3s;
+}
+.t-ctrl-btn:hover { background: var(--charcoal); border-color: var(--charcoal); }
+.t-ctrl-btn:hover svg { stroke: var(--ivory); }
+.t-ctrl-btn svg { width: 14px; height: 14px; stroke: var(--ink); fill: none; stroke-width: 2; }
 
-.v-row.overflow-auto {
-  -ms-overflow-style: none;
-  /* IE and Edge */
+.timeline-track {
+  display: flex; gap: 2px;
+  overflow-x: auto; scroll-behavior: smooth;
+  background: var(--linen);
   scrollbar-width: none;
-  /* Firefox */
+}
+.timeline-track::-webkit-scrollbar { display: none; }
+.timeline-card {
+  flex: 0 0 380px; background: var(--ivory);
+  padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem;
+  transition: background 0.3s;
+}
+.timeline-card:hover { background: var(--cream); }
+.t-year {
+  font-size: 0.62rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--bronze);
+}
+.t-title {
+  font-family: var(--fd); font-size: 1.5rem;
+  font-weight: 300; color: var(--charcoal); line-height: 1.2;
+}
+.t-img { width: 100%; aspect-ratio: 16/10; overflow: hidden; }
+.t-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.t-desc {
+  font-size: 0.88rem; font-weight: 300;
+  line-height: 1.75; color: var(--mid);
 }
 
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
+/* ── MISSION / VISION ────────────────────────────────── */
+.mission-about {
+  background: var(--charcoal); padding: 10vw 8vw;
+}
+.mission-about-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: start;
+}
+.mission-about-left { position: sticky; top: 100px; }
+.m-img {
+  width: 100%; aspect-ratio: 4/5;
+  object-fit: cover; display: block;
+  margin-top: 3.5rem; filter: brightness(0.7);
+}
+.pillars { display: flex; flex-direction: column; }
+.pillar {
+  border-top: 1px solid rgba(248,245,240,0.1);
+  padding: 2rem 0;
+  display: grid; grid-template-columns: 52px 1fr;
+  gap: 1.5rem; align-items: start;
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.pillar.in { opacity: 1; transform: none; }
+.pillar:last-child { border-bottom: 1px solid rgba(248,245,240,0.1); }
+.p-num {
+  font-family: var(--fd); font-size: 1.8rem;
+  font-weight: 300; color: rgba(248,245,240,0.12); line-height: 1; padding-top: 2px;
+}
+.p-title {
+  font-size: 0.71rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ivory); margin-bottom: 0.55rem;
+}
+.p-desc {
+  font-size: 0.87rem; font-weight: 300;
+  line-height: 1.75; color: rgba(248,245,240,0.42);
 }
 
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
-  cursor: grab;
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .about-hero-inner { flex-direction: column; align-items: flex-start; gap: 2.5rem; }
+  .about-hero-right { text-align: left; padding-left: 0; }
+  .about-hero-desc { margin-left: 0; }
+  .split-inner { grid-template-columns: 1fr; }
+  .dark-band-inner { grid-template-columns: 1fr; }
+  .partner-grid { grid-template-columns: 1fr 1fr; }
+  .mission-about-inner { grid-template-columns: 1fr; }
+  .mission-about-left { position: static; }
+  .timeline-head { flex-direction: column; align-items: flex-start; gap: 2rem; }
 }
-
-.hide-scrollbar.active {
-  cursor: grabbing;
-}
-
-.sticky-text {
-  position: sticky;
-  top: 300px;
-  /* distance from top */
-  transition: transform 0.1s linear;
-}
-
-#title1,
-#title2 {
-  display: inline-block;
-  /* allow horizontal transform */
-}
-
-.animated-text {
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
-}
-
-.animated-text.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.video-wrapper video {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
+@media (max-width: 520px) {
+  .partner-grid { grid-template-columns: 1fr; }
+  .about-hero-title { font-size: 3.5rem; }
 }
 </style>
+
 <template>
-  <v-container style="padding-top: 10rem; padding-bottom: 5rem" v-if="!isMobileView">
-    <v-row>
-      <v-col cols="9" class="mx-auto">
-        <v-row>
-          <v-col class="">
-            <span ref="aboutTitle" style="font-size: 72px; font-weight: 400">{{ t.about }}</span>
-          </v-col>
+  <div class="about-wrap">
 
-          <v-col cols="4" class="text-right">
-            <div ref="aboutMeta">
-              <span>{{ t.since2018Label }}</span
-              ><br />
-              <span style="font-size: 14px" class="text-grey-darken-2">
-                {{ t.since2018Description }}
-              </span>
-            </div>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-container fluid class="pa-0 ma-0" v-if="!isMobileView">
-    <v-row no-gutters>
-      <v-col class="pa-0 ma-0">
-        <div class="scroll-scale" ref="videoWrapper">
-          <video ref="video" autoplay loop muted playsinline preload="metadata">
-            <source src="/eishi/videos/3d Marketing.mp4" type="video/mp4" />
-          </video>
+    <!-- ── HERO ──────────────────────────────────────── -->
+    <div class="about-hero">
+      <div class="about-hero-inner">
+        <div class="about-hero-left">
+          <p class="label-tag" style="margin-bottom: 2rem">Who We Are</p>
+          <h1 class="about-hero-title">
+            {{ t.about || 'About' }}<br /><em>Eishi</em>
+          </h1>
         </div>
-      </v-col>
-    </v-row>
-  </v-container>
+        <div class="about-hero-right">
+          <p class="about-hero-since">{{ t.since2018Label || 'Est. 2018' }}</p>
+          <p class="about-hero-desc">{{ t.since2018Description }}</p>
+        </div>
+      </div>
+    </div>
 
-  <v-container style="padding-top: 5rem; padding-bottom: 5rem" v-if="!isMobileView">
-    <v-row>
-      <v-col cols="9" class="mx-auto">
-        <v-row>
-          <v-col cols="7">
-            <h1 ref="title1">{{ t.bridgingExpertise }}</h1>
-            <h1 ref="title2">{{ t.buildingOpportunities }}</h1>
-          </v-col>
-          <v-col class="text-justify">
-            <div ref="desc1" class="text-grey-darken-2">{{ t.aboutP2 }}</div>
-            <div ref="desc2" class="text-grey-darken-2" style="margin-top: 2rem">
-              {{ t.aboutP3 }}
-            </div>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+    <!-- ── VIDEO ─────────────────────────────────────── -->
+    <div class="about-video-section">
+      <video autoplay loop muted playsinline preload="metadata">
+        <source src="/eishi/videos/3d Marketing.mp4" type="video/mp4" />
+      </video>
+    </div>
 
-  <div
-    class="bg-black section-block"
-    style="padding-top: 5rem; padding-bottom: 5rem"
-    v-if="!isMobileView"
-  >
-    <v-container style="padding-top: 5rem; padding-bottom: 5rem">
-      <v-row>
-        <v-col cols="9" class="mx-auto">
-          <v-row>
-            <v-col cols="7">
-              <span ref="missionTitle" style="font-size: 36px; font-weight: 400">
-                {{ t.missionVision }}
-              </span>
-            </v-col>
-            <v-col class="text-justify">
-              <div ref="missionDesc" class="d-block">
-                {{ t.aboutP4 }}
-              </div>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+    <!-- ── BRIDGING / TEXT SPLIT ─────────────────────── -->
+    <section class="split-section">
+      <div class="split-inner">
+        <div class="split-title-col">
+          <p class="label-tag" style="margin-bottom: 2rem">Our Story</p>
+          <h2 class="section-headline">
+            {{ t.bridgingExpertise || 'Bridging Expertise,' }}<br />
+            <em>{{ t.buildingOpportunities || 'Building Opportunities' }}</em>
+          </h2>
+        </div>
+        <div class="split-text-col">
+          <p class="body-copy">{{ t.aboutP2 }}</p>
+          <p class="body-copy">{{ t.aboutP3 }}</p>
+        </div>
+      </div>
+    </section>
 
-  <div class="section-block" style="padding-top: 5rem; padding-bottom: 5rem" v-if="!isMobileView">
-    <v-container style="padding-top: 5rem; padding-bottom: 5rem">
-      <v-row>
-        <v-col cols="9" class="mx-auto">
-          <v-row>
-            <v-col cols="7">
-              <span ref="whyUsTitle" style="font-size: 36px; font-weight: 400">
-                {{ t.whyUs }}
-              </span>
-            </v-col>
-            <v-col class="text-justify">
-              <div ref="whyUsDesc" class="d-block">
-                {{ t.aboutP5 }}
-              </div>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+    <!-- ── MISSION / VISION INTRO (dark band) ────────── -->
+    <section class="dark-band">
+      <div class="dark-band-inner">
+        <div>
+          <p class="dark-label">Mission &amp; Vision</p>
+          <h2 class="dark-headline">
+            {{ t.missionVision || 'Mission &' }}<br />
+            <em>Vision</em>
+          </h2>
+        </div>
+        <div>
+          <p class="dark-body" style="padding-top: 0.5rem">{{ t.aboutP4 }}</p>
+        </div>
+      </div>
+    </section>
 
-  <div class="" style="padding-top: 5rem; padding-bottom: 5rem" v-if="!isMobileView">
-    <v-container>
-      <v-col cols="9" class="mx-auto">
-        <v-row>
-          <v-col cols="12" style="margin-bottom: 4rem">
-            <span style="font-size: 48px; font-weight: 400">{{ t.ourPartner }}</span>
-          </v-col>
-          <v-col
-            v-for="(partner, index) in partner_items"
-            :key="index"
-            cols="12"
-            sm="6"
-            md="4"
-            lg="3"
+    <!-- ── WHY US ─────────────────────────────────────── -->
+    <section class="split-section" style="background: var(--cream)">
+      <div class="split-inner">
+        <div class="split-title-col">
+          <p class="label-tag" style="margin-bottom: 2rem">Why Choose Us</p>
+          <h2 class="section-headline">
+            {{ t.whyUs || 'Why' }}<br /><em>Eishi?</em>
+          </h2>
+        </div>
+        <div class="split-text-col">
+          <p class="body-copy">{{ t.aboutP5 }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PARTNERS ───────────────────────────────────── -->
+    <section class="partners-about">
+      <div class="partners-about-inner">
+        <div class="partners-about-head">
+          <p class="label-tag" style="margin-bottom: 1rem">Affiliates</p>
+          <h2 class="section-headline">{{ t.ourPartner || 'Our Partners' }}</h2>
+        </div>
+        <div class="partner-grid">
+          <component
+            :is="partner.link ? 'a' : 'div'"
+            v-for="(partner, i) in partner_items"
+            :key="i"
+            :href="partner.link || undefined"
+            target="_blank"
+            rel="noopener"
+            class="partner-card"
           >
-            <v-card
-              rounded="lg"
-              height="100"
-              variant="tonal"
-              class="pa-2 hover-card d-flex align-center justify-center flex-sm-row flex-column text-center"
-              @click="openPartnerLink(partner.link)"
-              style="cursor: pointer"
-            >
-              <v-img
-                :src="partner.img"
-                height="40"
-                width="40"
-                contain
-                class="mr-sm-2 mb-2 mb-sm-0"
-                loading="lazy"
-              >
-                <template #placeholder>
-                  <v-skeleton-loader type="image" />
-                </template>
-              </v-img>
-              <span class="partner-title">
-                {{ partner.title }}
-              </span>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-container>
-  </div>
+            <img :src="partner.img" :alt="partner.title" class="partner-logo-img" loading="lazy" />
+            <span class="partner-name-text">{{ partner.title }}</span>
+          </component>
+        </div>
+      </div>
+    </section>
 
-  <div style="padding-top: 5rem; padding-bottom: 5rem" v-if="!isMobileView">
-    <v-container>
-      <v-col cols="9" class="mx-auto">
-        <v-row>
-          <v-col cols="12" style="margin-bottom: 4rem">
-            <span style="font-size: 48px; font-weight: 400">{{ t.journeyThroughTheYears }}</span>
-          </v-col>
+    <!-- ── TIMELINE ───────────────────────────────────── -->
+    <section class="timeline-section">
+      <div class="timeline-inner">
+        <div class="timeline-head">
+          <div>
+            <p class="label-tag" style="margin-bottom: 1rem">History</p>
+            <h2 class="section-headline">{{ t.journeyThroughTheYears || 'Journey Through the Years' }}</h2>
+          </div>
+          <div class="timeline-controls">
+            <button class="t-ctrl-btn" @click="scrollTimeline(-1)" aria-label="Previous">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="t-ctrl-btn" @click="scrollTimeline(1)" aria-label="Next">
+              <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+            </button>
+          </div>
+        </div>
 
-          <!-- Carousel Buttons -->
-          <v-col cols="12" class="text-right mb-4">
-            <v-btn class="mr-2" color="black" @click="scrollLeft">
-              <v-icon>fi-br-angle-left</v-icon>
-            </v-btn>
-            <v-btn color="black" @click="scrollRight">
-              <v-icon>fi-br-angle-right</v-icon>
-            </v-btn>
-          </v-col>
-
-          <!-- Carousel -->
+        <div class="timeline-track" ref="timelineTrack">
           <div
-            ref="carousel"
-            class="d-flex hide-scrollbar"
-            style="overflow-x: auto; scroll-behavior: smooth; gap: 16px; flex-wrap: nowrap"
+            v-for="(item, i) in timeline_cards"
+            :key="i"
+            class="timeline-card"
           >
-            <v-sheet
-              v-for="(item, index) in timeline_cards"
-              :key="index"
-              width="450"
-              class="ml-2 flex-shrink-0"
-            >
-              <v-card variant="text" class="card-grid mt-5">
-                <v-btn variant="tonal">{{ item.year }}</v-btn>
-                <v-container class="pa-0 mt-5">
-                  <div v-for="n in item.gridCount" :key="n" class="grid-section"></div>
-                </v-container>
-
-                <v-row class="mt-2">
-                  <v-col cols="12" class="ml-5">
-                    <span style="font-size: 24px">{{ item.title }}</span>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" class="d-flex justify-center">
-                    <v-img
-                      class="ml-5 mr-5"
-                      :src="item.image"
-                      height="350"
-                      width="60%"
-                      cover
-                      loading="lazy"
-                    >
-                      <template #placeholder>
-                        <v-skeleton-loader type="image" />
-                      </template>
-                    </v-img>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col class="ml-5 mr-5 text-grey-darken-2">
-                    <span style="white-space: normal">{{ item.description }}</span>
-                  </v-col>
-                </v-row>
-              </v-card>
-            </v-sheet>
-          </div>
-
-          <!-- End Carousel -->
-        </v-row>
-      </v-col>
-    </v-container>
-  </div>
-
-  <div
-    style="padding-top: 5rem; padding-bottom: 5rem"
-    class="bg-grey-lighten-3"
-    v-if="!isMobileView"
-  >
-    <v-container v-if="!isMobileView">
-      <v-row>
-        <v-col cols="9" class="mx-auto">
-          <v-container>
-            <v-row>
-              <v-col cols="6" class="d-flex flex-column align-start pa-0">
-                <v-container>
-                  <v-row>
-                    <span style="font-size: 2rem">
-                      <h1 style="font-weight: 300">{{ t.yourVission }}</h1>
-                      <h1 style="font-weight: 300">{{ t.ourMission }}</h1>
-                    </span>
-                  </v-row>
-                  <v-row>
-                    <v-col class="text-left ma-0 pa-0">
-                      <v-parallax
-                        width="400px"
-                        src="/eishi/pexels-rickyrecap-1662159.webp"
-                      ></v-parallax>
-                    </v-col>
-                  </v-row>
-                  <v-row style="padding-top: 2rem; font-size: 1rem">
-                    <v-col class="text-left ma-0 pa-0" cols="9">
-                      <span class="">{{ t.missionDescription }}</span>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-btn
-                      to="/about"
-                      rounded
-                      size="x-large"
-                      class="text-capitalize mt-12 text-carousel btn-fixed-width"
-                      height="80"
-                      width="300"
-                      color="black"
-                    >
-                      <span class="text-front">{{ t.moreAboutEishi }}</span>
-                      <span class="text-back"> {{ t.moreAboutEishi }}</span>
-                    </v-btn>
-                  </v-row>
-                </v-container>
-              </v-col>
-              <v-col cols="6">
-                <v-container>
-                  <v-row>
-                    <v-col
-                      v-for="(item, index) in vission_cards"
-                      :key="index"
-                      cols="12"
-                      class="d-flex justify-end"
-                    >
-                      <v-card
-                        flat
-                        height="250px"
-                        width="500px"
-                        class="d-flex flex-column text-left pa-4"
-                      >
-                        <!-- Title at top -->
-                        <span style="font-size: 2rem; font-weight: bold">
-                          {{ twoDigits(index + 1) }} | {{ item.title }}
-                        </span>
-
-                        <!-- Description at bottom -->
-                        <span class="mt-auto text-blue-grey-darken-2">
-                          {{ item.description }}
-                        </span>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
-
-  <div v-if="isMobileView" class="bg-grey-lighten-4">
-    <v-container style="padding-top: 5rem; padding-bottom: 5rem">
-      <v-row>
-        <v-col class="mx-auto">
-          <v-row>
-            <v-col cols="12" class="animate__animated animate__slideInLeft">
-              <span style="font-size: 48px; font-weight: 400">{{ t.about }}</span>
-            </v-col>
-
-            <v-col class="text-right animate__animated animate__slideInRight">
-              <span>{{ t.since2018Label }}</span
-              ><br />
-              <span style="font-size: 14px" class="text-grey-darken-2">
-                {{ t.since2018Description }}
-              </span>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-container fluid class="pa-0 ma-0">
-      <v-row no-gutters>
-        <v-col class="pa-0 ma-0">
-          <div class="video-wrapper">
-            <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-              <source src="/eishi/videos/3d Marketing.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-container style="padding-top: 5rem; padding-bottom: 5rem">
-      <v-row>
-        <v-col class="mx-auto">
-          <v-row>
-            <v-col cols="12">
-              <h1 ref="title1Mobile">{{ t.bridgingExpertise }}</h1>
-              <h1 ref="title2Mobile">{{ t.buildingOpportunities }}</h1>
-            </v-col>
-            <v-col class="text-justify">
-              <p>{{ t.aboutP2 }}</p>
-              <p style="margin-top: 2rem">{{ t.aboutP3 }}</p>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-    <div class="bg-black">
-      <v-container style="padding-bottom: 5rem">
-        <v-row>
-          <v-col>
-            <v-row>
-              <v-col cols="12">
-                <span style="font-size: 36px; font-weight: 400">
-                  {{ t.missionVision }}
-                </span>
-              </v-col>
-              <v-col class="text-justify">
-                <span>
-                  {{ t.aboutP4 }}
-                </span>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
-
-    <div style="padding-top: 5rem; padding-bottom: 5rem">
-      <v-container style="padding-top: 5rem; padding-bottom: 5rem">
-        <v-row>
-          <v-col>
-            <v-row>
-              <v-col cols="12">
-                <span ref="whyUsTitleMobile" style="font-size: 48px; font-weight: 400">
-                  {{ t.whyUs }}
-                </span>
-              </v-col>
-              <v-col class="text-justify">
-                <span class="d-block">
-                  {{ t.aboutP5 }}
-                </span>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
-
-    <div class="" style="padding-bottom: 5rem">
-      <v-container>
-        <v-row>
-          <v-col cols="12" style="margin-bottom: 4rem">
-            <span style="font-size: 48px; font-weight: 400">{{ t.ourPartner }}</span>
-          </v-col>
-          <v-col v-for="(partner, index) in partner_items" :key="index" cols="12">
-            <v-card flat :href="partner.link" style="cursor: pointer">
-              <v-img :src="partner.img" height="200" contain class="pa-0" loading="lazy">
-                <template #placeholder>
-                  <v-skeleton-loader type="image" />
-                </template>
-              </v-img>
-              <v-card-title class="pa-2 text-center">
-                {{ partner.title }}
-              </v-card-title>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
-
-    <v-card v-for="(item, index) in vission_cards" :key="index" cols="12" class="ma-4" flat>
-      <v-container>
-        <v-row>
-          <v-col class="d-flex justify-end text-black bg-white">
-            <div
-              style="
-                height: 300px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding: 16px;
-              "
-            >
-              <!-- Title at top -->
-              <span style="font-size: 2rem; font-weight: bold">
-                {{ twoDigits(index + 1) }} | {{ item.title }}
-              </span>
-
-              <!-- Description at bottom -->
-              <span>
-                {{ item.description }}
-              </span>
+            <p class="t-year">{{ item.year }}</p>
+            <h3 class="t-title">{{ item.title }}</h3>
+            <div class="t-img">
+              <img :src="item.image" :alt="item.title" loading="lazy" />
             </div>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-card>
+            <p class="t-desc">{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="bg-black">
-      <v-container>
-        <v-row>
-          <v-col class="mx-auto">
-            <v-container style="height: 400vh; position: relative" class="text-center">
-              <div
-                ref="textContainerMobile"
-                style="position: sticky; top: 300px; width: 100%; color: white"
-              >
-                <div style="font-size: 36px; display: inline-block">
-                  {{ t.excitedWorksTitle }}
-                </div>
-                <br />
-                <div style="font-size: 16px; margin-top: 200px; display: inline-block">
-                  {{ t.excitedWorksDescription }}
-                </div>
-              </div>
-              <!-- Image 1 – Left -->
-              <div style="margin-top: 300px; float: right">
-                <v-img
-                  src="/eishi/stock_images/12.webp"
-                  height="120"
-                  width="180"
-                  style="margin-left: 0; margin-right: auto"
-                  loading="lazy"
-                >
-                  <template #placeholder>
-                    <v-skeleton-loader type="image" />
-                  </template>
-                </v-img>
-              </div>
+    <!-- ── MISSION PILLARS ────────────────────────────── -->
+    <section class="mission-about">
+      <div class="mission-about-inner">
+        <div class="mission-about-left">
+          <p class="dark-label">{{ t.yourVission || 'Your Vision,' }}</p>
+          <h2 class="dark-headline">
+            {{ t.yourVission || 'Your Vision,' }}<br />
+            <em>{{ t.ourMission || 'Our Mission' }}</em>
+          </h2>
+          <p class="dark-body" style="margin-top: 2rem; margin-bottom: 3rem">{{ t.missionDescription }}</p>
+          <router-link to="/contact" class="btn-line" style="border-color: rgba(248,245,240,0.3); color: var(--ivory)">
+            {{ t.moreAboutEishi || 'Get in Touch' }}
+            <span class="btn-arr" />
+          </router-link>
+          <img
+            src="/eishi/pexels-rickyrecap-1662159.webp"
+            alt="Mission" class="m-img" loading="lazy"
+          />
+        </div>
 
-              <!-- Image 2 – Right -->
-              <div style="margin-top: 300px; float: left">
-                <v-img
-                  src="/eishi/stock_images/13.webp"
-                  height="240"
-                  width="240"
-                  style="margin-left: auto; margin-right: 0"
-                  loading="lazy"
-                >
-                  <template #placeholder> <v-skeleton-loader type="image" /> </template
-                ></v-img>
-              </div>
-
-              <!-- Image 3 – Left -->
-              <div style="margin-top: 300px; float: right">
-                <v-img
-                  src="/eishi/stock_images/14.webp"
-                  height="180"
-                  width="220"
-                  style="margin-left: 0; margin-right: auto"
-                  loading="lazy"
-                >
-                  <template #placeholder>
-                    <v-skeleton-loader type="image" />
-                  </template>
-                </v-img>
-              </div>
-
-              <!-- Image 4 – Right -->
-              <div style="margin-top: 300px; float: left">
-                <v-img
-                  src="/eishi/stock_images/15.webp"
-                  height="300"
-                  width="240"
-                  style="margin-left: auto; margin-right: 0"
-                  loading="lazy"
-                >
-                  <template #placeholder>
-                    <v-skeleton-loader type="image" />
-                  </template>
-                </v-img>
-              </div>
-            </v-container>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
-
-    <v-container>
-      <v-row>
-        <v-col v-for="(item, index) in translatedStats" :key="index" cols="12">
-          <v-card
-            ref="clientCardsMobile"
-            height="120"
-            class="d-flex flex-column justify-center"
-            style="position: relative; background-color: transparent"
-            flat
+        <div class="pillars" ref="pillarsRef">
+          <div
+            v-for="(item, i) in vission_cards" :key="i"
+            class="pillar" :class="{ in: pillarsIn }"
+            :style="{ transitionDelay: (i * 0.1) + 's' }"
           >
-            <!-- top horizontal line -->
-            <div
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 1px"
-              class="bg-grey"
-            ></div>
-
-            <!-- animated black top line -->
-            <div
-              ref="borderGrowsMobile"
-              style="position: absolute; top: 0; left: 0; width: 0; height: 1px; background: black"
-            ></div>
-
-            <!-- bottom horizontal line (last row only) -->
-            <div
-              v-if="index === stats.length - 1"
-              style="position: absolute; bottom: 0; left: 0; width: 100%; height: 1px"
-              class="bg-grey"
-            ></div>
-
-            <!-- content -->
+            <div class="p-num">{{ twoDigits(i + 1) }}</div>
             <div>
-              <span class="text-grey-darken-2" style="font-size: 14px">
-                {{ item.label }}
-              </span>
-              <br />
-              <span style="font-size: 36px"> {{ animatedValues[index] }}+ </span>
+              <p class="p-title">{{ item.title }}</p>
+              <p class="p-desc">{{ item.description }}</p>
             </div>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </template>
 
 <script>
 import { mapState } from 'pinia'
 import { useLanguageStore } from '@/stores/languageStore'
-import { gsap } from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
-import { SplitText } from 'gsap/SplitText'
-gsap.registerPlugin(ScrollTrigger, SplitText)
 
 export default {
-  name: 'HomeView',
+  name: 'AboutView',
+
   data() {
     return {
-      cards: [],
-      vission_cards: [],
-      timeline_cards: [],
-      animatedValues: [],
-      stats: [
-        { label: 'Clients Served', value: 500 },
-        { label: 'Verified Properties', value: 1200 },
-        { label: 'Years Combined Experience', value: 50 },
-        { label: 'Property Value Transacted', value: 300 },
-      ],
-      scrollAmount: 320,
-      partner_items: [
-        {
-          img: '/eishi/logo/epartners-logo.webp',
-          title: 'E.PARTNERS Co., Ltd.',
-          link: 'https://epartners-offshore.com/',
-        },
-        {
-          img: '/eishi/logo/meishin-group.webp',
-          title: 'Meishin Group Co., Ltd.',
-          link: 'https://meishin-group.co.jp/',
-        },
-        {
-          img: '/eishi/logo/hotel-osaka-logo.webp',
-          title: 'Hotel Osaka',
-          link: 'https://www.hostelosaka.net/',
-        },
-        {
-          img: '/eishi/logo/domoganlawoffice-logo.webp',
-          title: 'Domogan & Associates Law Office',
-          link: '',
-        },
-        {
-          img: '/eishi/logo/dcm-logo.webp',
-          title: 'The Law Firm of Domogan, Chan and Mabalot',
-          link: '',
-        },
-      ],
+      pillarsIn: false,
+      pillarsObserver: null,
       isMobileView: false,
+
+      partner_items: [
+        { img: '/eishi/logo/epartners-logo.webp',        title: 'E.PARTNERS Co., Ltd.',                      link: 'https://epartners-offshore.com/' },
+        { img: '/eishi/logo/meishin-group.webp',         title: 'Meishin Group Co., Ltd.',                   link: 'https://meishin-group.co.jp/' },
+        { img: '/eishi/logo/hotel-osaka-logo.webp',      title: 'Hotel Osaka',                               link: 'https://www.hostelosaka.net/' },
+        { img: '/eishi/logo/domoganlawoffice-logo.webp', title: 'Domogan & Associates Law Office',           link: '' },
+        { img: '/eishi/logo/dcm-logo.webp',              title: 'The Law Firm of Domogan, Chan and Mabalot', link: '' },
+      ],
+
+      timeline_cards: [],
+      vission_cards: [],
     }
   },
-  watch: {
-    // watch the translation object
-    t: {
-      handler(newT) {
-        this.cards = [
-          { title: newT.builtOnTrustTitle, description: newT.builtOnTrustDescription },
-          { title: newT.foodSecurityTitle, description: newT.foodSecurityDescription },
-          { title: newT.foreignInvestmentsTitle, description: newT.foreignInvestmentsDescription },
-          { title: newT.impactfulProjectsTitle, description: newT.impactfulProjectsDescription },
-          { title: newT.expandingFarmsTitle, description: newT.expandingFarmsDescription },
-          { title: newT.growthInnovationTitle, description: newT.growthInnovationDescription },
-        ]
-        this.updateTranslations()
-      },
-      deep: true, // ensures nested changes trigger
-    },
-  },
+
   computed: {
     ...mapState(useLanguageStore, ['t']),
-    translatedStats() {
-      return this.t.stats
+  },
+
+  watch: {
+    t: {
+      handler(newT) {
+        this.vission_cards = [
+          { title: newT.builtOnTrustTitle,          description: newT.builtOnTrustDescription },
+          { title: newT.foodSecurityTitle,           description: newT.foodSecurityDescription },
+          { title: newT.foreignInvestmentsTitle,     description: newT.foreignInvestmentsDescription },
+          { title: newT.impactfulProjectsTitle,      description: newT.impactfulProjectsDescription },
+          { title: newT.expandingFarmsTitle,         description: newT.expandingFarmsDescription },
+          { title: newT.growthInnovationTitle,       description: newT.growthInnovationDescription },
+        ]
+        this.timeline_cards = [
+          { year: '2018', title: newT.timeline2018Title || 'Company Founded',          image: '/eishi/pexels-rickyrecap-1662159.webp', description: newT.timeline2018Description || '' },
+          { year: '2019', title: newT.timeline2019Title || 'First Agricultural Asset', image: '/eishi/feed_mill/images/new-hero.jpg',  description: newT.timeline2019Description || '' },
+          { year: '2020', title: newT.timeline2020Title || 'Real Estate Expansion',    image: '/eishi/kalinga_residential/images/DJI_0591-min.webp', description: newT.timeline2020Description || '' },
+          { year: '2021', title: newT.timeline2021Title || 'International Partnerships', image: '/eishi/cebu_condo/images/20240626_094216.webp', description: newT.timeline2021Description || '' },
+          { year: '2023', title: newT.timeline2023Title || 'Pangasinan Development',   image: '/eishi/pangasinan_farm/images/dji_fly_20250311_151954_0036_1741678753512_photo.webp', description: newT.timeline2023Description || '' },
+        ]
+      },
+      immediate: true, deep: true,
     },
   },
+
   mounted() {
     this.$nextTick(() => {
-      const wrapper = this.$refs.videoWrapper
-      const video = this.$refs.video
-      gsap.set(video, { scale: 0.5 })
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: wrapper,
-            start: 'top top',
-            end: '+=200%',
-            scrub: 2,
-            pin: true,
-            anticipatePin: 1,
-          },
-        })
-        .to(video, {
-          scale: 1,
-          ease: 'expo.out',
-        })
-
-      // ------------------------------
-      // TITLES & DESCRIPTIONS ANIMATION
-      // ------------------------------
-      const sectionsToAnimate = [
-        this.$refs.aboutTitle,
-        this.$refs.aboutMeta,
-        this.$refs.title1,
-        this.$refs.title2,
-        this.$refs.missionTitle,
-        this.$refs.whyUsTitle,
-        this.$refs.title1Mobile,
-        this.$refs.title2Mobile,
-        this.$refs.whyUsTitleMobile,
-      ]
-
-      sectionsToAnimate.forEach((el) => {
-        if (!el) return
-        gsap.from(el, {
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 80%',
-            once: true,
-          },
-          y: 20,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-        })
-      })
-
-      // ------------------------------
-      // STATS ANIMATION
-      // ------------------------------
-      // this.animatedValues = this.translatedStats.map(() => 0)
-      // this.animateStats()
+      if (this.$refs.pillarsRef) {
+        this.pillarsObserver = new IntersectionObserver(
+          ([entry]) => { if (entry.isIntersecting) { this.pillarsIn = true; this.pillarsObserver.disconnect() } },
+          { threshold: 0.12 }
+        )
+        this.pillarsObserver.observe(this.$refs.pillarsRef)
+      }
     })
-
-    // const section = this.$refs.excitedSection.$el
-
-    // const excitedWorksTitle1 = this.$refs.excitedWorksTitle1
-    // const excitedWorksTitle2 = this.$refs.excitedWorksTitle2
-    // gsap
-    //   .timeline({
-    //     scrollTrigger: {
-    //       trigger: section,
-    //       start: 'top 80%',
-    //       end: 'bottom top', // until bottom of container
-    //       scrub: 1, // smooth slow movement
-    //     },
-    //   })
-    //   .to(
-    //     excitedWorksTitle1,
-    //     {
-    //       x: () => -window.innerWidth * 0.3, // move left
-    //       ease: 'none',
-    //     },
-    //     0,
-    //   )
-    //   .to(
-    //     excitedWorksTitle2,
-    //     {
-    //       x: () => window.innerWidth * 0.3, // move right
-    //       ease: 'none',
-    //     },
-    //     0,
-    //   )
-
-    document.fonts.ready.then(() => {
-      this.$nextTick(() => {
-        this.titleSplit = new SplitText(this.$refs.aboutTitle, {
-          type: 'lines',
-        })
-
-        this.titleSplit.lines.forEach((line) => {
-          line.classList.add('linear-gradient-text')
-        })
-
-        gsap.from(this.titleSplit.lines, {
-          yPercent: 100,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.04,
-          ease: 'expo.out',
-        })
-      })
-    })
-
-    this.updateTranslations()
     this.checkMobileView()
     window.addEventListener('resize', this.checkMobileView)
   },
 
   beforeUnmount() {
+    if (this.pillarsObserver) this.pillarsObserver.disconnect()
     window.removeEventListener('resize', this.checkMobileView)
   },
 
   methods: {
-    // animateStats() {
-    //   this.$refs.clientCards.forEach((cardRef, index) => {
-    //     const cardEl = cardRef.$el || cardRef
-    //     const targetValue = this.translatedStats[index].value
+    twoDigits(n) { return n < 10 ? '0' + n : String(n) },
 
-    //     const counter = { val: 0 }
-
-    //     gsap.to(counter, {
-    //       val: targetValue,
-    //       duration: 1.8,
-    //       ease: 'power2.out',
-    //       scrollTrigger: {
-    //         trigger: cardEl,
-    //         start: 'top 80%',
-    //         once: true,
-    //       },
-    //       onUpdate: () => {
-    //         this.animatedValues[index] = Math.floor(counter.val)
-    //       },
-    //     })
-    //   })
-    //   this.$refs.clientCardsMobile.forEach((cardRef, index) => {
-    //     const cardEl = cardRef.$el || cardRef
-    //     const targetValue = this.translatedStats[index].value
-
-    //     const counter = { val: 0 }
-
-    //     gsap.to(counter, {
-    //       val: targetValue,
-    //       duration: 1.8,
-    //       ease: 'power2.out',
-    //       scrollTrigger: {
-    //         trigger: cardEl,
-    //         start: 'top 80%',
-    //         once: true,
-    //       },
-    //       onUpdate: () => {
-    //         this.animatedValues[index] = Math.floor(counter.val)
-    //       },
-    //     })
-    //   })
-    // },
-    openPartnerLink(link) {
-      if (link) {
-        // Only try to open if link is non-empty
-        window.open(link, '_blank')
-      }
-    },
-
-    updateTranslations() {
-      // update vission cards
-      this.vission_cards = [
-        { title: this.t.builtOnTrustTitle, description: this.t.builtOnTrustDescription },
-        { title: this.t.foodSecurityTitle, description: this.t.foodSecurityDescription },
-        {
-          title: this.t.foreignInvestmentsTitle,
-          description: this.t.foreignInvestmentsDescription,
-        },
-        { title: this.t.impactfulProjectsTitle, description: this.t.impactfulProjectsDescription },
-        { title: this.t.expandingFarmsTitle, description: this.t.expandingFarmsDescription },
-        { title: this.t.growthInnovationTitle, description: this.t.growthInnovationDescription },
-      ]
-
-      // update timeline cards only if it exists
-      if (this.t.timelineCards && this.t.timelineCards.length > 0) {
-        this.timeline_cards = this.t.timelineCards.map((card) => ({
-          year: card.year,
-          title: card.title,
-          description: card.description,
-          image: card.image,
-          gridCount: card.gridCount || 20,
-        }))
-      }
-    },
-
-    twoDigits(value) {
-      return value < 10 ? '0' + value : value
-    },
-    scrollLeft() {
-      this.$refs.carousel.scrollLeft -= this.scrollAmount
-    },
-    scrollRight() {
-      this.$refs.carousel.scrollLeft += this.scrollAmount
-    },
     checkMobileView() {
       this.isMobileView = this.$vuetify.display.mobile
+    },
+
+    scrollTimeline(dir) {
+      const el = this.$refs.timelineTrack
+      if (!el) return
+      el.scrollBy({ left: dir * 400, behavior: 'smooth' })
+    },
+
+    openPartnerLink(link) {
+      if (link) window.open(link, '_blank', 'noopener')
     },
   },
 }

@@ -1,318 +1,343 @@
-<style scoped>
-.mobile-contact {
-  position: relative;
-  color: white;
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --ivory:    #f8f5f0;
+  --cream:    #f0ebe2;
+  --linen:    #e4ddd3;
+  --bronze:   #a07840;
+  --bronze-l: #c9a96e;
+  --bronze-xl:#ecdfc8;
+  --charcoal: #1c1a17;
+  --ink:      #2e2b26;
+  --mid:      #7a7368;
+  --pale:     #b0a898;
+  --fd: 'Playfair Display', Georgia, serif;
+  --dm: 'DM Sans', sans-serif;
 }
 
-/* Cinematic dark fade */
-.image-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.85));
+.footer-wrap { font-family: var(--dm); }
+
+/* ── Partner strip ───────────────────────────────────── */
+.partners-section {
+  background: var(--ivory);
+  padding: 7vw 8vw 5vw;
+  border-top: 1px solid var(--linen);
 }
+.partners-inner { max-width: 1200px; margin: 0 auto; }
 
-/* Bottom-sheet form */
-.form-sheet {
-  position: absolute;
-  bottom: env(safe-area-inset-bottom, 0);
-  left: 0;
-  right: 0;
-
-  padding: 1.5rem;
-  padding-bottom: 2rem;
-
-  backdrop-filter: blur(12px);
-  background: rgba(0, 0, 0, 0.65);
-
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+.section-eyebrow {
+  font-size: 0.67rem; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--bronze);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 3rem;
 }
-
-/* Button */
-.send-btn {
-  background: linear-gradient(135deg, #111, #333);
-  color: white;
+.section-eyebrow::before {
+  content: ''; display: block;
+  width: 26px; height: 1px; background: var(--bronze);
 }
-
-.partner-heading {
-  background: linear-gradient(90deg, #000000, #555555, #bbbbbb, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: inline-block;
-  background-size: 200% 200%;
-  /* for smooth animation */
-  animation: gradient-fade 5s ease-in-out infinite alternate;
+.partners-headline {
+  font-family: var(--fd);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--charcoal);
+  line-height: 1.15; margin-bottom: 4rem;
 }
+.partners-headline em { font-style: italic; color: var(--mid); }
 
-@keyframes gradient-fade {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+/* Carousel */
+.carousel-outer {
+  overflow: hidden; position: relative;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
-
-.partner-heading {
-  background-size: 200% 200%;
-  /* ensures smooth gradient movement */
+.carousel-track {
+  display: flex; flex-wrap: nowrap;
+  animation: logoScroll 28s linear infinite;
 }
-
-.partner-carousel-wrapper {
-  overflow: hidden;
-  width: 100%;
-  position: relative;
-
-  /* Add fading effect on sides */
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+.carousel-track:hover { animation-play-state: paused; }
+@keyframes logoScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-
-.partner-carousel {
-  display: flex;
-  flex-wrap: nowrap;
-  animation: scroll-logos 20s linear infinite;
-}
-
-.partner-logo {
+.logo-item {
   flex: 0 0 auto;
-  /* prevent shrinking */
-  min-width: 100px;
-  margin: 0 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  opacity: 1;
-  transition: opacity 0.3s;
+  margin: 0 3rem;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.logo-img-wrap {
+  height: 56px; display: flex; align-items: center;
+  filter: grayscale(1) opacity(0.55);
+  transition: filter 0.4s ease;
+}
+.logo-item:hover .logo-img-wrap { filter: grayscale(0) opacity(1); }
+.logo-img-wrap img { height: 100%; width: auto; object-fit: contain; display: block; }
+.logo-name {
+  font-size: 0.65rem; letter-spacing: 0.1em;
+  text-align: center; color: var(--pale);
+  max-width: 120px; line-height: 1.4;
+  transition: color 0.3s;
+}
+.logo-item:hover .logo-name { color: var(--bronze); }
+
+/* CTA row */
+.partner-cta {
+  margin-top: 4rem;
+  display: flex; align-items: center; gap: 2rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--linen);
+}
+.partner-cta-text {
+  font-family: var(--fd);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 300; color: var(--charcoal);
+}
+.partner-cta-text em { font-style: italic; color: var(--mid); }
+.btn-line {
+  display: inline-flex; align-items: center; gap: 14px;
+  border: 1px solid var(--charcoal);
+  color: var(--charcoal); background: transparent;
+  font-family: var(--dm); font-size: 0.7rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  text-decoration: none; padding: 14px 28px; cursor: pointer;
+  transition: background 0.35s, color 0.35s; white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-line:hover { background: var(--charcoal); color: var(--ivory); }
+.btn-arr {
+  width: 18px; height: 1px; background: currentColor;
+  position: relative; flex-shrink: 0; transition: width 0.3s;
+}
+.btn-line:hover .btn-arr { width: 28px; }
+.btn-arr::after {
+  content: ''; position: absolute; right: 0; top: -3px;
+  width: 6px; height: 6px;
+  border-right: 1px solid currentColor;
+  border-top: 1px solid currentColor;
+  transform: rotate(45deg);
 }
 
-.partner-logo .logo-img {
-  height: 70px;
+/* ── Main footer ─────────────────────────────────────── */
+.footer-main {
+  background: var(--charcoal);
+  padding: 7vw 8vw 0;
+}
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+
+/* Top grid */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 4vw;
+  padding-bottom: 5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand {}
+.footer-logo { height: 32px; width: auto; object-fit: contain; display: block; margin-bottom: 2rem; }
+.footer-brand-desc {
+  font-size: 0.88rem; font-weight: 300;
+  line-height: 1.85; color: rgba(248,245,240,0.4);
+  max-width: 280px; margin-bottom: 2.5rem;
+}
+.footer-social { display: flex; gap: 1rem; }
+.social-dot {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: border-color 0.3s, background 0.3s;
+  text-decoration: none;
+}
+.social-dot:hover { border-color: var(--bronze-l); background: rgba(201,169,110,0.08); }
+.social-dot svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.5); transition: fill 0.3s; }
+.social-dot:hover svg { fill: var(--bronze-l); }
+
+.footer-col-label {
+  font-size: 0.62rem; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--bronze-l);
+  margin-bottom: 1.8rem; display: block;
+}
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem; }
+.footer-col ul li a,
+.footer-col ul li span {
+  font-size: 0.88rem; font-weight: 300;
+  color: rgba(248,245,240,0.45); text-decoration: none;
+  transition: color 0.3s; cursor: pointer;
+}
+.footer-col ul li a:hover { color: var(--ivory); }
+
+/* Bottom bar */
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.8rem 0;
+}
+.footer-copy {
+  font-size: 0.65rem; letter-spacing: 0.15em;
+  color: rgba(248,245,240,0.2); text-transform: uppercase;
+}
+.footer-mark {
+  font-family: var(--fd);
+  font-size: 0.75rem; font-style: italic;
+  color: rgba(248,245,240,0.18);
 }
 
-/* Smooth scrolling animation */
-@keyframes scroll-logos {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .partner-cta { flex-direction: column; align-items: flex-start; }
 }
-
-/* Optional: fade logos when they are near the ends */
-.partner-carousel-wrapper::before,
-.partner-carousel-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 10%;
-  height: 100%;
-  z-index: 10;
-}
-
-.partner-carousel-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, white, transparent);
-}
-
-.partner-carousel-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, white, transparent);
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+  .partners-section { padding: 12vw 6vw 8vw; }
+  .footer-main { padding: 12vw 6vw 0; }
 }
 </style>
 
 <template>
-  <v-container fluid class="pa-0" style="position: relative" v-if="!isMobileView">
-    <v-row no-gutters>
-      <!-- Full-screen background image -->
-      <v-col class="pa-0" style="height: 100vh">
-        <div class="img-hover-wrapper" style="height: 100%">
-          <v-img
-            src="/eishi/pexels-neil-clark-ongchangco-2154700388-33407957.webp"
-            cover
-            height="100%"
-            width="100%"
-            :ref="(el) => imageCards.push(el)"
-          ></v-img>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+  <footer class="footer-wrap">
 
-  <v-container fluid class="ma-0 pa-0" v-if="!isMobileView">
-    <!-- Partner Logos Section -->
-    <v-sheet height="50vh">
-      <v-row>
-        <v-col class="mt-10 mx-auto" cols="12">
-          <span class="partner-heading ml-2 text-h3 font-weight-bold">{{ t.ourPartner }}</span>
+    <!-- ── Partners ───────────────────────────────── -->
+    <div class="partners-section">
+      <div class="partners-inner">
+        <p class="section-eyebrow">Our Partners</p>
+        <h2 class="partners-headline">
+          Trusted by <em>world-class</em><br />organisations
+        </h2>
 
-          <div class="partner-carousel-wrapper">
-            <div class="partner-carousel">
-              <div
-                v-for="(logo, i) in repeatedLogos"
-                :key="i"
-                class="partner-logo d-flex flex-column align-center"
-              >
-                <a
-                  v-if="logo.link"
-                  :href="logo.link"
-                  target="_blank"
-                  rel="noopener"
-                  class="text-decoration-none text-black"
-                >
-                  <v-img :height="70" :src="logo.img" class="logo-img"></v-img>
-                  <h4 class="font-weight-regular text-center mt-2">{{ logo.title }}</h4>
-                </a>
-                <div v-else>
-                  <v-img :height="70" :src="logo.img" class="logo-img"></v-img>
-                  <h4 class="font-weight-regular text-center mt-2">{{ logo.title }}</h4>
-                </div>
+        <!-- Scrolling logos -->
+        <div class="carousel-outer">
+          <div class="carousel-track">
+            <a
+              v-for="(logo, i) in repeatedLogos" :key="i"
+              :href="logo.link || undefined"
+              :target="logo.link ? '_blank' : undefined"
+              rel="noopener"
+              class="logo-item"
+            >
+              <div class="logo-img-wrap">
+                <img :src="logo.img" :alt="logo.title" loading="lazy" />
               </div>
+              <span class="logo-name">{{ logo.title }}</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Become a partner CTA -->
+        <div class="partner-cta">
+          <p class="partner-cta-text">
+            Interested in working<br /><em>with Eishi Group?</em>
+          </p>
+          <router-link to="/contact" class="btn-line">
+            {{ t.becomePartner || 'Become a Partner' }}
+            <span class="btn-arr" />
+          </router-link>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Main footer ────────────────────────────── -->
+    <div class="footer-main">
+      <div class="footer-inner">
+        <div class="footer-grid">
+
+          <!-- Brand col -->
+          <div class="footer-brand">
+            <img
+              src="/eishi/eishi_logo-removebg-preview.webp"
+              alt="Eishi Group"
+              class="footer-logo"
+            />
+            <p class="footer-brand-desc">
+              A diversified holding company rooted in agriculture, real estate, and community development across the Philippine archipelago.
+            </p>
+            <div class="footer-social">
+              <!-- Email icon -->
+              <a class="social-dot" :href="'mailto:' + t.eishiGmail" aria-label="Email">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </a>
+              <!-- Phone icon -->
+              <a class="social-dot" href="tel:+639175755044" aria-label="Phone">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+                </svg>
+              </a>
             </div>
           </div>
-        </v-col>
-      </v-row>
-    </v-sheet>
 
-    <!-- Call to Action -->
-    <v-row>
-      <v-col class="text-center mt-10 mb-10">
-        <v-btn
-          size="large"
-          color="black"
-          class="text-carousel btn-fixed-width"
-          height="80"
-          width="230"
-        >
-          <span class="text-front"> {{ t.becomePartner }}</span>
-          <span class="text-back"> {{ t.becomePartner }}</span>
-        </v-btn>
-      </v-col>
-    </v-row>
+          <!-- Navigation col -->
+          <div class="footer-col">
+            <span class="footer-col-label">Navigation</span>
+            <ul>
+              <li><router-link to="/">{{ t.home || 'Home' }}</router-link></li>
+              <li><router-link to="/about">{{ t.about || 'About' }}</router-link></li>
+              <li><router-link to="/contact">{{ t.contact || 'Contact' }}</router-link></li>
+              <li><router-link to="/property">{{ t.ourBusiness || 'Our Business' }}</router-link></li>
+            </ul>
+          </div>
 
-    <!-- Footer Info Section -->
-    <v-sheet class="bg-black py-10" height="50vh">
-      <v-container>
-        <v-row class="text-white" align="start" justify="space-between">
-          <v-col cols="12" md="4" class="text-center text-md-left mb-6 mb-md-0">
-            <v-img
-              :width="200"
-              aspect-ratio="16/9"
-              cover
-              src="/eishi/eishi_logo-removebg-preview.webp"
-              class="mx-auto mx-md-0"
-            />
-          </v-col>
+          <!-- Location col -->
+          <div class="footer-col">
+            <span class="footer-col-label">{{ t.location || 'Location' }}</span>
+            <ul>
+              <li><span>{{ t.mainOfficeAddress }}</span></li>
+              <li><span>{{ t.mainOfficeAddress2 }}</span></li>
+            </ul>
+          </div>
 
-          <v-col cols="12" sm="6" md="4" class="text-center text-md-left mb-6 mb-md-0">
-            <h3 class="mb-4">{{ t.location }}</h3>
-            <p>{{ t.mainOfficeAddress }}</p>
-            <p>{{ t.mainOfficeAddress2 }}</p>
-          </v-col>
+          <!-- Contact col -->
+          <div class="footer-col">
+            <span class="footer-col-label">{{ t.contact || 'Contact' }}</span>
+            <ul>
+              <li><a :href="'mailto:' + t.eishiGmail">{{ t.eishiGmail }}</a></li>
+              <li><a href="tel:+639175755044">(+63) 917-575-5044</a></li>
+            </ul>
+          </div>
 
-          <v-col cols="12" sm="6" md="4" class="text-center text-md-left">
-            <h3 class="mb-4">{{ t.contact }}</h3>
-            <p>{{ t.eishiGmail }}</p>
-            <p>(+63) 917-575-5044</p>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-sheet>
-  </v-container>
-  <!-- Mobile UI -->
-  <v-container fluid class="pa-0 mobile-contact" v-if="isMobileView">
-    <!-- Background Image -->
-    <v-img src="/eishi/pexels-neil-clark-ongchangco-2154700388-33407957.webp" cover height="100vh">
-      <!-- Dark cinematic overlay -->
-      <div class="image-overlay"></div>
-    </v-img>
-  </v-container>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="footer-bottom">
+          <span class="footer-copy">
+            &copy; {{ currentYear }} Eishi Group. All rights reserved.
+          </span>
+          <span class="footer-mark">Building legacies.</span>
+        </div>
+      </div>
+    </div>
+
+  </footer>
 </template>
 
 <script>
 import { mapState } from 'pinia'
 import { useLanguageStore } from '@/stores/languageStore'
-import { gsap } from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
-gsap.registerPlugin(ScrollTrigger)
+
 export default {
   name: 'Footer',
+
   data() {
     return {
-      imageCards: [],
-      isMobileView: false,
       partner_logo: [
-        {
-          img: '/eishi/logo/epartners-logo.webp',
-          title: 'E.PARTNERS Co., Ltd.',
-          link: 'https://epartners-offshore.com/',
-        },
-        {
-          img: '/eishi/logo/meishin-group.webp',
-          title: 'Meishin Group Co., Ltd.',
-          link: 'https://meishin-group.co.jp/',
-        },
-        {
-          img: '/eishi/logo/hotel-osaka-logo.webp',
-          title: 'Hotel Osaka',
-          link: 'https://www.hostelosaka.net/',
-        },
-        {
-          img: '/eishi/logo/domoganlawoffice-logo.webp',
-          title: 'Domogan & Associates Law Office',
-          link: '',
-        },
-        {
-          img: '/eishi/logo/dcm-logo.webp',
-          title: 'The Law Firm of Domogan, Chan and Mabalot',
-          link: '',
-        },
+        { img: '/eishi/logo/epartners-logo.webp',        title: 'E.PARTNERS Co., Ltd.',                      link: 'https://epartners-offshore.com/' },
+        { img: '/eishi/logo/meishin-group.webp',          title: 'Meishin Group Co., Ltd.',                   link: 'https://meishin-group.co.jp/' },
+        { img: '/eishi/logo/hotel-osaka-logo.webp',       title: 'Hotel Osaka',                               link: 'https://www.hostelosaka.net/' },
+        { img: '/eishi/logo/domoganlawoffice-logo.webp',  title: 'Domogan & Associates Law Office',           link: '' },
+        { img: '/eishi/logo/dcm-logo.webp',               title: 'The Law Firm of Domogan, Chan and Mabalot', link: '' },
       ],
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.imageCards.forEach((img) => {
-        const el = img.$el
 
-        gsap.fromTo(
-          el,
-          { scale: 1.2 },
-          {
-            scale: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'center center',
-              end: '+=200',
-              scrub: 2,
-              invalidateOnRefresh: true,
-            },
-          },
-        )
-      })
-    })
-
-    this.checkMobileView()
-  },
   computed: {
     ...mapState(useLanguageStore, ['t']),
+
     repeatedLogos() {
-      // duplicate logos for seamless scrolling
       return [...this.partner_logo, ...this.partner_logo]
     },
-  },
-  methods: {
-    checkMobileView() {
-      this.isMobileView = this.$vuetify.display.mobile
+
+    currentYear() {
+      return new Date().getFullYear()
     },
   },
 }

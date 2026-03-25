@@ -10,6 +10,13 @@ export default defineConfig({
     vueDevTools(),
     vuetify({ autoImport: true }), // 👈 Add Vuetify plugin
   ],
+   optimizeDeps: {
+    include: [
+      'vuetify',
+      'vuetify/components',
+      'vuetify/directives',
+    ],
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

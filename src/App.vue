@@ -67,12 +67,10 @@ body,
   left: -75%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 100%);
   transform: skewX(-25deg);
   pointer-events: none;
 }
@@ -81,8 +79,10 @@ body,
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw; /* full width */
-  height: 100vh; /* full height */
+  width: 100vw;
+  /* full width */
+  height: 100vh;
+  /* full height */
   background: #0b0b0b;
   z-index: 999;
   padding: 40px;
@@ -109,8 +109,10 @@ body,
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  z-index: 2000; /* ensure above everything */
-  pointer-events: auto; /* ensure clicks work */
+  z-index: 2000;
+  /* ensure above everything */
+  pointer-events: auto;
+  /* ensure clicks work */
   opacity: 1;
 }
 
@@ -133,6 +135,7 @@ body,
   font-size: 24px;
   color: #111;
 }
+
 .nav-logo {
   height: 32px;
   width: auto;
@@ -145,7 +148,8 @@ body,
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 998; /* below side-nav (999), above content */
+  z-index: 998;
+  /* below side-nav (999), above content */
 }
 
 .content-disabled {
@@ -212,85 +216,23 @@ body,
 </style>
 <template>
   <v-app>
-    <div v-if="showSplash" class="splash-screen">
-      <v-img
-        height="100"
-        src="/eishi/eishi_logo-removebg-preview.webp"
-        alt="Splash Screen"
-        contain
-        class="splash-logo"
-      />
 
-      <div class="splash-logo-wrapper">
-        <div class="splash-logo-shine"></div>
-      </div>
-    </div>
 
-    <v-btn
-      rounded="lg"
-      icon
-      size="small"
-      style="position: fixed; bottom: 20px; right: 20px; z-index: 1000"
-      @click="toggleAudio"
-    >
+    <v-btn v-show="showScrollTop" rounded="lg" icon size="small"
+      style="position: fixed; bottom: 70px; right: 20px; z-index: 1000" @click="scrollToTop">
+      <v-icon>mdi-arrow-up</v-icon>
+    </v-btn>
+
+    <v-btn rounded="lg" icon size="small" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000"
+      @click="toggleAudio">
       <v-icon>{{ isMuted ? 'mdi-volume-off' : 'mdi-volume-high' }}</v-icon>
     </v-btn>
 
-    <video
-      v-if="$route.name === 'home'"
-      autoplay
-      loop
-      muted
-      playsinline
-      class="video-background"
-      preload="metadata"
-      poster="/images/hero-img.jpg"
-    >
-      <source src="/eishi/videos/Benguet.mp4" type="video/mp4" />
-    </video>
+
     <audio ref="bgm" src="/eishi/Music/sisiwit.mp3" loop preload="auto" muted></audio>
 
     <Navigation v-if="showLayout && !sideNavOpen" :color="color" :flat="flat" />
-
-    <!-- Floating Navbar Button -->
-    <div ref="navButton" v-if="showFloatingNav && !$vuetify.display.mobile" class="floating-nav">
-      <img src="/eishi/eishi_logo-removebg-preview.webp" alt="Logo" class="nav-logo" />
-      <v-btn class="menu-btn" icon @click="toggleSideNav">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </div>
-
-    <!-- Side Nav Overlay -->
-    <div ref="sideNav" class="side-nav" :class="{ 'side-nav--open': sideNavOpen }">
-      <nav class="side-nav-inner">
-        <ul class="side-nav-list">
-          <li>
-            <router-link to="/" class="side-link" @click="onSideNavLinkClick">
-              <span>{{ t.home }}</span>
-            </router-link>
-          </li>
-
-          <li>
-            <router-link to="/about" class="side-link" @click="onSideNavLinkClick">
-              <span>{{ t.about }}</span>
-            </router-link>
-          </li>
-
-          <li>
-            <router-link to="/contact" class="side-link" @click="onSideNavLinkClick">
-              <span>{{ t.contact }}</span>
-            </router-link>
-          </li>
-
-          <li>
-            <router-link to="/property" class="side-link" @click="onSideNavLinkClick">
-              <span>{{ t.ourBusiness }}</span>
-            </router-link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-
+    
     <div v-show="sideNavOpen" class="page-scrim" @click="toggleSideNav" />
     <v-main :class="{ 'content-disabled': sideNavOpen }">
       <router-view />
@@ -313,6 +255,7 @@ export default {
   },
 
   data: () => ({
+    showScrollTop: false,
     showFloatingNav: false,
     sideNavOpen: false,
     showSplash: true,
@@ -359,6 +302,12 @@ export default {
     this.playSplashAnimation()
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    },
     onSideNavLinkClick() {
       if (!this.sideNavOpen) return
 
@@ -371,6 +320,7 @@ export default {
 
       // Show the nav button only after scrolling past half the screen
       this.showFloatingNav = scrollY > halfScreen
+      this.showScrollTop = scrollY > 300
 
       if (typeof window === 'undefined') return
       const top = window.pageYOffset || e.target.scrollTop || 0
@@ -434,7 +384,7 @@ export default {
       audio.muted = this.isMuted
 
       if (!this.isMuted) {
-        audio.play().catch(() => {})
+        audio.play().catch(() => { })
       }
     },
   },
