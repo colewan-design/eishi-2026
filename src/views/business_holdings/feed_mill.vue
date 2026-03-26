@@ -1,471 +1,649 @@
 <style>
-.farm-table .row-item {
-  padding: 12px 0;
-  border-bottom: 1px solid #e0e0e0;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --ivory:    #f8f5f0;
+  --cream:    #f0ebe2;
+  --linen:    #e4ddd3;
+  --bronze:   #a07840;
+  --bronze-l: #c9a96e;
+  --bronze-xl:#ecdfc8;
+  --charcoal: #1c1a17;
+  --ink:      #2e2b26;
+  --mid:      #7a7368;
+  --pale:     #b0a898;
+}
+
+.fm-page { font-family: 'DM Sans', sans-serif; background: var(--ivory); color: var(--ink); }
+* { box-sizing: border-box; }
+
+/* ── HERO ── */
+.fm-hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+.fm-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  transform: scale(1.06);
+  transition: transform 8s ease;
+}
+.fm-hero-img.ready { transform: scale(1); }
+.fm-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(28,26,23,0.3) 0%, rgba(248,245,240,0.96) 100%);
+}
+.fm-hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 8vw;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 8vh;
 }
-
-.farm-table .label {
-  font-weight: 100;
-  font-size: 0.75rem;
-  color: #455a64;
+.fm-eyebrow {
+  font-size: 0.67rem;
+  letter-spacing: 0.34em;
   text-transform: uppercase;
-  /* blue-grey-darken-2 tone */
-  margin-bottom: 4px;
-}
-
-.farm-table .value {
-  font-size: 1rem;
-  color: #263238;
-}
-
-/* 3-column group */
-.row-group {
+  color: var(--bronze-l);
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.4rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.9s 0.2s ease, transform 0.9s 0.2s ease;
 }
-
-.row-group .small {
-  flex: 1;
-}
-
-.video-wrapper {
-  width: 100%;
-  overflow: hidden;
-  /* optional */
-}
-
-.video-wrapper video {
-  width: 100%;
-  height: auto;
+.fm-eyebrow::before {
+  content: '';
   display: block;
-  object-fit: cover;
-  /* keep it clean */
+  width: 26px;
+  height: 1px;
+  background: var(--bronze-l);
+}
+.fm-eyebrow.in { opacity: 1; transform: none; }
+.fm-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 300;
+  color: var(--ivory);
+  line-height: 0.95;
+  margin: 0 0 2rem;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1.1s 0.4s ease, transform 1.1s 0.4s ease;
+}
+.fm-title em { font-style: italic; color: var(--bronze-l); }
+.fm-title.in { opacity: 1; transform: none; }
+.fm-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s 0.8s ease, transform 0.8s 0.8s ease;
+}
+.fm-hero-meta.in { opacity: 1; transform: none; }
+.fm-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--mid);
+  letter-spacing: 0.05em;
+}
+.fm-location-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bronze);
+  flex-shrink: 0;
+}
+.fm-scroll {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pale);
+  margin-left: auto;
+}
+.fm-scroll-bar {
+  width: 1px;
+  height: 45px;
+  background: var(--linen);
+  animation: breathe 2.2s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { opacity: 0.4; }
+  50%      { opacity: 1; }
 }
 
-.img-hover-wrapper {
-  overflow: hidden;
-  height: 500px;
-  width: 100%;
-  position: relative;
+/* ── INTRO ── */
+.fm-intro {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 7vw 8vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: start;
+}
+.fm-paragraphs { display: flex; flex-direction: column; gap: 1.5rem; }
+.fm-p {
+  font-size: 0.96rem;
+  font-weight: 300;
+  line-height: 1.95;
+  color: var(--mid);
+}
+.fm-label-tag {
+  font-size: 0.67rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+.fm-label-tag::before {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: var(--bronze);
 }
 
-.zoom-img {
-  transition: transform 3s ease;
+/* ── DETAILS TABLE ── */
+.fm-table { display: flex; flex-direction: column; }
+.fm-table-section { margin-bottom: 0.5rem; }
+.fm-row {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--linen);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.fm-row-lbl {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pale);
+}
+.fm-row-val {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+.fm-row-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 1px;
+  background: var(--linen);
+  border-bottom: 1px solid var(--linen);
+}
+.fm-row-group .fm-row {
+  background: var(--ivory);
+  border-bottom: none;
+  padding: 14px 12px;
 }
 
-.img-hover-wrapper:hover .zoom-img {
-  transform: scale(1.1);
+/* ── SECTIONS (Gallery) ── */
+.fm-sections { background: var(--cream); padding: 6vw 0; }
+.fm-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 8vw;
 }
-
-.zoom-img .v-image__image {
-  transition: transform 3s ease;
-  transform-origin: center center;
-}
-
-.img-hover-wrapper:hover .zoom-img .v-image__image {
-  transform: scale(1.1);
-  /* only the image zooms in */
-}
-
-.scroll-zoom {
-  transition: transform 1s ease;
-}
-
-.scroll-zoom.zoomed {
-  transform: scale(1.1);
-}
-
-.section-header {
+.fm-section-block { margin-bottom: 6rem; }
+.fm-section-head {
   display: flex;
   align-items: baseline;
-  gap: 16px;
-  position: relative;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--linen);
 }
-
-.section-index {
-  font-size: 3rem;
-  font-weight: 800;
-  color: rgba(0, 0, 0, 0.08);
+.fm-section-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--linen);
   line-height: 1;
+  flex-shrink: 0;
 }
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  position: relative;
+.fm-section-caption {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.15;
 }
-
-.section-title::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: #1976d2;
-  /* Vuetify primary */
-  margin-top: 8px;
-  border-radius: 2px;
+.fm-section-caption em { font-style: italic; color: var(--mid); }
+.fm-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--linen);
 }
-
-/* Image cards */
-.image-card {
+.fm-gallery-item {
   overflow: hidden;
-  border-radius: 16px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.image-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-}
-
-
-.related-title {
-  font-size: 2.8rem;
-  font-weight: 800;
+  cursor: pointer;
   position: relative;
 }
-
-.related-title::after {
-  content: '';
+.fm-gallery-item:first-child:nth-last-child(odd):last-child {
+  grid-column: span 2;
+}
+.fm-gallery-item img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
   display: block;
-  width: 80px;
-  height: 5px;
-  background: #1976d2;
-  margin: 16px auto 0;
-  border-radius: 3px;
+  transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+  filter: brightness(0.92);
+}
+.fm-gallery-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+.fm-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28,26,23,0);
+  transition: background 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fm-gallery-item:hover .fm-gallery-overlay { background: rgba(28,26,23,0.18); }
+.fm-gallery-zoom {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(248,245,240,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.fm-gallery-item:hover .fm-gallery-zoom {
+  opacity: 1;
+  transform: scale(1);
+}
+.fm-gallery-zoom-icon {
+  width: 16px;
+  height: 16px;
+  position: relative;
+}
+.fm-gallery-zoom-icon::before,
+.fm-gallery-zoom-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--ivory);
+}
+.fm-gallery-zoom-icon::before { width: 1px; height: 16px; left: 50%; top: 0; }
+.fm-gallery-zoom-icon::after  { width: 16px; height: 1px; left: 0; top: 50%; }
+
+/* ── DIVIDER ── */
+.fm-divider {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 8vw;
+  border-top: 1px solid var(--linen);
 }
 
-@media (max-width: 600px) {
-  .video-wrapper video {
-    height: 400px;
-    /* smaller height for mobile */
-  }
+/* ── RELATED ── */
+.fm-related { background: var(--ivory); padding: 7vw 0; }
+.fm-related-inner { max-width: 1200px; margin: 0 auto; padding: 0 8vw; }
+.fm-related-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--linen);
+}
+.fm-related-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.1;
+}
+.fm-related-title em { font-style: italic; color: var(--mid); }
+.fm-related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--linen);
+}
+.fm-rel-item {
+  background: var(--ivory);
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.fm-rel-item:hover { background: var(--cream); }
+.fm-rel-img { overflow: hidden; }
+.fm-rel-img img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.75s cubic-bezier(0.25,0.46,0.45,0.94);
+  filter: brightness(0.9);
+}
+.fm-rel-item:hover .fm-rel-img img { transform: scale(1.05); filter: brightness(1); }
+.fm-rel-body { padding: 1.5rem 0; }
+.fm-rel-cat {
+  font-size: 0.6rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 0.4rem;
+}
+.fm-rel-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  margin-bottom: 1.2rem;
+}
+.fm-rel-metas { display: flex; flex-direction: column; gap: 0.5rem; }
+.fm-rel-meta { display: flex; gap: 1rem; align-items: baseline; }
+.fm-rel-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1.2rem;
+  font-size: 0.63rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  border-bottom: 1px solid var(--bronze-xl);
+  padding-bottom: 2px;
+  transition: gap 0.3s, border-color 0.3s;
+}
+.fm-rel-item:hover .fm-rel-cta { gap: 14px; border-color: var(--bronze); }
+.fm-rel-arr {
+  width: 16px; height: 1px; background: var(--bronze); position: relative; transition: width 0.3s;
+}
+.fm-rel-arr::after {
+  content: ''; position: absolute; right: 0; top: -3px;
+  width: 6px; height: 6px;
+  border-right: 1px solid var(--bronze); border-top: 1px solid var(--bronze);
+  transform: rotate(45deg);
+}
+.fm-rel-item:hover .fm-rel-arr { width: 24px; }
+
+/* ── LIGHTBOX ── */
+.fm-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(20,18,15,0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fm-lightbox-img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  display: block;
+}
+.fm-lightbox-close {
+  position: absolute;
+  top: 24px; right: 28px;
+  background: none; border: none;
+  color: var(--ivory); cursor: pointer;
+  font-size: 0.65rem; letter-spacing: 0.22em;
+  text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+}
+.fm-lightbox-close-x { width: 24px; height: 24px; position: relative; }
+.fm-lightbox-close-x::before,
+.fm-lightbox-close-x::after {
+  content: ''; position: absolute; top: 50%; left: 0;
+  width: 100%; height: 1px; background: var(--ivory);
+}
+.fm-lightbox-close-x::before { transform: rotate(45deg); }
+.fm-lightbox-close-x::after  { transform: rotate(-45deg); }
+.fm-lightbox-nav {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: none; border: 1px solid rgba(248,245,240,0.2);
+  color: var(--ivory); cursor: pointer;
+  width: 50px; height: 50px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.3s, background 0.3s;
+  font-size: 1.2rem;
+}
+.fm-lightbox-nav:hover { border-color: var(--bronze-l); background: rgba(160,120,64,0.15); }
+.fm-lightbox-nav--prev { left: 24px; }
+.fm-lightbox-nav--next { right: 24px; }
+.fm-lightbox-count {
+  position: absolute; bottom: 24px;
+  font-size: 0.63rem; letter-spacing: 0.2em;
+  color: rgba(248,245,240,0.4);
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .fm-intro { grid-template-columns: 1fr; gap: 3rem; padding: 10vw 6vw; }
+  .fm-gallery { grid-template-columns: 1fr; }
+  .fm-gallery-item:first-child:nth-last-child(odd):last-child { grid-column: span 1; }
+  .fm-related-grid { grid-template-columns: 1fr; }
+  .fm-related-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .fm-section-inner { padding: 0 6vw; }
+  .fm-related-inner { padding: 0 6vw; }
+  .fm-hero-content { padding: 0 6vw 8vh; }
+  .fm-row-group { grid-template-columns: 1fr; background: none; }
+  .fm-row-group .fm-row { padding: 14px 0; border-bottom: 1px solid var(--linen); }
+  .fm-title { font-size: 3rem; }
 }
 </style>
+
 <template>
-  <v-dialog v-model="galleryOpen" fullscreen hide-overlay persistent>
-    <div class="gallery-wrapper"
-      style="position: relative; width: 100%; height: 100vh; background: black; display: flex; align-items: center; justify-content: center;">
+  <div class="fm-page">
 
-      <!-- Image -->
-      <v-img v-if="galleryImages.length" :src="encodeURI(galleryImages[currentImage])" max-width="90vw"
-        max-height="90vh" contain />
+    <!-- ── LIGHTBOX ── -->
+    <teleport to="body">
+      <div v-if="galleryOpen" class="fm-lightbox" @click.self="galleryOpen = false">
+        <img :src="galleryImages[currentImage]" class="fm-lightbox-img" :alt="'Gallery image ' + (currentImage + 1)" />
 
-      <!-- Close -->
-      <v-btn variant="text" color="white" icon style="position:absolute; top:20px; right:20px; z-index:10"
-        @click="galleryOpen = false">
-        <v-icon size="30">mdi-close</v-icon>
-      </v-btn>
+        <button class="fm-lightbox-close" @click="galleryOpen = false">
+          Close <span class="fm-lightbox-close-x" />
+        </button>
 
-      <!-- Left -->
-      <v-btn flat rounded="circle" color="white" icon style="position:absolute; left:20px; z-index:10"
-        @click="prevImage">
-        <v-icon size="40">mdi-chevron-left</v-icon>
-      </v-btn>
+        <button class="fm-lightbox-nav fm-lightbox-nav--prev" @click="prevImage">&#8592;</button>
+        <button class="fm-lightbox-nav fm-lightbox-nav--next" @click="nextImage">&#8594;</button>
 
-      <!-- Right -->
-      <v-btn flat rounded="circle" color="white" icon style="position:absolute; right:20px; z-index:10"
-        @click="nextImage">
-        <v-icon size="40">mdi-chevron-right</v-icon>
-      </v-btn>
+        <span class="fm-lightbox-count">
+          {{ currentImage + 1 }} / {{ galleryImages.length }}
+        </span>
+      </div>
+    </teleport>
+
+    <!-- ── HERO ── -->
+    <section class="fm-hero">
+      <img
+        src="/eishi/feed_mill/images/new-hero.jpg"
+        class="fm-hero-img"
+        :class="{ ready }"
+        alt="Feed Mill"
+      />
+      <div class="fm-hero-veil" />
+      <div class="fm-hero-content">
+        <p class="fm-eyebrow" :class="{ in: ready }">
+          Agriculture &mdash; San Jose, Batangas
+        </p>
+        <h1 class="fm-title" :class="{ in: ready }">
+          {{ t.feedMillDetails?.businessNameValue || 'Feed' }}<br />
+          <em>Mill</em>
+        </h1>
+        <div class="fm-hero-meta" :class="{ in: ready }">
+          <span class="fm-location">
+            <span class="fm-location-dot" />
+            {{ t.feedMillLocation || 'San Jose, Batangas' }}
+          </span>
+          <div class="fm-scroll">
+            <div class="fm-scroll-bar" />
+            <span>Scroll</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── INTRO ── -->
+    <div class="fm-intro">
+
+      <!-- Left: paragraphs -->
+      <div>
+        <p class="fm-label-tag">{{ t.feedMillDetails?.businessTypeValue || 'Feed Manufacturing' }}</p>
+        <div class="fm-paragraphs">
+          <p class="fm-p">{{ t.feedMillText?.paragraph1 }}</p>
+          <p class="fm-p">{{ t.feedMillText?.paragraph2 }}</p>
+        </div>
+      </div>
+
+      <!-- Right: details table -->
+      <div class="fm-table">
+        <div class="fm-row">
+          <span class="fm-row-lbl">{{ t.feedMillDetails?.businessNameLabel || 'Business Name' }}</span>
+          <span class="fm-row-val">{{ t.feedMillDetails?.businessNameValue }}</span>
+        </div>
+        <div class="fm-row">
+          <span class="fm-row-lbl">{{ t.feedMillDetails?.businessTypeLabel || 'Type' }}</span>
+          <span class="fm-row-val">{{ t.feedMillDetails?.businessTypeValue }}</span>
+        </div>
+        <div class="fm-row">
+          <span class="fm-row-lbl">{{ t.feedMillDetails?.supportsLabel || 'Supports' }}</span>
+          <span class="fm-row-val">{{ t.feedMillDetails?.supportsValue }}</span>
+        </div>
+        <div class="fm-row">
+          <span class="fm-row-lbl">{{ t.feedMillDetails?.ownershipLabel || 'Ownership' }}</span>
+          <span class="fm-row-val">{{ t.feedMillDetails?.ownershipValue }}</span>
+        </div>
+
+        <div class="fm-row-group">
+          <div class="fm-row">
+            <span class="fm-row-lbl">{{ t.feedMillDetails?.numberOfFactoriesLabel }}</span>
+            <span class="fm-row-val">{{ t.feedMillDetails?.numberOfFactoriesValue }}</span>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-lbl">{{ t.feedMillDetails?.feedProductionLabel }}</span>
+            <span class="fm-row-val">{{ t.feedMillDetails?.feedProductionValue }}</span>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-lbl">{{ t.feedMillDetails?.qualityFocusLabel }}</span>
+            <span class="fm-row-val">{{ t.feedMillDetails?.qualityFocusValue }}</span>
+          </div>
+        </div>
+
+        <div class="fm-row-group">
+          <div class="fm-row">
+            <span class="fm-row-lbl">{{ t.feedMillDetails?.feedBenefitsLabel }}</span>
+            <span class="fm-row-val">{{ t.feedMillDetails?.feedBenefitsValue }}</span>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-lbl">{{ t.feedMillDetails?.endProductLabel }}</span>
+            <span class="fm-row-val">{{ t.feedMillDetails?.endProductValue }}</span>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-lbl">{{ t.feedMillDetails?.operationalGoalLabel }}</span>
+            <span class="fm-row-val">{{ t.feedMillDetails?.operationalGoalValue }}</span>
+          </div>
+        </div>
+      </div>
 
     </div>
-  </v-dialog>
-  <!-- desktop view -->
-  <v-container v-if="!isMobileView" style="padding-top: 10rem">
-    <v-row>
-      <v-col cols="9" class="mx-auto">
-        <div>
-          <p style="font-size: 4.5rem">{{ t.feedMillDetails.businessNameValue }}</p>
-          <p style="margin-top: 3rem; font-size: 1rem" class="text-blue-grey-darken-2">
-            {{ t.feedMillDetails.supportsValue }}
-          </p>
+
+    <!-- ── GALLERY SECTIONS ── -->
+    <section class="fm-sections">
+      <div class="fm-section-inner">
+        <div
+          v-for="(section, index) in translatedSections"
+          :key="section.key"
+          class="fm-section-block"
+        >
+          <div class="fm-section-head">
+            <span class="fm-section-num">{{ twoDigits(index + 1) }}</span>
+            <h2 class="fm-section-caption">{{ section.caption }}</h2>
+          </div>
+
+          <div class="fm-gallery">
+            <div
+              v-for="(img, i) in section.images"
+              :key="i"
+              class="fm-gallery-item"
+              @click="openGallery(section.images, i)"
+            >
+              <img :src="img" :alt="section.caption + ' ' + (i + 1)" loading="lazy" />
+              <div class="fm-gallery-overlay">
+                <div class="fm-gallery-zoom">
+                  <span class="fm-gallery-zoom-icon" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </v-col>
-    </v-row>
+      </div>
+    </section>
 
-    <v-row>
-      <v-col cols="9" class="mx-auto text-right">
-        <span>
-          <v-icon>mdi-map-marker-outline</v-icon>
-          {{ t.feedMillLocation }}
-        </span>
-      </v-col>
-    </v-row>
+    <!-- ── RELATED PROPERTIES ── -->
+    <section class="fm-related">
+      <div class="fm-related-inner">
+        <div class="fm-related-head">
+          <h2 class="fm-related-title">
+            {{ t.relatedProperties || 'Related' }}<br /><em>Properties</em>
+          </h2>
+        </div>
 
-    <v-row>
-      <v-col cols="9" class="mx-auto">
-        <v-parallax src="/eishi/feed_mill/images/new-hero.jpg" height="calc(100vh - 200px)">
-        </v-parallax>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col class="mx-auto" cols="9">
-        <v-container>
-          <v-row>
-            <v-col>
-              <p class="text-body-1 text-blue-grey-darken-2">
-                {{ t.feedMillText.paragraph1 }}
-              </p>
-              <p class="text-body-1 text-blue-grey-darken-2 mt-4">
-                {{ t.feedMillText.paragraph2 }}
-              </p>
-            </v-col>
-            <v-col>
-              <div class="farm-table">
-                <div class="row-item">
-                  <div class="label">{{ t.feedMillDetails.businessNameLabel }}</div>
-                  <div class="value">{{ t.feedMillDetails.businessNameValue }}</div>
-                </div>
-
-                <div class="row-item">
-                  <div class="label">{{ t.feedMillDetails.businessTypeLabel }}</div>
-                  <div class="value">{{ t.feedMillDetails.businessTypeValue }}</div>
-                </div>
-
-                <div class="row-item">
-                  <div class="label">{{ t.feedMillDetails.supportsLabel }}</div>
-                  <div class="value">{{ t.feedMillDetails.supportsValue }}</div>
-                </div>
-
-                <div class="row-item">
-                  <div class="label">{{ t.feedMillDetails.ownershipLabel }}</div>
-                  <div class="value">{{ t.feedMillDetails.ownershipValue }}</div>
-                </div>
-
-                <div class="row-group">
-                  <div class="row-item small">
-                    <div class="label">{{ t.feedMillDetails.numberOfFactoriesLabel }}</div>
-                    <div class="value">{{ t.feedMillDetails.numberOfFactoriesValue }}</div>
+        <div class="fm-related-grid">
+          <div
+            v-for="(property, index) in translatedProperties"
+            :key="index"
+            class="fm-rel-item"
+            @click="$router.push(property.route)"
+          >
+            <div class="fm-rel-img">
+              <img :src="property.image" :alt="property.title" loading="lazy" />
+            </div>
+            <div class="fm-rel-body">
+              <p class="fm-rel-cat">{{ t.relatedPropertyCategory || 'Holdings' }}</p>
+              <h3 class="fm-rel-name">{{ property.title }}</h3>
+              <div class="fm-rel-metas">
+                <template v-for="(value, key) in property.details" :key="key">
+                  <div v-if="key !== 'description'" class="fm-rel-meta">
+                    <span class="fm-row-lbl">{{ key }}</span>
+                    <span class="fm-row-val" style="font-size:0.85rem;">{{ value }}</span>
                   </div>
-                  <div class="row-item small">
-                    <div class="label">{{ t.feedMillDetails.feedProductionLabel }}</div>
-                    <div class="value">{{ t.feedMillDetails.feedProductionValue }}</div>
-                  </div>
-                  <div class="row-item small">
-                    <div class="label">{{ t.feedMillDetails.qualityFocusLabel }}</div>
-                    <div class="value">{{ t.feedMillDetails.qualityFocusValue }}</div>
-                  </div>
-                </div>
-
-                <div class="row-group">
-                  <div class="row-item small">
-                    <div class="label">{{ t.feedMillDetails.feedBenefitsLabel }}</div>
-                    <div class="value">{{ t.feedMillDetails.feedBenefitsValue }}</div>
-                  </div>
-                  <div class="row-item small">
-                    <div class="label">{{ t.feedMillDetails.endProductLabel }}</div>
-                    <div class="value">{{ t.feedMillDetails.endProductValue }}</div>
-                  </div>
-                  <div class="row-item small">
-                    <div class="label">{{ t.feedMillDetails.operationalGoalLabel }}</div>
-                    <div class="value">{{ t.feedMillDetails.operationalGoalValue }}</div>
-                  </div>
-                </div>
+                </template>
               </div>
-            </v-col>
-          </v-row>
-
-          <section v-for="(section, index) in translatedSections" :key="section.key" :ref="section.key" class="mb-16">
-            <!-- Caption block -->
-            <div class="section-header mb-6">
-              <span class="section-index">
-                {{ String(index + 1).padStart(2, '0') }}
+              <span class="fm-rel-cta">
+                {{ t.viewProperty || 'View Details' }}
+                <span class="fm-rel-arr" />
               </span>
-
-              <h2 class="section-title">
-                {{ section.caption }}
-              </h2>
-            </div>
-
-            <!-- Images -->
-            <v-row>
-              <v-col v-for="(img, i) in section.images" :key="i" cols="6">
-                <v-card class="image-card" elevation="3" @click="openGallery(section.images, i)">
-                  <v-img :src="img" aspect-ratio="1" cover />
-                </v-card>
-              </v-col>
-            </v-row>
-          </section>
-
-
-
-
-          <v-row class="my-16">
-            <v-col class="text-center">
-              <h2 class="related-title">
-                {{ t.relatedProperties }}
-              </h2>
-            </v-col>
-          </v-row>
-
-          <v-row dense>
-            <v-col v-for="(property, index) in translatedProperties" :key="index" cols="6">
-              <!-- Card with image only -->
-              <v-card class="overflow-hidden cursor-pointer" variant="text" rounded="lg"
-                @click="$router.push(property.route)">
-                <div>
-                  <v-img :ref="el => propertyCards.push(el)" :src="property.image" height="400" cover></v-img>
-                </div>
-              </v-card>
-
-              <!-- Property Table outside the card -->
-              <div class="farm-table mt-2">
-                <div class="row-item">
-                  <div class="label">{{ t.propertyNameLabel }}</div>
-                  <div class="value">{{ property.title }}</div>
-                </div>
-
-                <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                  <div class="label">{{ key }}</div>
-                  <div class="value">{{ value }}</div>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-col>
-    </v-row>
-  </v-container>
-
-  <div v-if="isMobileView" style="padding-top: 5rem">
-    <!-- desktop view -->
-    <v-container>
-      <v-row>
-        <v-col>
-          <div>
-            <p style="font-size: 2.5rem">{{ t.feedMillDetails.businessNameValue }}</p>
-            <p style="margin-top: 2rem; font-size: 1rem" class="text-blue-grey-darken-2">
-              {{ t.feedMillDetails.supportsValue }}
-            </p>
-          </div>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
-          <span>
-            <v-icon>mdi-map-marker-outline</v-icon>
-            {{ t.feedMillLocation }}
-          </span>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-parallax src="/eishi/feed_mill/images/new-hero.jpg" height="calc(100vh - 200px)"> </v-parallax>
-    <v-container>
-      <v-row>
-        <v-col>
-          <p class="text-body-1 text-blue-grey-darken-2">
-            {{ t.feedMillText.paragraph1 }}
-          </p>
-          <p class="text-body-1 text-blue-grey-darken-2 mt-4">
-            {{ t.feedMillText.paragraph2 }}
-          </p>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <div class="farm-table">
-            <div class="row-item">
-              <div class="label">{{ t.feedMillDetails.businessNameLabel }}</div>
-              <div class="value">{{ t.feedMillDetails.businessNameValue }}</div>
-            </div>
-
-            <div class="row-item">
-              <div class="label">{{ t.feedMillDetails.businessTypeLabel }}</div>
-              <div class="value">{{ t.feedMillDetails.businessTypeValue }}</div>
-            </div>
-
-            <div class="row-item">
-              <div class="label">{{ t.feedMillDetails.supportsLabel }}</div>
-              <div class="value">{{ t.feedMillDetails.supportsValue }}</div>
-            </div>
-
-            <div class="row-item">
-              <div class="label">{{ t.feedMillDetails.ownershipLabel }}</div>
-              <div class="value">{{ t.feedMillDetails.ownershipValue }}</div>
-            </div>
-
-            <div class="row-group">
-              <div class="row-item small">
-                <div class="label">{{ t.feedMillDetails.numberOfFactoriesLabel }}</div>
-                <div class="value">{{ t.feedMillDetails.numberOfFactoriesValue }}</div>
-              </div>
-              <div class="row-item small">
-                <div class="label">{{ t.feedMillDetails.feedProductionLabel }}</div>
-                <div class="value">{{ t.feedMillDetails.feedProductionValue }}</div>
-              </div>
-              <div class="row-item small">
-                <div class="label">{{ t.feedMillDetails.qualityFocusLabel }}</div>
-                <div class="value">{{ t.feedMillDetails.qualityFocusValue }}</div>
-              </div>
-            </div>
-
-            <div class="row-group">
-              <div class="row-item small">
-                <div class="label">{{ t.feedMillDetails.feedBenefitsLabel }}</div>
-                <div class="value">{{ t.feedMillDetails.feedBenefitsValue }}</div>
-              </div>
-              <div class="row-item small">
-                <div class="label">{{ t.feedMillDetails.endProductLabel }}</div>
-                <div class="value">{{ t.feedMillDetails.endProductValue }}</div>
-              </div>
-              <div class="row-item small">
-                <div class="label">{{ t.feedMillDetails.operationalGoalLabel }}</div>
-                <div class="value">{{ t.feedMillDetails.operationalGoalValue }}</div>
-              </div>
             </div>
           </div>
-        </v-col>
-      </v-row>
-    </v-container>
+        </div>
+      </div>
+    </section>
 
-    <v-container>
-      <section v-for="(section, index) in translatedSections" :key="section.key" :ref="section.key" class="mb-10">
-        <!-- Caption -->
-        <h2 class="text-h5 font-weight-bold mb-4">
-          {{ section.caption }}
-        </h2>
-
-        <!-- Images -->
-        <v-row>
-          <v-col v-for="(img, i) in section.images" :key="i" cols="12" sm="6" md="3">
-            <v-img :src="img" aspect-ratio="1" cover />
-          </v-col>
-        </v-row>
-      </section>
-
-      <v-row class="mt-10 mb-10">
-        <v-col class="mx-auto">
-          <p style="font-size: 2rem">{{ t.relatedProperties }}</p>
-        </v-col>
-      </v-row>
-      <v-row dense>
-        <v-col v-for="(property, index) in translatedProperties" :key="index" cols="12">
-          <v-card class="overflow-hidden cursor-pointer" variant="text" @click="$router.push(property.route)">
-            <!-- Image container -->
-            <div>
-              <v-img :src="property.image" height="300" cover class="scroll-zoom zoom-img" ref="scrollImages"></v-img>
-            </div>
-
-            <div class="farm-table pt-5">
-              <div class="row-item">
-                <div class="label">{{ t.propertyNameLabel }}</div>
-                <div class="value">{{ property.title }}</div>
-              </div>
-
-              <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                <div class="label">{{ key }}</div>
-                <div class="value">{{ value }}</div>
-              </div>
-            </div>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
   </div>
 </template>
 
@@ -474,181 +652,98 @@ import { mapState } from 'pinia'
 import { useLanguageStore } from '@/stores/languageStore'
 import { gsap } from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
-import { SplitText } from 'gsap/SplitText'
-gsap.registerPlugin(ScrollTrigger, SplitText)
+gsap.registerPlugin(ScrollTrigger)
+
 export default {
-  name: 'batangas_poultry_farm',
-  computed: {
-    translatedProperties() {
-      return this.t.properties
-    },
+  name: 'FeedMillPage',
 
-    translatedSections() {
-      return this.t.feedmill_sections
-    },
-
-    ...mapState(useLanguageStore, ['t']),
-  },
   data() {
     return {
+      ready: false,
       galleryOpen: false,
       galleryImages: [],
       currentImage: 0,
-
-      pageYOffset: 0,
-
-      imageCards: [],
-      propertyCards: [],
-
-      isMobileView: false,
-      business_holdings: [
-        {
-          img: '/eishi/Pangasinan Farm.webp',
-          title: 'pangasinanFarm',
-          link: '/business_holdings/pangasinan_farm',
-        },
-        {
-          img: '/eishi/1732160486501.webp',
-          title: 'assignedProperties',
-          link: '/business_holdings/assigned_properties',
-        },
-        {
-          img: '/eishi/DJI_0598-min.webp',
-          title: 'kalingaResidential',
-          link: '/business_holdings/kalinga_residential',
-        },
-        {
-          img: '/eishi/Poultry Farm.webp',
-          title: 'batangasPoultry',
-          link: '/business_holdings/batangas/poultry_farm',
-        },
-      ],
     }
   },
 
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll)
-    this.$nextTick(() => {
-      this.propertyCards.forEach((img) => {
-        const el = img.$el
+  computed: {
+    ...mapState(useLanguageStore, ['t']),
 
-        gsap.fromTo(
-          el,
-          { scale: 1.2 },
+    translatedProperties() {
+      return this.t.properties || []
+    },
+
+    translatedSections() {
+      return this.t.feedmill_sections || []
+    },
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => { this.ready = true }, 180)
+
+      // Scroll-reveal on gallery items
+      const items = this.$el.querySelectorAll('.fm-gallery-item')
+      items.forEach((el, i) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 30 },
           {
-            scale: 1,
+            opacity: 1, y: 0,
+            duration: 0.7,
+            delay: (i % 2) * 0.12,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: el,
-              start: 'center 60%',
-              end: '+=200',
-              scrub: 2,
-              invalidateOnRefresh: true,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
             },
-          },
+          }
         )
       })
-      this.imageCards.forEach((img) => {
-        const el = img.$el
 
-        gsap.fromTo(
-          el,
-          { scale: 1.2 },
+      // Related card reveals
+      const relItems = this.$el.querySelectorAll('.fm-rel-item')
+      relItems.forEach((el, i) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 24 },
           {
-            scale: 1,
+            opacity: 1, y: 0,
+            duration: 0.7,
+            delay: i * 0.1,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: el,
-              start: 'center 60%',
-              end: '+=200',
-              scrub: 2,
-              invalidateOnRefresh: true,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
             },
-          },
+          }
         )
       })
     })
-    this.checkMobileView() // check on initial load
-    window.addEventListener('resize', this.checkMobileView) // attach resize listener
   },
+
   beforeUnmount() {
-    window.removeEventListener('resize', this.checkMobileView) // clean up
-    window.removeEventListener('scroll', this.handleScroll)
+    ScrollTrigger.getAll().forEach(t => t.kill())
   },
+
   methods: {
+    twoDigits(n) {
+      return n < 10 ? '0' + n : String(n)
+    },
+
     openGallery(images, index) {
-      console.log(images, index);
       this.galleryImages = images
       this.currentImage = index
       this.galleryOpen = true
     },
 
     nextImage() {
-      if (this.currentImage < this.galleryImages.length - 1) {
-        this.currentImage++
-      } else {
-        this.currentImage = 0
-      }
+      this.currentImage = (this.currentImage + 1) % this.galleryImages.length
     },
 
     prevImage() {
-      if (this.currentImage > 0) {
-        this.currentImage--
-      } else {
-        this.currentImage = this.galleryImages.length - 1
-      }
-    },
-    handleScroll() {
-      this.pageYOffset = window.pageYOffset
-    },
-    checkMobileView() {
-      this.isMobileView = this.$vuetify.display.mobile
+      this.currentImage = (this.currentImage - 1 + this.galleryImages.length) % this.galleryImages.length
     },
   },
 }
 </script>
-
-<style>
-.hide-scrollbar {
-  scrollbar-width: none;
-  /* Firefox */
-  -ms-overflow-style: none;
-  /* Internet Explorer 10+ */
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-  /* Safari and Chrome */
-}
-
-.thumbnail-card {
-  border: 1px solid #ccc;
-  /* Default gray border */
-  transition: border-color 0.3s ease;
-}
-
-.thumbnail-card.selected-thumbnail {
-  border-color: #1976d2;
-  /* Vuetify primary blue */
-}
-
-.spaced-paragraphs p {
-  margin-bottom: 2rem;
-  /* equivalent to mb-6 */
-}
-
-/* Scoped CSS */
-@media (max-width: 600px) {
-  .main-image {
-    height: 100vw !important;
-  }
-
-  .spaced-paragraphs p {
-    font-size: 14px;
-  }
-
-  .spaced-paragraphs h2 {
-    font-size: 20px;
-  }
-}
-</style>

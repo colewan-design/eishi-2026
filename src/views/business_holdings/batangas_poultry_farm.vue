@@ -1,720 +1,810 @@
 <style>
-.farm-table .row-item {
-    padding: 12px 0;
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-    flex-direction: column;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --ivory:    #f8f5f0;
+  --cream:    #f0ebe2;
+  --linen:    #e4ddd3;
+  --bronze:   #a07840;
+  --bronze-l: #c9a96e;
+  --bronze-xl:#ecdfc8;
+  --charcoal: #1c1a17;
+  --ink:      #2e2b26;
+  --mid:      #7a7368;
+  --pale:     #b0a898;
 }
 
-.farm-table .label {
-    font-weight: 100;
-    font-size: 0.75rem;
-    color: #455a64;
-    text-transform: uppercase;
-    /* blue-grey-darken-2 tone */
-    margin-bottom: 4px;
+.pf-page { font-family: 'DM Sans', sans-serif; background: var(--ivory); color: var(--ink); }
+* { box-sizing: border-box; }
+
+/* ── HERO ── */
+.pf-hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+.pf-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  transform: scale(1.06);
+  transition: transform 8s ease;
+}
+.pf-hero-img.ready { transform: scale(1); }
+.pf-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(28,26,23,0.3) 0%, rgba(248,245,240,0.96) 100%);
+}
+.pf-hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 8vw 8vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.pf-eyebrow {
+  font-size: 0.67rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--bronze-l);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.4rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.9s 0.2s ease, transform 0.9s 0.2s ease;
+}
+.pf-eyebrow::before {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: var(--bronze-l);
+}
+.pf-eyebrow.in { opacity: 1; transform: none; }
+.pf-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 300;
+  color: var(--ivory);
+  line-height: 0.95;
+  margin: 0 0 2rem;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1.1s 0.4s ease, transform 1.1s 0.4s ease;
+}
+.pf-title em { font-style: italic; color: var(--bronze-l); }
+.pf-title.in { opacity: 1; transform: none; }
+.pf-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s 0.8s ease, transform 0.8s 0.8s ease;
+}
+.pf-hero-meta.in { opacity: 1; transform: none; }
+.pf-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--mid);
+}
+.pf-location-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bronze);
+  flex-shrink: 0;
+}
+.pf-scroll {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pale);
+  margin-left: auto;
+}
+.pf-scroll-bar {
+  width: 1px;
+  height: 45px;
+  background: var(--linen);
+  animation: breathe 2.2s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { opacity: 0.4; }
+  50%      { opacity: 1; }
 }
 
-.farm-table .value {
-    font-size: 1rem;
-    color: #263238;
+/* ── INTRO ── */
+.pf-intro {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 7vw 8vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: start;
+}
+.pf-label-tag {
+  font-size: 0.67rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+.pf-label-tag::before {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: var(--bronze);
+}
+.pf-paragraphs { display: flex; flex-direction: column; gap: 1.4rem; }
+.pf-p {
+  font-size: 0.94rem;
+  font-weight: 300;
+  line-height: 1.95;
+  color: var(--mid);
 }
 
-/* 3-column group */
-.row-group {
-    display: flex;
-    gap: 16px;
+/* ── DETAILS TABLE ── */
+.pf-table { display: flex; flex-direction: column; }
+.pf-row {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--linen);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pf-row-lbl {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pale);
+}
+.pf-row-val {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--charcoal);
 }
 
-.row-group .small {
-    flex: 1;
+/* ── VIDEO ── */
+.pf-video-section {
+  background: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+}
+.pf-video-label {
+  position: absolute;
+  top: 2.5rem;
+  left: 8vw;
+  z-index: 2;
+  font-size: 0.63rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(248,245,240,0.35);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pf-video-label::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--bronze-l);
+}
+.pf-video-section video {
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+  display: block;
+  opacity: 0.75;
 }
 
-.video-wrapper {
-    width: 100%;
-    overflow: hidden;
-    /* optional */
+/* ── GALLERY SECTIONS ── */
+.pf-sections { background: var(--cream); padding: 6vw 0; }
+.pf-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 8vw;
+}
+.pf-section-block { margin-bottom: 6rem; }
+.pf-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--linen);
+}
+.pf-section-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--linen);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.pf-section-caption {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.15;
+}
+.pf-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--linen);
+}
+.pf-gallery-item {
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+.pf-gallery-item img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+  filter: brightness(0.92);
+}
+.pf-gallery-item:hover img { transform: scale(1.05); filter: brightness(1); }
+.pf-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28,26,23,0);
+  transition: background 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pf-gallery-item:hover .pf-gallery-overlay { background: rgba(28,26,23,0.18); }
+.pf-gallery-zoom {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(248,245,240,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.pf-gallery-item:hover .pf-gallery-zoom { opacity: 1; transform: scale(1); }
+.pf-zoom-icon { width: 16px; height: 16px; position: relative; }
+.pf-zoom-icon::before, .pf-zoom-icon::after {
+  content: ''; position: absolute; background: var(--ivory);
+}
+.pf-zoom-icon::before { width: 1px; height: 16px; left: 50%; top: 0; }
+.pf-zoom-icon::after  { width: 16px; height: 1px; left: 0; top: 50%; }
+
+/* ── MAP ── */
+.pf-map-section {
+  background: var(--ivory);
+  padding: 5vw 8vw;
+}
+.pf-map-inner { max-width: 1200px; margin: 0 auto; }
+.pf-map-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--linen);
+}
+.pf-map-label {
+  font-size: 0.67rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pf-map-label::before {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: var(--bronze);
+}
+.pf-map-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 300;
+  color: var(--charcoal);
+}
+.pf-map-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 46%;
+  overflow: hidden;
+  background: var(--cream);
+}
+.pf-map-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(20%) contrast(1.05);
+}
+.pf-map-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1rem;
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--pale);
+  letter-spacing: 0.08em;
+}
+.pf-map-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bronze);
+  flex-shrink: 0;
 }
 
-.video-wrapper video {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    /* keep it clean */
+/* ── RELATED ── */
+.pf-related { background: var(--cream); padding: 7vw 0; }
+.pf-related-inner { max-width: 1200px; margin: 0 auto; padding: 0 8vw; }
+.pf-related-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--linen);
+}
+.pf-related-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.1;
+}
+.pf-related-title em { font-style: italic; color: var(--mid); }
+.pf-related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--linen);
+}
+.pf-rel-item {
+  background: var(--cream);
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.pf-rel-item:hover { background: var(--linen); }
+.pf-rel-img { overflow: hidden; }
+.pf-rel-img img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.75s cubic-bezier(0.25,0.46,0.45,0.94);
+  filter: brightness(0.9);
+}
+.pf-rel-item:hover .pf-rel-img img { transform: scale(1.05); filter: brightness(1); }
+.pf-rel-body { padding: 1.5rem 0; }
+.pf-rel-cat {
+  font-size: 0.6rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 0.4rem;
+}
+.pf-rel-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  margin-bottom: 1.2rem;
+}
+.pf-rel-metas { display: flex; flex-direction: column; gap: 0.5rem; }
+.pf-rel-meta { display: flex; gap: 1rem; align-items: baseline; }
+.pf-rel-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1.2rem;
+  font-size: 0.63rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  border-bottom: 1px solid var(--bronze-xl);
+  padding-bottom: 2px;
+  transition: gap 0.3s, border-color 0.3s;
+}
+.pf-rel-item:hover .pf-rel-cta { gap: 14px; border-color: var(--bronze); }
+.pf-rel-arr {
+  width: 16px; height: 1px; background: var(--bronze);
+  position: relative; transition: width 0.3s; flex-shrink: 0;
+}
+.pf-rel-arr::after {
+  content: ''; position: absolute; right: 0; top: -3px;
+  width: 6px; height: 6px;
+  border-right: 1px solid var(--bronze);
+  border-top: 1px solid var(--bronze);
+  transform: rotate(45deg);
+}
+.pf-rel-item:hover .pf-rel-arr { width: 24px; }
+
+/* ── LIGHTBOX ── */
+.pf-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(20,18,15,0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pf-lightbox-img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  display: block;
+}
+.pf-lightbox-close {
+  position: absolute;
+  top: 24px; right: 28px;
+  background: none; border: none;
+  color: var(--ivory); cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px;
+}
+.pf-lightbox-close-x { width: 22px; height: 22px; position: relative; }
+.pf-lightbox-close-x::before,
+.pf-lightbox-close-x::after {
+  content: ''; position: absolute;
+  top: 50%; left: 0;
+  width: 100%; height: 1px; background: var(--ivory);
+}
+.pf-lightbox-close-x::before { transform: rotate(45deg); }
+.pf-lightbox-close-x::after  { transform: rotate(-45deg); }
+.pf-lightbox-nav {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: none;
+  border: 1px solid rgba(248,245,240,0.2);
+  color: var(--ivory); cursor: pointer;
+  width: 50px; height: 50px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.3s, background 0.3s;
+  font-size: 1.2rem;
+}
+.pf-lightbox-nav:hover { border-color: var(--bronze-l); background: rgba(160,120,64,0.15); }
+.pf-lightbox-nav--prev { left: 24px; }
+.pf-lightbox-nav--next { right: 24px; }
+.pf-lightbox-count {
+  position: absolute; bottom: 24px;
+  font-size: 0.63rem; letter-spacing: 0.2em;
+  color: rgba(248,245,240,0.4);
+  font-family: 'DM Sans', sans-serif;
 }
 
-.img-hover-wrapper {
-    overflow: hidden;
-    height: 500px;
-    width: 100%;
-    position: relative;
-}
-
-.zoom-img {
-    transition: transform 3s ease;
-}
-
-.img-hover-wrapper:hover .zoom-img {
-    transform: scale(1.1);
-}
-
-.zoom-img .v-image__image {
-    transition: transform 3s ease;
-    transform-origin: center center;
-}
-
-.img-hover-wrapper:hover .zoom-img .v-image__image {
-    transform: scale(1.1);
-    /* only the image zooms in */
-}
-
-.section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    position: relative;
-}
-
-.section-index {
-    font-size: 3rem;
-    font-weight: 800;
-    color: rgba(0, 0, 0, 0.08);
-    line-height: 1;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: #1976d2;
-    /* Vuetify primary */
-    margin-top: 8px;
-    border-radius: 2px;
-}
-
-/* Image cards */
-.image-card {
-    overflow: hidden;
-    border-radius: 16px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.image-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-}
-
-
-.related-title {
-    font-size: 2.8rem;
-    font-weight: 800;
-    position: relative;
-}
-
-.related-title::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 5px;
-    background: #1976d2;
-    margin: 16px auto 0;
-    border-radius: 3px;
-}
-
-.map-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    /* 16:9 */
-    overflow: hidden;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
-}
-
-.map-wrapper iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-@media (max-width: 600px) {
-    .video-wrapper video {
-        height: 400px;
-        /* smaller height for mobile */
-    }
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .pf-intro { grid-template-columns: 1fr; gap: 3rem; padding: 10vw 6vw; }
+  .pf-gallery { grid-template-columns: 1fr; }
+  .pf-related-grid { grid-template-columns: 1fr; }
+  .pf-related-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .pf-section-inner { padding: 0 6vw; }
+  .pf-related-inner { padding: 0 6vw; }
+  .pf-map-section { padding: 10vw 6vw; }
+  .pf-map-wrapper { padding-bottom: 65%; }
+  .pf-hero-content { padding: 0 6vw 8vh; }
+  .pf-video-section video { height: 50vh; }
+  .pf-title { font-size: 3rem; }
+  .pf-video-label { left: 6vw; }
 }
 </style>
+
 <template>
-    <v-dialog v-model="galleryOpen" fullscreen hide-overlay persistent>
-        <div class="gallery-wrapper"
-            style="position: relative; width: 100%; height: 100vh; background: black; display: flex; align-items: center; justify-content: center;">
+  <div class="pf-page">
 
-            <!-- Image -->
-            <v-img v-if="galleryImages.length" :src="encodeURI(galleryImages[currentImage])" max-width="90vw"
-                max-height="90vh" contain />
+    <!-- ── LIGHTBOX ── -->
+    <teleport to="body">
+      <div v-if="galleryOpen" class="pf-lightbox" @click.self="galleryOpen = false">
+        <img
+          :src="galleryImages[currentImage]"
+          class="pf-lightbox-img"
+          :alt="'Gallery image ' + (currentImage + 1)"
+        />
+        <button class="pf-lightbox-close" @click="galleryOpen = false">
+          Close <span class="pf-lightbox-close-x" />
+        </button>
+        <button class="pf-lightbox-nav pf-lightbox-nav--prev" @click="prevImage">&#8592;</button>
+        <button class="pf-lightbox-nav pf-lightbox-nav--next" @click="nextImage">&#8594;</button>
+        <span class="pf-lightbox-count">{{ currentImage + 1 }} / {{ galleryImages.length }}</span>
+      </div>
+    </teleport>
 
-            <!-- Close -->
-            <v-btn variant="text" color="white" icon style="position:absolute; top:20px; right:20px; z-index:10"
-                @click="galleryOpen = false">
-                <v-icon size="30">mdi-close</v-icon>
-            </v-btn>
-
-            <!-- Left -->
-            <v-btn flat rounded="circle" color="white" icon style="position:absolute; left:20px; z-index:10"
-                @click="prevImage">
-                <v-icon size="40">mdi-chevron-left</v-icon>
-            </v-btn>
-
-            <!-- Right -->
-            <v-btn flat rounded="circle" color="white" icon style="position:absolute; right:20px; z-index:10"
-                @click="nextImage">
-                <v-icon size="40">mdi-chevron-right</v-icon>
-            </v-btn>
-
+    <!-- ── HERO ── -->
+    <section class="pf-hero">
+      <img
+        src="/eishi/batangas_tokyo_farm/images/hero.jpg"
+        class="pf-hero-img"
+        :class="{ ready }"
+        alt="Batangas Poultry Farm"
+      />
+      <div class="pf-hero-veil" />
+      <div class="pf-hero-content">
+        <p class="pf-eyebrow" :class="{ in: ready }">
+          Agriculture &mdash; San Jose, Batangas
+        </p>
+        <h1 class="pf-title" :class="{ in: ready }">
+          {{ t.batangasPoultry?.split(' ').slice(0, -1).join(' ') || 'Poultry' }}<br />
+          <em>{{ t.batangasPoultry?.split(' ').slice(-1)[0] || 'Farm' }}</em>
+        </h1>
+        <div class="pf-hero-meta" :class="{ in: ready }">
+          <span class="pf-location">
+            <span class="pf-location-dot" />
+            {{ t.sanJoseMunicipality || 'San Jose, Batangas' }}
+          </span>
+          <div class="pf-scroll">
+            <div class="pf-scroll-bar" />
+            <span>Scroll</span>
+          </div>
         </div>
-    </v-dialog>
+      </div>
+    </section>
 
-    <!-- desktop view -->
-    <v-container v-if="!isMobileView" style="padding-top: 10rem;">
-        <v-row>
-            <v-col cols="9" class="mx-auto">
-                <div>
-                    <p style="font-size: 4.5rem;">{{ t.batangasPoultry }}</p style="font-size: 5rem;">
-                    <p style="margin-top: 3rem; font-size: 1rem;" class="text-blue-grey-darken-2">
-                        {{ t.poultrySubtitle }}
-                    </p>
-                </div>
-            </v-col>
-        </v-row>
+    <!-- ── INTRO ── -->
+    <div class="pf-intro">
 
-        <v-row>
-            <v-col cols="9" class="mx-auto text-right">
-                <v-row>
-                    <v-col cols="2" class="text-left">
-                        <!-- <v-btn to="/tour/batangas-poultry-farm" color="black" block> {{ t.startTour }}</v-btn> -->
-                    </v-col>
-                    <v-spacer></v-spacer>
-                    <v-col>
-                        <span>
-                            <v-icon>mdi-map-marker-outline</v-icon>
-                            {{ t.sanJoseMunicipality }}
-                        </span>
-                    </v-col>
-                </v-row>
-            </v-col>
-        </v-row>
+      <!-- Left: paragraphs -->
+      <div>
+        <p class="pf-label-tag">{{ t.poultrySubtitle || 'Poultry Operations' }}</p>
+        <div class="pf-paragraphs">
+          <p class="pf-p">{{ t.batangasP1 }}</p>
+          <p class="pf-p">{{ t.batangasP2 }}</p>
+          <p class="pf-p">{{ t.batangasP3 }}</p>
+          <p class="pf-p">{{ t.batangasP4 }}</p>
+          <p class="pf-p">{{ t.batangasP5 }}</p>
+        </div>
+      </div>
 
+      <!-- Right: details table -->
+      <div class="pf-table">
+        <div class="pf-row">
+          <span class="pf-row-lbl">{{ t.propertyNameLabel || 'Property' }}</span>
+          <span class="pf-row-val">{{ t.batangasPoultry }}</span>
+        </div>
+        <div class="pf-row">
+          <span class="pf-row-lbl">{{ t.location || 'Location' }}</span>
+          <span class="pf-row-val">{{ t.sanJoseMunicipality }}</span>
+        </div>
+        <div class="pf-row">
+          <span class="pf-row-lbl">{{ t.establishedLabel || 'Established' }}</span>
+          <span class="pf-row-val">{{ t.establishedPlanned }}</span>
+        </div>
+        <div class="pf-row">
+          <span class="pf-row-lbl">{{ t.projectScaleLabel || 'Project Scale' }}</span>
+          <span class="pf-row-val">{{ t.projectScaleLarge }}</span>
+        </div>
+      </div>
 
-
-        <v-row>
-            <v-col cols="9" class="mx-auto">
-                <v-parallax src="/eishi/batangas_tokyo_farm/images/hero.jpg" height="calc(100vh - 200px)">
-                </v-parallax>
-            </v-col>
-        </v-row>
-
-        <v-row>
-            <v-col class="mx-auto" cols="9">
-                <v-container>
-                    <v-row class="mb-10">
-                        <v-col>
-                            <p class="text-body-1 text-blue-grey-darken-2 ">{{ t.batangasP1 }}</p>
-                            <p class="text-body-1 text-blue-grey-darken-2 mt-4">{{ t.batangasP2 }}</p>
-                            <p class="text-body-1 text-blue-grey-darken-2 mt-4">{{ t.batangasP3 }}</p>
-                            <p class="text-body-1 text-blue-grey-darken-2 mt-4">{{ t.batangasP4 }}</p>
-                            <p class="text-body-1 text-blue-grey-darken-2 mt-4">{{ t.batangasP5 }}</p>
-                        </v-col>
-                        <v-col>
-                            <div class="farm-table">
-                                <div class="row-item">
-                                    <div class="label">{{ t.propertyNameLabel }}</div>
-                                    <div class="value">{{ t.batangasPoultry }}</div>
-                                </div>
-
-                                <div class="row-item">
-                                    <div class="label">{{ t.location }}</div>
-                                    <div class="value">{{ t.sanJoseMunicipality }}</div>
-                                </div>
-
-                                <div class="row-item">
-                                    <div class="label">{{ t.establishedLabel }}</div>
-                                    <div class="value">{{ t.establishedPlanned }}</div>
-                                </div>
-
-                                <div class="row-item">
-                                    <div class="label">{{ t.projectScaleLabel }}</div>
-                                    <div class="value">{{ t.projectScaleLarge }}</div>
-                                </div>
-
-
-
-                            </div>
-                        </v-col>
-
-                    </v-row>
-                    <v-row>
-                        <v-col class="mx-auto">
-                            <div class="video-wrapper">
-                                <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                                    <source src="/eishi/batangas_tokyo_farm/videos/1.mp4" type="video/mp4" />
-                                </video>
-                            </div>
-                        </v-col>
-                    </v-row>
-                    <section v-for="(section, index) in translatedSections" :key="section.key" :ref="section.key"
-                        class="mb-16 mt-10">
-                        <!-- Caption block -->
-                        <div class="section-header mb-6">
-                            <span class="section-index">
-                                {{ String(index + 1).padStart(2, '0') }}
-                            </span>
-
-                            <h2 class="section-title">
-                                {{ section.caption }}
-                            </h2>
-                        </div>
-
-                        <!-- Images -->
-                        <v-row>
-                            <v-col v-for="(img, i) in section.images" :key="i" cols="6">
-                                <v-card class="image-card" elevation="3" @click="openGallery(section.images, i)">
-                                    <v-img :src="img" aspect-ratio="1" cover />
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                    </section>
-
-
-
-                    <v-row class="my-10" justify="center">
-                        <v-col cols="12">
-                            <v-card elevation="6" rounded="lg">
-                                <v-card-title class="d-flex align-center">
-                                    <v-icon class="me-2" color="primary">mdi-map-marker</v-icon>
-                                    <span class="text-h6 font-weight-medium">
-                                        TOKYO1 FARM SlTIO PULO
-                                    </span>
-                                </v-card-title>
-
-                                <v-divider />
-
-                                <v-card-text class="pa-0">
-                                    <div class="map-wrapper">
-                                        <iframe
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3873.3096626867014!2d121.0837639!3d13.880423299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd1276c1bf74a1%3A0xb096433be623caaf!2sTOKYO1%20FARM%20SlTIO%20PULO!5e0!3m2!1sen!2sph!4v1770646477053!5m2!1sen!2sph"
-                                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    </div>
-                                </v-card-text>
-
-                                <v-card-actions class="px-4 pb-4">
-                                    <v-icon size="18" class="me-1" color="grey-darken-1">
-                                        mdi-map
-                                    </v-icon>
-                                    <span class="text-body-2 text-grey-darken-1">
-                                        TOKYO1 FARM SlTIO PULO
-                                    </span>
-                                </v-card-actions>
-                            </v-card>
-                        </v-col>
-                    </v-row>
-
-
-                    <v-row class="my-16">
-                        <v-col class="text-center">
-                            <h2 class="related-title">
-                                {{ t.relatedProperties }}
-                            </h2>
-                        </v-col>
-                    </v-row>
-
-
-                    <v-row dense>
-                        <v-col v-for="(property, index) in translatedProperties" :key="index" cols="6">
-                            <!-- Card with image only -->
-                            <v-card class="overflow-hidden cursor-pointer" variant="text" rounded="lg"
-                                @click="$router.push(property.route)">
-                                <div>
-                                    <v-img :ref="el => propertyCards.push(el)" :src="property.image" height="400"
-                                        cover></v-img>
-                                </div>
-                            </v-card>
-
-                            <!-- Property Table outside the card -->
-                            <div class="farm-table mt-2">
-                                <div class="row-item">
-                                    <div class="label">{{ t.propertyNameLabel }}</div>
-                                    <div class="value">{{ property.title }}</div>
-                                </div>
-
-                                <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                                    <div class="label">{{ key }}</div>
-                                    <div class="value">{{ value }}</div>
-                                </div>
-                            </div>
-                        </v-col>
-                    </v-row>
-
-                </v-container>
-            </v-col>
-        </v-row>
-    </v-container>
-
-    <div v-if="isMobileView" style="padding-top: 5rem;">
-        <!-- desktop view -->
-        <v-container>
-            <v-row>
-                <v-col>
-                    <div>
-                        <p style="font-size: 2.5rem;">{{ t.batangasPoultry }}</p style="font-size: 5rem;">
-                        <p style="margin-top: 2rem; font-size: 1rem;" class="text-blue-grey-darken-2">
-                            {{ t.poultrySubtitle }}
-                        </p>
-                    </div>
-                </v-col>
-            </v-row>
-
-            <v-row>
-                <v-col>
-                    <span>
-                        <v-icon>mdi-map-marker-outline</v-icon>
-                        {{ t.sanJoseMunicipality }}
-                    </span>
-                </v-col>
-            </v-row>
-        </v-container>
-
-        <v-parallax src="/eishi/batangas_tokyo_farm/images/hero.jpg" height="calc(100vh - 200px)">
-        </v-parallax>
-
-        <v-container>
-            <v-col>
-                <p class="text-body-1 text-blue-grey-darken-2 ">{{ t.batangasP1 }}</p>
-                <p class="text-body-1 text-blue-grey-darken-2 mt-4">{{ t.batangasP2 }}</p>
-                <p class="text-body-1 text-blue-grey-darken-2 mt-4">{{ t.batangasP3 }}</p>
-                <p class="text-body-1 text-blue-grey-darken-2 mt-4">{{ t.batangasP4 }}</p>
-                <p class="text-body-1 text-blue-grey-darken-2 mt-4">{{ t.batangasP5 }}</p>
-            </v-col>
-        </v-container>
-        <v-container>
-            <v-row>
-                <v-col>
-                    <div class="farm-table">
-                        <div class="row-item">
-                            <div class="label">{{ t.propertyNameLabel }}</div>
-                            <div class="value">{{ t.batangasPoultry }}</div>
-                        </div>
-
-                        <div class="row-item">
-                            <div class="label">{{ t.location }}</div>
-                            <div class="value">{{ t.sanJoseMunicipality }}</div>
-                        </div>
-
-                        <div class="row-item">
-                            <div class="label">{{ t.establishedLabel }}</div>
-                            <div class="value">{{ t.establishedPlanned }}</div>
-                        </div>
-
-                        <div class="row-item">
-                            <div class="label">{{ t.projectScaleLabel }}</div>
-                            <div class="value">{{ t.projectScaleLarge }}</div>
-                        </div>
-
-
-
-                    </div>
-                </v-col>
-
-            </v-row>
-        </v-container>
-
-
-        <v-row class="mb-10">
-            <v-col class="mx-auto">
-                <div class="video-wrapper">
-                    <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
-                        <source src="/eishi/batangas_tokyo_farm/videos/1.mp4" type="video/mp4" />
-                    </video>
-                </div>
-            </v-col>
-        </v-row>
-
-        <v-container>
-
-            <section v-for="(section, index) in translatedSections" :key="section.key" :ref="section.key" class="mb-10">
-                <!-- Caption -->
-                <h2 class="text-h5 font-weight-bold mb-4">
-                    {{ section.caption }}
-                </h2>
-
-                <!-- Images -->
-                <v-row>
-                    <v-col v-for="(img, i) in section.images" :key="i" cols="12" sm="6" md="3">
-                        <v-img :src="img" aspect-ratio="1" cover />
-                    </v-col>
-                </v-row>
-            </section>
-
-            <v-row class="my-10" justify="center">
-                <v-col cols="12" md="10" lg="8">
-                    <v-card elevation="6" rounded="xl">
-                        <v-card-title class="d-flex align-center">
-                            <v-icon class="me-2" color="primary">mdi-map-marker</v-icon>
-                            <span class="text-h6 font-weight-medium">
-                                Office Location
-                            </span>
-                        </v-card-title>
-
-                        <v-divider />
-
-                        <v-card-text class="pa-0">
-                            <div class="map-wrapper">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3873.3096626867014!2d121.0837639!3d13.880423299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd1276c1bf74a1%3A0xb096433be623caaf!2sTOKYO1%20FARM%20SlTIO%20PULO!5e0!3m2!1sen!2sph!4v1770646477053!5m2!1sen!2sph"
-                                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
-                        </v-card-text>
-
-                        <v-card-actions class="px-4 pb-4">
-                            <v-icon size="18" class="me-1" color="grey-darken-1">
-                                mdi-map
-                            </v-icon>
-                            <span class="text-body-2 text-grey-darken-1">
-                                TOKYO1 FARM SlTIO PULO
-                            </span>
-                        </v-card-actions>
-                    </v-card>
-                </v-col>
-            </v-row>
-
-        </v-container>
-        <v-container>
-            <v-row>
-                <v-col>
-                    <v-container>
-                        <v-row class="mt-10 mb-10">
-                            <v-col class="mx-auto">
-                                <p style="font-size: 2rem;">{{ t.relatedProperties }}</p>
-                            </v-col>
-                        </v-row>
-                        <v-row dense>
-                            <v-col v-for="(property, index) in translatedProperties" :key="index" cols="12">
-                                <v-card class="overflow-hidden cursor-pointer" variant="text"
-                                    @click="$router.push(property.route)">
-
-                                    <!-- Image container -->
-                                    <div>
-                                        <v-img :src="property.image" height="300" cover></v-img>
-                                    </div>
-
-                                    <div class="farm-table pt-5">
-                                        <div class="row-item">
-                                            <div class="label">{{ t.propertyNameLabel }}</div>
-                                            <div class="value">{{ property.title }}</div>
-                                        </div>
-
-                                        <div v-for="(value, key) in property.details" :key="key" class="row-item">
-                                            <div class="label">{{ key }}</div>
-                                            <div class="value">{{ value }}</div>
-                                        </div>
-                                    </div>
-
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-col>
-            </v-row>
-        </v-container>
     </div>
+
+    <!-- ── VIDEO ── -->
+    <section class="pf-video-section">
+      <p class="pf-video-label">Farm Operations</p>
+      <video autoplay loop muted playsinline preload="metadata" poster="/images/hero-img.jpg">
+        <source src="/eishi/batangas_tokyo_farm/videos/1.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <!-- ── GALLERY SECTIONS ── -->
+    <section class="pf-sections">
+      <div class="pf-section-inner">
+        <div
+          v-for="(section, index) in translatedSections"
+          :key="section.key"
+          class="pf-section-block"
+        >
+          <div class="pf-section-head">
+            <span class="pf-section-num">{{ twoDigits(index + 1) }}</span>
+            <h2 class="pf-section-caption">{{ section.caption }}</h2>
+          </div>
+          <div class="pf-gallery">
+            <div
+              v-for="(img, i) in section.images"
+              :key="i"
+              class="pf-gallery-item"
+              @click="openGallery(section.images, i)"
+            >
+              <img :src="img" :alt="section.caption + ' ' + (i + 1)" loading="lazy" />
+              <div class="pf-gallery-overlay">
+                <div class="pf-gallery-zoom">
+                  <span class="pf-zoom-icon" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MAP ── -->
+    <section class="pf-map-section">
+      <div class="pf-map-inner">
+        <div class="pf-map-head">
+          <p class="pf-map-label">Location</p>
+          <h2 class="pf-map-title">TOKYO1 Farm &mdash; Sitio Pulo</h2>
+        </div>
+        <div class="pf-map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3873.3096626867014!2d121.0837639!3d13.880423299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd1276c1bf74a1%3A0xb096433be623caaf!2sTOKYO1%20FARM%20SlTIO%20PULO!5e0!3m2!1sen!2sph!4v1770646477053!5m2!1sen!2sph"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          />
+        </div>
+        <div class="pf-map-footer">
+          <span class="pf-map-dot" />
+          TOKYO1 Farm, Sitio Pulo, San Jose, Batangas
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RELATED PROPERTIES ── -->
+    <section class="pf-related">
+      <div class="pf-related-inner">
+        <div class="pf-related-head">
+          <h2 class="pf-related-title">
+            {{ t.relatedProperties || 'Related' }}<br /><em>Properties</em>
+          </h2>
+        </div>
+        <div class="pf-related-grid">
+          <div
+            v-for="(property, index) in translatedProperties"
+            :key="index"
+            class="pf-rel-item"
+            @click="$router.push(property.route)"
+          >
+            <div class="pf-rel-img">
+              <img :src="property.image" :alt="property.title" loading="lazy" />
+            </div>
+            <div class="pf-rel-body">
+              <p class="pf-rel-cat">{{ t.relatedPropertyCategory || 'Holdings' }}</p>
+              <h3 class="pf-rel-name">{{ property.title }}</h3>
+              <div class="pf-rel-metas">
+                <template v-for="(value, key) in property.details" :key="key">
+                  <div v-if="key !== 'description'" class="pf-rel-meta">
+                    <span class="pf-row-lbl">{{ key }}</span>
+                    <span class="pf-row-val" style="font-size:0.85rem;">{{ value }}</span>
+                  </div>
+                </template>
+              </div>
+              <span class="pf-rel-cta">
+                {{ t.viewProperty || 'View Details' }}
+                <span class="pf-rel-arr" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
 </template>
 
 <script>
-import { mapState } from 'pinia';
-import { useLanguageStore } from '@/stores/languageStore';
+import { mapState } from 'pinia'
+import { useLanguageStore } from '@/stores/languageStore'
 import { gsap } from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
-import { SplitText } from 'gsap/SplitText'
-gsap.registerPlugin(ScrollTrigger, SplitText)
+gsap.registerPlugin(ScrollTrigger)
+
 export default {
-    name: 'batangas_poultry_farm',
-    computed: {
-        translatedProperties() {
-            return this.t.properties
-        },
-        translatedSections() {
-            return this.t.poultry_sections
-        },
-        ...mapState(useLanguageStore, ['t']),
+  name: 'BatangasPoultryFarm',
+
+  data() {
+    return {
+      ready: false,
+      galleryOpen: false,
+      galleryImages: [],
+      currentImage: 0,
+    }
+  },
+
+  computed: {
+    ...mapState(useLanguageStore, ['t']),
+    translatedProperties() { return this.t.properties || [] },
+    translatedSections()   { return this.t.poultry_sections || [] },
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => { this.ready = true }, 180)
+
+      // Gallery scroll-reveals
+      const galleryItems = this.$el.querySelectorAll('.pf-gallery-item')
+      galleryItems.forEach((el, i) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1, y: 0,
+            duration: 0.7,
+            delay: (i % 2) * 0.12,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      })
+
+      // Related cards
+      const relItems = this.$el.querySelectorAll('.pf-rel-item')
+      relItems.forEach((el, i) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1, y: 0,
+            duration: 0.7,
+            delay: i * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      })
+    })
+  },
+
+  beforeUnmount() {
+    ScrollTrigger.getAll().forEach(t => t.kill())
+  },
+
+  methods: {
+    twoDigits(n) { return n < 10 ? '0' + n : String(n) },
+
+    openGallery(images, index) {
+      this.galleryImages = images
+      this.currentImage = index
+      this.galleryOpen = true
     },
-    data() {
-        return {
-            galleryOpen: false,
-            galleryImages: [],
-            currentImage: 0,
-
-            pageYOffset: 0,
-            imageCards: [],
-            propertyCards: [],
-            dialog: false,
-            tab: null,
-            selectedIndex: 0,
-            isMobileView: false,
-            business_holdings: [
-                {
-                    img: "/eishi/Pangasinan Farm.webp",
-                    title: "pangasinanFarm",
-                    link: "/business_holdings/pangasinan_farm",
-                },
-                {
-                    img: "/eishi/1732160486501.webp",
-                    title: "assignedProperties",
-                    link: "/business_holdings/assigned_properties",
-                },
-                {
-                    img: "/eishi/DJI_0598-min.webp",
-                    title: "kalingaResidential",
-                    link: "/business_holdings/kalinga_residential",
-                },
-                {
-                    img: "/eishi/Solinea3.webp",
-                    title: "cebuCondo",
-                    link: "/business_holdings/cebu_condominium",
-                },
-            ],
-        };
+    nextImage() {
+      this.currentImage = (this.currentImage + 1) % this.galleryImages.length
     },
-
-    mounted() {
-        this.$nextTick(() => {
-            this.imageCards.forEach(img => {
-                const el = img.$el
-
-                gsap.fromTo(
-                    el,
-                    { scale: 1.2 },
-                    {
-                        scale: 1,
-                        ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'center 60%',
-                            end: '+=200',
-                            scrub: 2,
-                            invalidateOnRefresh: true
-                        }
-                    }
-                )
-            })
-            this.propertyCards.forEach(img => {
-                const el = img.$el
-
-                gsap.fromTo(
-                    el,
-                    { scale: 1.2 },
-                    {
-                        scale: 1,
-                        ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'center 60%',
-                            end: '+=200',
-                            scrub: 2,
-                            invalidateOnRefresh: true
-                        }
-                    }
-                )
-            })
-        })
-        this.checkMobileView(); // check on initial load
-        window.addEventListener('resize', this.checkMobileView); // attach resize listener
+    prevImage() {
+      this.currentImage = (this.currentImage - 1 + this.galleryImages.length) % this.galleryImages.length
     },
-    beforeUnmount() {
-        window.removeEventListener('resize', this.checkMobileView); // clean up
-    },
-    methods: {
-        openGallery(images, index) {
-            console.log(images, index);
-            this.galleryImages = images
-            this.currentImage = index
-            this.galleryOpen = true
-        },
-
-        nextImage() {
-            if (this.currentImage < this.galleryImages.length - 1) {
-                this.currentImage++
-            } else {
-                this.currentImage = 0
-            }
-        },
-
-        prevImage() {
-            if (this.currentImage > 0) {
-                this.currentImage--
-            } else {
-                this.currentImage = this.galleryImages.length - 1
-            }
-        },
-
-        checkMobileView() {
-            this.isMobileView = this.$vuetify.display.mobile;
-        },
-    },
-};
+  },
+}
 </script>
-
-<style>
-.hide-scrollbar {
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* Internet Explorer 10+ */
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-    display: none;
-    /* Safari and Chrome */
-}
-
-.thumbnail-card {
-    border: 1px solid #ccc;
-    /* Default gray border */
-    transition: border-color 0.3s ease;
-}
-
-.thumbnail-card.selected-thumbnail {
-    border-color: #1976d2;
-    /* Vuetify primary blue */
-}
-
-.spaced-paragraphs p {
-    margin-bottom: 2rem;
-    /* equivalent to mb-6 */
-}
-
-/* Scoped CSS */
-@media (max-width: 600px) {
-    .main-image {
-        height: 100vw !important;
-    }
-
-    .spaced-paragraphs p {
-        font-size: 14px;
-    }
-
-    .spaced-paragraphs h2 {
-        font-size: 20px;
-    }
-}
-</style>
