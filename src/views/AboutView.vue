@@ -405,7 +405,6 @@
     <section class="mission-about">
       <div class="mission-about-inner">
         <div class="mission-about-left">
-          <p class="dark-label">{{ t.yourVission || 'Your Vision,' }}</p>
           <h2 class="dark-headline">
             {{ t.yourVission || 'Your Vision,' }}<br />
             <em>{{ t.ourMission || 'Our Mission' }}</em>

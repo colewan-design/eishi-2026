@@ -44,41 +44,71 @@
 }
 .partners-headline em { font-style: italic; color: var(--mid); }
 
-/* Carousel */
-.carousel-outer {
-  overflow: hidden; position: relative;
-  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+/* Partner groups */
+.partner-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
 }
-.carousel-track {
-  display: flex; flex-wrap: nowrap;
-  animation: logoScroll 28s linear infinite;
+.partner-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.6rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--linen);
 }
-.carousel-track:hover { animation-play-state: paused; }
-@keyframes logoScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.partner-group-flag {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.partner-group-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.partner-group-divider {
+  flex: 1;
+  height: 1px;
+  background: var(--linen);
+}
+.partner-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--linen);
 }
 .logo-item {
-  flex: 0 0 auto;
-  margin: 0 3rem;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  background: var(--ivory);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.1rem 1.4rem;
   text-decoration: none;
+  transition: background 0.25s;
 }
+.logo-item:hover { background: var(--cream); }
 .logo-img-wrap {
-  height: 56px; display: flex; align-items: center;
-  filter: grayscale(1) opacity(0.55);
-  transition: filter 0.4s ease;
+  height: 40px;
+  width: 72px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: grayscale(1) opacity(0.5);
+  transition: filter 0.35s;
 }
 .logo-item:hover .logo-img-wrap { filter: grayscale(0) opacity(1); }
-.logo-img-wrap img { height: 100%; width: auto; object-fit: contain; display: block; }
+.logo-img-wrap img { height: 100%; width: 100%; object-fit: contain; display: block; }
 .logo-name {
-  font-size: 0.65rem; letter-spacing: 0.1em;
-  text-align: center; color: var(--pale);
-  max-width: 120px; line-height: 1.4;
-  transition: color 0.3s;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--mid);
+  line-height: 1.4;
+  transition: color 0.25s;
 }
-.logo-item:hover .logo-name { color: var(--bronze); }
+.logo-item:hover .logo-name { color: var(--charcoal); }
 
 /* CTA row */
 .partner-cta {
@@ -184,6 +214,7 @@
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
   .partner-cta { flex-direction: column; align-items: flex-start; }
+  .partner-groups { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 @media (max-width: 600px) {
   .footer-grid { grid-template-columns: 1fr; }
@@ -204,22 +235,55 @@
           Trusted by <em>world-class</em><br />organisations
         </h2>
 
-        <!-- Scrolling logos -->
-        <div class="carousel-outer">
-          <div class="carousel-track">
-            <a
-              v-for="(logo, i) in repeatedLogos" :key="i"
-              :href="logo.link || undefined"
-              :target="logo.link ? '_blank' : undefined"
-              rel="noopener"
-              class="logo-item"
-            >
-              <div class="logo-img-wrap">
-                <img :src="logo.img" :alt="logo.title" loading="lazy" />
-              </div>
-              <span class="logo-name">{{ logo.title }}</span>
-            </a>
+        <!-- Partner groups -->
+        <div class="partner-groups">
+
+          <!-- Japan -->
+          <div class="partner-group">
+            <div class="partner-group-header">
+              <span class="partner-group-flag">🇯🇵</span>
+              <span class="partner-group-label">Japan</span>
+              <span class="partner-group-divider" />
+            </div>
+            <div class="partner-logos">
+              <a
+                v-for="(logo, i) in jpLogos" :key="i"
+                :href="logo.link || undefined"
+                :target="logo.link ? '_blank' : undefined"
+                rel="noopener"
+                class="logo-item"
+              >
+                <div class="logo-img-wrap">
+                  <img :src="logo.img" :alt="logo.title" loading="lazy" />
+                </div>
+                <span class="logo-name">{{ logo.title }}</span>
+              </a>
+            </div>
           </div>
+
+          <!-- Philippines -->
+          <div class="partner-group">
+            <div class="partner-group-header">
+              <span class="partner-group-flag">🇵🇭</span>
+              <span class="partner-group-label">Philippines</span>
+              <span class="partner-group-divider" />
+            </div>
+            <div class="partner-logos">
+              <a
+                v-for="(logo, i) in phLogos" :key="i"
+                :href="logo.link || undefined"
+                :target="logo.link ? '_blank' : undefined"
+                rel="noopener"
+                class="logo-item"
+              >
+                <div class="logo-img-wrap">
+                  <img :src="logo.img" :alt="logo.title" loading="lazy" />
+                </div>
+                <span class="logo-name">{{ logo.title }}</span>
+              </a>
+            </div>
+          </div>
+
         </div>
 
         <!-- Become a partner CTA -->
@@ -319,11 +383,13 @@ export default {
 
   data() {
     return {
-      partner_logo: [
-        { img: '/eishi/logo/epartners-logo.webp',        title: 'E.PARTNERS Co., Ltd.',                      link: 'https://epartners-offshore.com/' },
-        { img: '/eishi/logo/meishin-group.webp',          title: 'Meishin Group Co., Ltd.',                   link: 'https://meishin-group.co.jp/' },
-        { img: '/eishi/logo/hotel-osaka-logo.webp',       title: 'Hotel Osaka',                               link: 'https://www.hostelosaka.net/' },
-        { img: '/eishi/logo/domoganlawoffice-logo.webp',  title: 'Domogan & Associates Law Office',           link: '' },
+      jpLogos: [
+        { img: '/eishi/logo/epartners-logo.webp',   title: 'E.PARTNERS Co., Ltd.',    link: 'https://epartners-offshore.com/' },
+        { img: '/eishi/logo/meishin-group.webp',     title: 'Meishin Group Co., Ltd.', link: 'https://meishin-group.co.jp/' },
+        { img: '/eishi/logo/hotel-osaka-logo.webp',  title: 'Hotel Osaka',             link: 'https://www.hostelosaka.net/' },
+      ],
+      phLogos: [
+        { img: '/eishi/logo/domoganlawoffice-logo.webp', title: 'Domogan & Associates Law Office',           link: '' },
         { img: '/eishi/logo/dcm-logo.webp',               title: 'The Law Firm of Domogan, Chan and Mabalot', link: '' },
       ],
     }
@@ -331,10 +397,6 @@ export default {
 
   computed: {
     ...mapState(useLanguageStore, ['t']),
-
-    repeatedLogos() {
-      return [...this.partner_logo, ...this.partner_logo]
-    },
 
     currentYear() {
       return new Date().getFullYear()
