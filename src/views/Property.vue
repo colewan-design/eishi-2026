@@ -233,11 +233,25 @@
   margin-bottom: 1rem;
 }
 .prop-cat {
-  font-size: 0.63rem;
-  letter-spacing: 0.28em;
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+  padding: 0.25em 0.75em;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  /* default: agriculture / operating assets */
   color: var(--bronze);
-  margin-bottom: 0.6rem;
+  background: var(--bronze-xl);
+}
+.prop-cat--real-estate {
+  color: #3d5a4e;
+  background: #d4e8df;
+}
+.prop-cat--operating {
+  color: var(--mid);
+  background: var(--linen);
 }
 .prop-name {
   font-family: var(--fd);
@@ -371,11 +385,24 @@
   padding: 1rem 1.2rem;
 }
 .mobile-img-cat {
-  font-size: 0.6rem;
-  letter-spacing: 0.28em;
+  display: inline-block;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+  padding: 0.2em 0.65em;
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
   color: var(--bronze-l);
-  margin-bottom: 0.3rem;
+  background: rgba(255,255,255,0.15);
+}
+.mobile-img-cat--real-estate {
+  color: #a8dcc4;
+  background: rgba(61,90,78,0.55);
+}
+.mobile-img-cat--operating {
+  color: var(--pale);
+  background: rgba(255,255,255,0.1);
 }
 .mobile-img-name {
   font-family: var(--fd);
@@ -466,6 +493,70 @@
   .filter-bar-mobile { display: none; }
   .mobile-props { display: none; }
 }
+
+/* ── CUSTOM PROPERTY-TYPE DROPDOWN ── */
+.prop-type-select {
+  position: relative;
+  font-family: var(--dm);
+}
+.prop-type-trigger {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--dm);
+  font-size: 0.78rem;
+  color: var(--ink);
+  padding: 0;
+  white-space: nowrap;
+}
+.prop-type-placeholder { color: var(--mid); }
+.prop-type-arrow {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-right: 1px solid var(--mid);
+  border-bottom: 1px solid var(--mid);
+  transform: rotate(45deg);
+  margin-top: -3px;
+  transition: transform 0.2s;
+}
+.prop-type-select.open .prop-type-arrow { transform: rotate(-135deg); margin-top: 3px; }
+.prop-type-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 200px;
+  background: var(--ivory);
+  border: 1px solid var(--linen);
+  box-shadow: 0 8px 32px rgba(28,26,23,0.12);
+  z-index: 200;
+  padding: 6px 0;
+}
+.prop-type-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.prop-type-option:hover { background: var(--cream); }
+.prop-type-option.active { color: var(--bronze); }
+.type-chip {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--bronze);
+}
+.type-chip--real-estate { background: #3d5a4e; }
+.type-chip--transport   { background: var(--mid); }
 </style>
 
 <template>
@@ -478,14 +569,14 @@
       <div class="ph-hero-inner">
         <div class="ph-left">
           <p class="ph-eyebrow" :class="{ in: ready }">
-            {{ t.exploreEishi || 'Explore Eishi' }}
+            {{ t.exploreEishi }}
           </p>
           <h1 class="ph-title" :class="{ in: ready }">
-            {{ t.diversePropertyHoldings || 'Diverse' }}<br />
-            <em>{{ t.propertyHoldings || 'Property Holdings' }}</em>
+            {{ t.diversePropertyHoldings }}<br />
+            <em>{{ t.propertyHoldings }}</em>
           </h1>
           <p class="ph-sub" :class="{ in: ready }">
-            {{ t.propertiesSubtitle || 'A curated portfolio of agricultural, residential, and commercial assets across the Philippine archipelago.' }}
+            {{ t.propertiesSubtitle }}
           </p>
         </div>
         <div class="ph-count" :class="{ in: ready }">
@@ -497,48 +588,101 @@
     <!-- Filter Bar -->
     <div class="filter-bar">
       <div class="filter-inner">
-        <span class="filter-label">{{ t.filter || 'Filter' }}</span>
+        <span class="filter-label">{{ t.filter }}</span>
         <div class="filter-selects">
 
           <div class="filter-field">
-            <span class="filter-field-label">{{ t.location || 'Location' }}</span>
-            <select class="filter-select" v-model="filters.location">
-              <option :value="null">{{ t.allLocations || 'All Locations' }}</option>
-              <option v-for="loc in translatedLocations" :key="loc" :value="loc">{{ loc }}</option>
-            </select>
+            <span class="filter-field-label">{{ t.location }}</span>
+            <div class="prop-type-select" :class="{ open: locationOpen }">
+              <button class="prop-type-trigger" @click.stop="locationOpen = !locationOpen">
+                <span v-if="filters.location">{{ filters.location }}</span>
+                <span v-else class="prop-type-placeholder">{{ t.allLocations }}</span>
+                <span class="prop-type-arrow"></span>
+              </button>
+              <div class="prop-type-panel" v-show="locationOpen">
+                <div class="prop-type-option" @click.stop="selectLocation(null)">{{ t.allLocations }}</div>
+                <div
+                  v-for="loc in translatedLocations"
+                  :key="loc"
+                  class="prop-type-option"
+                  :class="{ active: filters.location === loc }"
+                  @click.stop="selectLocation(loc)"
+                >{{ loc }}</div>
+              </div>
+            </div>
           </div>
 
           <div class="filter-divider" />
 
           <div class="filter-field">
-            <span class="filter-field-label">{{ t.property || 'Property Type' }}</span>
-            <select class="filter-select" v-model="filters.property">
-              <option :value="null">{{ t.allProperties || 'All Properties' }}</option>
-              <option v-for="pt in translatedPropertyTypes" :key="pt" :value="pt">{{ pt }}</option>
-            </select>
+            <span class="filter-field-label">{{ t.property }}</span>
+            <div class="prop-type-select" :class="{ open: propTypeOpen }">
+              <button class="prop-type-trigger" @click.stop="propTypeOpen = !propTypeOpen">
+                <template v-if="filters.property">
+                  <span class="type-chip" :class="getPropertyTypeClass(filters.property)"></span>
+                  {{ filters.property }}
+                </template>
+                <span v-else class="prop-type-placeholder">{{ t.allProperties }}</span>
+                <span class="prop-type-arrow"></span>
+              </button>
+              <div class="prop-type-panel" v-show="propTypeOpen">
+                <div class="prop-type-option" @click.stop="selectPropertyType(null)">
+                  {{ t.allProperties }}
+                </div>
+                <div
+                  v-for="pt in translatedPropertyTypes"
+                  :key="pt"
+                  class="prop-type-option"
+                  :class="{ active: filters.property === pt }"
+                  @click.stop="selectPropertyType(pt)"
+                >
+                  <span class="type-chip" :class="getPropertyTypeClass(pt)"></span>
+                  {{ pt }}
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="filter-divider" />
 
           <div class="filter-field">
-            <span class="filter-field-label">{{ t.type || 'Category' }}</span>
-            <select class="filter-select" v-model="filters.type">
-              <option :value="null">{{ t.allTypes || 'All Categories' }}</option>
-              <option v-for="tp in translatedTypes" :key="tp" :value="tp">{{ tp }}</option>
-            </select>
+            <span class="filter-field-label">{{ t.type }}</span>
+            <div class="prop-type-select" :class="{ open: typeOpen }">
+              <button class="prop-type-trigger" @click.stop="typeOpen = !typeOpen">
+                <template v-if="filters.type">
+                  <span class="type-chip" :class="getTypeChipClass(filters.type)"></span>
+                  {{ filters.type }}
+                </template>
+                <span v-else class="prop-type-placeholder">{{ t.allTypes }}</span>
+                <span class="prop-type-arrow"></span>
+              </button>
+              <div class="prop-type-panel" v-show="typeOpen">
+                <div class="prop-type-option" @click.stop="selectType(null)">{{ t.allTypes }}</div>
+                <div
+                  v-for="tp in translatedTypes"
+                  :key="tp"
+                  class="prop-type-option"
+                  :class="{ active: filters.type === tp }"
+                  @click.stop="selectType(tp)"
+                >
+                  <span class="type-chip" :class="getTypeChipClass(tp)"></span>
+                  {{ tp }}
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
 
         <button class="filter-btn" @click="applyFilters">
-          {{ t.search || 'Search' }}
+          {{ t.search }}
           <span style="display:inline-block;width:14px;height:1px;background:currentColor;position:relative;">
             <span style="position:absolute;right:0;top:-3px;width:6px;height:6px;border-right:1px solid currentColor;border-top:1px solid currentColor;transform:rotate(45deg);display:block;"></span>
           </span>
         </button>
 
         <span class="filter-count">
-          {{ filteredProperties.length }} {{ t.results || 'properties' }}
+          {{ filteredProperties.length }} {{ t.results }}
         </span>
       </div>
     </div>
@@ -554,7 +698,7 @@
       >
         <div class="prop-text">
           <div class="prop-num">{{ twoDigits(index + 1) }}</div>
-          <p class="prop-cat">{{ property.tag || getCategoryLabel(property) }}</p>
+          <p class="prop-cat" :class="getTypeClass(property)">{{ property.tag || getCategoryLabel(property) }}</p>
           <h2 class="prop-name">{{ property.title }}</h2>
           <p v-if="property.details?.description" class="prop-desc">
             {{ property.details.description }}
@@ -570,7 +714,7 @@
           </div>
 
           <span class="prop-cta">
-            {{ t.viewProperty || 'View Details' }}
+            {{ t.viewProperty }}
             <span class="prop-cta-arr" />
           </span>
         </div>
@@ -583,7 +727,7 @@
       <!-- Empty State -->
       <div v-if="filteredProperties.length === 0" class="empty-state">
         <div class="empty-num">—</div>
-        <p class="empty-text">{{ t.noResults || 'No properties match your criteria.' }}</p>
+        <p class="empty-text">{{ t.noResults }}</p>
       </div>
     </section>
 
@@ -594,11 +738,11 @@
     <section class="ph-hero-mobile">
       <div class="ph-hero-mobile-inner">
         <p class="ph-eyebrow" style="opacity:1;transform:none;margin-bottom:1rem;">
-          {{ t.exploreEishi || 'Explore Eishi' }}
+          {{ t.exploreEishi }}
         </p>
         <h1 class="ph-title" style="font-size:2.8rem;opacity:1;transform:none;">
-          {{ t.diversePropertyHoldings || 'Diverse' }}<br />
-          <em>{{ t.propertyHoldings || 'Property Holdings' }}</em>
+          {{ t.diversePropertyHoldings }}<br />
+          <em>{{ t.propertyHoldings }}</em>
         </h1>
       </div>
     </section>
@@ -607,29 +751,82 @@
     <div class="filter-bar-mobile">
       <div class="filter-row">
         <div class="filter-field-mobile">
-          <span class="filter-field-label">{{ t.location || 'Location' }}</span>
-          <select class="filter-select" v-model="filters.location">
-            <option :value="null">{{ t.allLocations || 'All' }}</option>
-            <option v-for="loc in translatedLocations" :key="loc" :value="loc">{{ loc }}</option>
-          </select>
+          <span class="filter-field-label">{{ t.location }}</span>
+          <div class="prop-type-select" :class="{ open: locationOpen }">
+            <button class="prop-type-trigger" @click.stop="locationOpen = !locationOpen">
+              <span v-if="filters.location">{{ filters.location }}</span>
+              <span v-else class="prop-type-placeholder">{{ t.allLocations }}</span>
+              <span class="prop-type-arrow"></span>
+            </button>
+            <div class="prop-type-panel" v-show="locationOpen">
+              <div class="prop-type-option" @click.stop="selectLocation(null)">{{ t.allLocations }}</div>
+              <div
+                v-for="loc in translatedLocations"
+                :key="loc"
+                class="prop-type-option"
+                :class="{ active: filters.location === loc }"
+                @click.stop="selectLocation(loc)"
+              >{{ loc }}</div>
+            </div>
+          </div>
         </div>
         <div class="filter-field-mobile">
-          <span class="filter-field-label">{{ t.property || 'Type' }}</span>
-          <select class="filter-select" v-model="filters.property">
-            <option :value="null">{{ t.allProperties || 'All' }}</option>
-            <option v-for="pt in translatedPropertyTypes" :key="pt" :value="pt">{{ pt }}</option>
-          </select>
+          <span class="filter-field-label">{{ t.property }}</span>
+          <div class="prop-type-select" :class="{ open: propTypeOpen }">
+            <button class="prop-type-trigger" @click.stop="propTypeOpen = !propTypeOpen">
+              <template v-if="filters.property">
+                <span class="type-chip" :class="getPropertyTypeClass(filters.property)"></span>
+                {{ filters.property }}
+              </template>
+              <span v-else class="prop-type-placeholder">{{ t.allProperties }}</span>
+              <span class="prop-type-arrow"></span>
+            </button>
+            <div class="prop-type-panel" v-show="propTypeOpen">
+              <div class="prop-type-option" @click.stop="selectPropertyType(null)">
+                {{ t.allProperties }}
+              </div>
+              <div
+                v-for="pt in translatedPropertyTypes"
+                :key="pt"
+                class="prop-type-option"
+                :class="{ active: filters.property === pt }"
+                @click.stop="selectPropertyType(pt)"
+              >
+                <span class="type-chip" :class="getPropertyTypeClass(pt)"></span>
+                {{ pt }}
+              </div>
+            </div>
+          </div>
         </div>
         <div class="filter-field-mobile">
-          <span class="filter-field-label">{{ t.type || 'Category' }}</span>
-          <select class="filter-select" v-model="filters.type">
-            <option :value="null">{{ t.allTypes || 'All' }}</option>
-            <option v-for="tp in translatedTypes" :key="tp" :value="tp">{{ tp }}</option>
-          </select>
+          <span class="filter-field-label">{{ t.type }}</span>
+          <div class="prop-type-select" :class="{ open: typeOpen }">
+            <button class="prop-type-trigger" @click.stop="typeOpen = !typeOpen">
+              <template v-if="filters.type">
+                <span class="type-chip" :class="getTypeChipClass(filters.type)"></span>
+                {{ filters.type }}
+              </template>
+              <span v-else class="prop-type-placeholder">{{ t.allTypes }}</span>
+              <span class="prop-type-arrow"></span>
+            </button>
+            <div class="prop-type-panel" v-show="typeOpen">
+              <div class="prop-type-option" @click.stop="selectType(null)">{{ t.allTypes }}</div>
+              <div
+                v-for="tp in translatedTypes"
+                :key="tp"
+                class="prop-type-option"
+                :class="{ active: filters.type === tp }"
+                @click.stop="selectType(tp)"
+              >
+                <span class="type-chip" :class="getTypeChipClass(tp)"></span>
+                {{ tp }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <button class="filter-btn-mobile" @click="applyFilters">
-        {{ t.search || 'Search Properties' }}
+        {{ t.search }}
       </button>
     </div>
 
@@ -645,7 +842,7 @@
           <img :src="property.image" :alt="property.title" loading="lazy" />
           <div class="mobile-img-overlay" />
           <div class="mobile-img-label">
-            <p class="mobile-img-cat">{{ property.tag || getCategoryLabel(property) }}</p>
+            <p class="mobile-img-cat" :class="getTypeClass(property, 'mobile-img-cat')">{{ property.tag || getCategoryLabel(property) }}</p>
             <h2 class="mobile-img-name">{{ property.title }}</h2>
           </div>
         </div>
@@ -662,14 +859,14 @@
             </template>
           </div>
           <span class="mobile-cta">
-            {{ t.viewProperty || 'View Details' }} →
+            {{ t.viewProperty }} →
           </span>
         </div>
       </div>
 
       <div v-if="filteredProperties.length === 0" class="empty-state">
         <div class="empty-num">—</div>
-        <p class="empty-text">{{ t.noResults || 'No properties match your criteria.' }}</p>
+        <p class="empty-text">{{ t.noResults }}</p>
       </div>
     </div>
 
@@ -689,6 +886,9 @@ export default {
   data() {
     return {
       ready: false,
+      locationOpen: false,
+      propTypeOpen: false,
+      typeOpen: false,
       filters: {
         location: null,
         property: null,
@@ -740,6 +940,12 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => { this.ready = true }, 180)
     })
+    this._closeDropdown = () => { this.locationOpen = false; this.propTypeOpen = false; this.typeOpen = false }
+    document.addEventListener('click', this._closeDropdown)
+  },
+
+  beforeUnmount() {
+    document.removeEventListener('click', this._closeDropdown)
   },
 
   methods: {
@@ -747,16 +953,55 @@ export default {
       return n < 10 ? '0' + n : String(n)
     },
 
+    selectLocation(val) {
+      this.filters.location = val
+      this.locationOpen = false
+    },
+
+    selectPropertyType(val) {
+      this.filters.property = val
+      this.propTypeOpen = false
+    },
+
+    selectType(val) {
+      this.filters.type = val
+      this.typeOpen = false
+    },
+
+    getTypeChipClass(typeName) {
+      const n = (typeName || '').toLowerCase()
+      if (n === 'real estate' || n === '保有不動産') return 'type-chip--real-estate'
+      if (n === 'transport' || n === 'operating assets' || n === '事業資産') return ''
+      return ''
+    },
+
+    getPropertyTypeClass(name) {
+      const n = (name || '').toLowerCase()
+      if (n.includes('condo') || n.includes('residential') || n.includes('コンドミニアム') || n.includes('住宅'))
+        return 'type-chip--real-estate'
+      if (n.includes('car') || n.includes('rental') || n.includes('レンタカー'))
+        return 'type-chip--transport'
+      return ''
+    },
+
     getCategoryLabel(property) {
-      // Derive a tag from property title or details if not present
       const title = (property.title || '').toLowerCase()
-      if (title.includes('farm') || title.includes('poultry') || title.includes('feed'))
-        return 'Agriculture'
-      if (title.includes('condo') || title.includes('residential') || title.includes('land'))
-        return 'Real Estate'
-      if (title.includes('car') || title.includes('rental'))
-        return 'Transport'
-      return 'Holdings'
+      if (title.includes('farm') || title.includes('poultry') || title.includes('feed')
+        || title.includes('農場') || title.includes('養鶏') || title.includes('飼料'))
+        return this.t.categoryAgriculture
+      if (title.includes('condo') || title.includes('residential') || title.includes('land')
+        || title.includes('コンドミニアム') || title.includes('住宅'))
+        return this.t.categoryRealEstate
+      if (title.includes('car') || title.includes('rental') || title.includes('レンタカー'))
+        return this.t.categoryTransport
+      return this.t.categoryHoldings
+    },
+
+    getTypeClass(property, prefix = 'prop-cat') {
+      const type = (property.type || '').toLowerCase()
+      if (type === 'real estate' || type === '保有不動産') return `${prefix}--real-estate`
+      if (type === 'operating assets' || type === '事業資産') return `${prefix}--operating`
+      return ''
     },
 
     applyFilters() {

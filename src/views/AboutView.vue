@@ -315,11 +315,7 @@
     <section class="dark-band">
       <div class="dark-band-inner">
         <div>
-          <p class="dark-label">Mission &amp; Vision</p>
-          <h2 class="dark-headline">
-            {{ t.missionVision || 'Mission &' }}<br />
-            <em>Vision</em>
-          </h2>
+          <h2 class="dark-headline">{{ t.missionVision || 'Mission & Vision' }}</h2>
         </div>
         <div>
           <p class="dark-body" style="padding-top: 0.5rem">{{ t.aboutP4 }}</p>
