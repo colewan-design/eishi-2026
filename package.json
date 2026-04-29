@@ -14,7 +14,7 @@
   "dependencies": {
     "@flaticon/flaticon-uicons": "^3.3.1",
     "@mdi/font": "^7.4.47",
-    "@studio-freight/lenis": "^1.0.42",
+    "lenis": "^1.0.42",
     "@tresjs/cientos": "^5.2.0",
     "@tresjs/core": "^5.2.0",
     "animate.css": "^4.1.1",

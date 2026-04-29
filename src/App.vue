@@ -157,6 +157,83 @@ body,
   user-select: none;
 }
 
+/* ── Floating Action Button Group ── */
+.fab-group {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.fab-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(96, 165, 250, 0);
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.fab-btn:hover {
+  color: #fff;
+  border-color: rgba(96, 165, 250, 0.7);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(96, 165, 250, 0.15);
+  transform: translateY(-2px);
+  background: rgba(15, 23, 42, 0.96);
+}
+
+.fab-audio.active {
+  border-color: rgba(96, 165, 250, 0.6);
+  color: #60A5FA;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 12px rgba(96, 165, 250, 0.2);
+}
+
+/* animated equalizer bars when music is playing */
+.fab-audio-bar {
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+}
+
+.fab-audio-bar span {
+  width: 2px;
+  background: #60A5FA;
+  border-radius: 1px;
+  animation: eq-bar 0.9s ease-in-out infinite alternate;
+}
+
+.fab-audio-bar span:nth-child(1) { height: 4px; animation-delay: 0s; }
+.fab-audio-bar span:nth-child(2) { height: 7px; animation-delay: 0.15s; }
+.fab-audio-bar span:nth-child(3) { height: 5px; animation-delay: 0.3s; }
+.fab-audio-bar span:nth-child(4) { height: 3px; animation-delay: 0.1s; }
+
+@keyframes eq-bar {
+  from { transform: scaleY(0.4); }
+  to   { transform: scaleY(1.2); }
+}
+
+/* slide-in transition for scroll button */
+.fab-slide-enter-active { transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+.fab-slide-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
+.fab-slide-enter-from, .fab-slide-leave-to { opacity: 0; transform: translateY(10px) scale(0.85); }
+
 .side-nav-inner {
   width: 100%;
 }
@@ -218,15 +295,29 @@ body,
   <v-app>
 
 
-    <v-btn v-show="showScrollTop" rounded="lg" icon size="small"
-      style="position: fixed; bottom: 70px; right: 20px; z-index: 1000" @click="scrollToTop">
-      <v-icon>mdi-arrow-up</v-icon>
-    </v-btn>
-
-    <v-btn rounded="lg" icon size="small" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000"
-      @click="toggleAudio">
-      <v-icon>{{ isMuted ? 'mdi-volume-off' : 'mdi-volume-high' }}</v-icon>
-    </v-btn>
+    <div class="fab-group">
+      <transition name="fab-slide">
+        <button v-show="showScrollTop" class="fab-btn" @click="scrollToTop" aria-label="Scroll to top">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"/>
+          </svg>
+        </button>
+      </transition>
+      <button class="fab-btn fab-audio" :class="{ active: !isMuted }" @click="toggleAudio" :aria-label="isMuted ? 'Play music' : 'Mute music'">
+        <svg v-if="isMuted" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+        <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+        <span class="fab-audio-bar" v-if="!isMuted">
+          <span /><span /><span /><span />
+        </span>
+      </button>
+    </div>
 
 
     <audio ref="bgm" src="/eishi/Music/sisiwit.mp3" loop preload="auto" muted></audio>
@@ -238,6 +329,7 @@ body,
       <router-view />
     </v-main>
     <Footer v-if="showLayout" />
+    <ChatBot />
   </v-app>
 </template>
 
@@ -245,6 +337,7 @@ body,
 import { useLanguageStore } from '@/stores/languageStore'
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
+import ChatBot from './components/ChatBot.vue'
 import { mapState } from 'pinia'
 import { gsap } from 'gsap'
 export default {
@@ -252,6 +345,7 @@ export default {
   components: {
     Navigation,
     Footer,
+    ChatBot,
   },
 
   data: () => ({

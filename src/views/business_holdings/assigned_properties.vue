@@ -7,11 +7,11 @@
 }
 
 .farm-table .label {
-    font-weight: 100;
-    font-size: 0.75rem;
-    color: #455a64;
+    font-weight: 600;
+    font-size: 0.65rem;
+    color: #94A3B8;
     text-transform: uppercase;
-    /* blue-grey-darken-2 tone */
+    letter-spacing: 0.1em;
     margin-bottom: 4px;
 }
 
@@ -88,7 +88,7 @@
     display: block;
     width: 80px;
     height: 5px;
-    background: #1976d2;
+    background: #0066CC;
     margin: 16px auto 0;
     border-radius: 3px;
 }
@@ -587,8 +587,7 @@ export default {
 }
 
 .thumbnail-card.selected-thumbnail {
-    border-color: #1976d2;
-    /* Vuetify primary blue */
+    border-color: #0066CC;
 }
 
 .spaced-paragraphs p {

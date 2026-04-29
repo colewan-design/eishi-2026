@@ -15,7 +15,7 @@ import '@flaticon/flaticon-uicons/css/all/all.css'
 
 import { gsap } from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
-import Lenis from '@studio-freight/lenis'
+import Lenis from 'lenis'
 
 /* -----------------------------
    App bootstrap

@@ -1,7 +1,61 @@
-<style>
+<style scoped>
+/* ──────────────────────────────────────────────────────────
+   BUSINESS HOLDINGS - Modern Styling
+   ────────────────────────────────────────────────────────── */
+
 .spaced-paragraphs p {
-    margin-bottom: 1.5rem;
-    /* equivalent to mb-6 */
+  margin-bottom: 1.25rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.spaced-paragraphs p:first-child {
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+:deep(.rounded-lg) {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+:deep(.rounded-lg:hover) {
+  box-shadow: var(--shadow-lg);
+  transition: box-shadow var(--transition-base);
+}
+
+:deep(.text-h3) {
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+}
+
+:deep(.text-h4) {
+  font-weight: 700 !important;
+  color: var(--color-primary) !important;
+  letter-spacing: -0.01em;
+}
+
+:deep(.v-divider) {
+  margin: 2rem 0;
+  border-color: var(--color-border) !important;
+}
+
+:deep(.v-container) {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .spaced-paragraphs p {
+    margin-bottom: 1rem;
+  }
+
+  :deep(.rounded-lg) {
+    border-radius: var(--radius-md) !important;
+  }
 }
 </style>
 <template>
